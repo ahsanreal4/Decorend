@@ -1,7 +1,46 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import Swal from 'sweetalert2';
 
 export default function Login() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   
+  async function onSubmit(e){
+    e.preventDefault();
+    if(email !== "" && password !== ""){
+      let json2 = JSON.stringify({email, password});
+
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: json2,
+      });
+      const data = await response.json(); 
+      if(data.status === "ok"){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Logged In!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => {window.location.href = "/LoggedIn";},1500);
+      }
+      else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Invalid Credentials!',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+    }
+  }
+
   useEffect(() => {
     import ("../CSS/Login.css");
   }, []);
@@ -11,13 +50,13 @@ export default function Login() {
         <link rel="stylesheet" href="../CSS/Login.css" />
         <div className="wrapper">
           <div className="title">Login Form</div>
-          <form action="/LoggedIn">
+          <form onSubmit={onSubmit}>
             <div className="field">
-              <input type="text" required />
+              <input type="text" onChange={(e) => {setEmail(e.target.value)}} required />
               <label>Email Address</label>
             </div>
             <div className="field">
-              <input type="password" required />
+              <input type="password" onChange={(e) => {setPassword(e.target.value)}} required />
               <label>Password</label>
             </div>
             <div className="content">

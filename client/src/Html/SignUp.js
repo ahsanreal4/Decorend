@@ -1,6 +1,54 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import Swal from 'sweetalert2';
 
 export default function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [userType, setUserType] = useState("");
+  const [number, setNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
+
+  async function signUp(e) {
+    e.preventDefault();
+    if(name !== "" && email !== "" && userType !== "" && number !== "" && password !== "" && confirmPassword !== "" && city !== "" && zipCode !== "" &&  address !== "" && gender !== "")
+    {
+      let json2 = JSON.stringify({name, email, userType, number, password, city, zipCode, address, gender});
+
+      const response = await fetch("http://localhost:3000/register", {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: json2,
+      });
+      const data = await response.json(); 
+      if(data.status === "ok"){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registration Successful!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => {window.location.href = "/LoggedIn";},1500);
+      }
+      else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Email already registered!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+
+    }
+  };
 
   useEffect(() => {
     import ("../CSS/SignUp.css");
@@ -13,19 +61,19 @@ export default function SignUp() {
     <div className="container">
       <div className="title">Registration</div>
       <div className="content">
-        <form action="/LoggedIn">
+        <form onSubmit={signUp}>
           <div className="user-details">
             <div className="input-box">
               <span className="details">Full Name</span>
-              <input type="text" placeholder="Enter your name" required />
+              <input type="text" placeholder="Enter your name" onChange={(e) => setName(e.target.value)} required />
             </div>
             <div className="input-box">
               <span className="details">Email</span>
-              <input type="text" placeholder="Enter your email" required />
+              <input type="text" placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="input-box">
                 <label  htmlFor="Type"><span className="details">Choose user type</span></label>
-                <select name="Type" id="Type" required>
+                <select name="Type" id="Type" onChange={(e) => setUserType(e.target.value)} required>
                 <option value="" disabled selected hidden>Select an Option</option>
                 <option value="user">User</option>
                 <option value="seller">Seller</option>
@@ -34,19 +82,19 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Phone Number</span>
-              <input type="text" placeholder="Enter your number" required />
+              <input type="text" onChange={(e) => setNumber(e.target.value)} placeholder="Enter your number" required />
             </div>
             <div className="input-box">
               <span className="details">Password</span>
-              <input type="password" placeholder="Enter your password" required />
+              <input type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" required />
             </div>
             <div className="input-box">
               <span className="details">Confirm Password</span>
-              <input type="input" placeholder="Confirm your password" required />
+              <input type="password" placeholder="Confirm your password" onChange={(e) => setConfirmPassword(e.target.value)} required />
             </div>
             <div className="input-box">
                 <label  htmlFor="Location"><span className="details">Choose your City</span></label>
-                <select name="Location" id="Location" required>
+                <select name="Location" id="Location" onChange={(e) => setCity(e.target.value)} required>
                 <option value disabled selected hidden>Select The City</option>
                 <option value="Islamabad">Islamabad</option>
                 <option value disabled>Punjab Cities</option>
@@ -293,17 +341,17 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Zip Code</span>
-              <input type="text" placeholder="Enter Zip Code" required />
+              <input type="text" onChange={(e) => setZipCode(e.target.value)} placeholder="Enter Zip Code" required />
             </div>
             <div className="input-box">
               <span className="details">Address</span>
-              <input className='address'  type="text" placeholder="Enter Your address" required />
+              <input className='address'  onChange={(e) => setAddress(e.target.value)} type="text" placeholder="Enter Your address" required />
             </div>
           </div>
           <div className="gender-details">
-            <input type="radio" name="gender" id="dot-1" />
-            <input type="radio" name="gender" id="dot-2" />
-            <input type="radio" name="gender" id="dot-3" />
+            <input type="radio" name="gender" value="male" id="dot-1" onClick={(e) => setGender(e.target.value)} />
+            <input type="radio" name="gender" value="female" id="dot-2" onClick={(e) => setGender(e.target.value)} />
+            <input type="radio" name="gender" value="other" id="dot-3" onClick={(e) => setGender(e.target.value)} />
             <span className="gender-title">Gender</span>
             <div className="category">
               <label htmlFor="dot-1">
@@ -321,7 +369,7 @@ export default function SignUp() {
             </div>
           </div>
           <div className="button">
-            <input type="submit" defaultValue="Register" />
+            <input type="submit" />
           </div>
         </form>
       </div>
