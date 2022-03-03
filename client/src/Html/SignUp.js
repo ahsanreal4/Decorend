@@ -81,7 +81,7 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Email</span>
-              <input type="text" placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} required />
+              <input type="email" placeholder="Enter your email" onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="input-box">
                 <label  htmlFor="Type"><span className="details">Choose user type</span></label>

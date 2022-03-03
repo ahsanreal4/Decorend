@@ -47,7 +47,7 @@ export default function Login() {
           icon: 'error',
           title: 'Invalid Credentials!',
           showConfirmButton: false,
-          timer: 1000
+          timer: 1500
         })
       }
     }
@@ -64,7 +64,7 @@ export default function Login() {
           <div className="title">Login Form</div>
           <form onSubmit={onSubmit}>
             <div className="field">
-              <input type="text" onChange={(e) => {setEmail(e.target.value)}} required />
+              <input type="email" onChange={(e) => {setEmail(e.target.value)}} required />
               <label>Email Address</label>
             </div>
             <div className="field">
