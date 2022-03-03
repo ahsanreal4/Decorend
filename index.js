@@ -27,7 +27,7 @@ try {
 
   app.post('/register', async (req,res) => {
       try{
-        await User.create({
+        const json2 = {
           name: req.body.name,
           password: req.body.password,
           email: req.body.email,
@@ -37,12 +37,13 @@ try {
           zipCode: req.body.zipCode,
           address: req.body.address,
           gender: req.body.gender,
-        });
+        };
+        await User.create(json2);
         // db.collection("User").insertOne(myobj, function (err, res) {
         //   console.log("1 document inserted");
         //   db.close();
         // });
-        res.json({status:'ok'});
+        res.json({status:'ok', data: json2});
       }
       catch(err){
         res.json({ status: 'error', 'error' : 'Email already registered'});
@@ -56,7 +57,7 @@ try {
     });
     
     if(user){
-      return res.json({status: 'ok', user: true});
+      return res.json({status: 'ok', data:user, user: true});
     }
     else {
       return res.json({status: 'error', user: false});

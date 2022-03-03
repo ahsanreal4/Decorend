@@ -3,8 +3,10 @@ import "./App.css";
 import SignUp from "./Html/SignUp";
 import Login from "./Html/Login";
 import ForgetPassword from "./Html/ForgetPassword";
-import LoggedIn from "./Html/LoggedIn";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import EventManager from "./Html/EventManager";
+import Seller from "./Html/Seller";
+import Client from "./Html/Client";
 
 function App() {
 
@@ -14,7 +16,9 @@ function App() {
         <Switch>
           <Route exact path="/signup"><SignUp /></Route>
           <Route exact path="/"><Login /></Route>
-          <Route exact path="/LoggedIn"><LoggedIn /></Route>
+          <Route exact path="/EventManager"><EventManager /></Route>
+          <Route exact path="/Seller"><Seller /></Route>
+          <Route exact path="/Client"><Client /></Route>
           <Route exact path="/ForgetPassword"><ForgetPassword /></Route>
         </Switch>
       </div>

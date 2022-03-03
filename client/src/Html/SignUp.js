@@ -35,7 +35,19 @@ export default function SignUp() {
           showConfirmButton: false,
           timer: 1500
         });
-        setTimeout(() => {window.location.href = "/LoggedIn";},1500);
+        const user2 = data.data;
+        const userType = user2.userType;
+        let location = "";
+        if(userType === "seller"){
+          location = "Seller";
+        }
+        else if(userType === "User"){
+          location = "Client";
+        }
+        else{
+          location = "EventManager";
+        }
+        setTimeout(() => {window.location.href = "/" + location;},1500);
       }
       else{
         Swal.fire({

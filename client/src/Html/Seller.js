@@ -1,7 +1,7 @@
 import React from "react";
 // import Swal from 'sweetalert2';
 
-export default function LoggedIn(){
+export default function Seller(){
 
     // useEffect(() => {   Swal.fire({
     //     position: 'center',
@@ -13,7 +13,7 @@ export default function LoggedIn(){
 
     return (
         <div>
-            <h1>Logged In!</h1>
+            <h1>Seller</h1>
         </div>
     )
 }
