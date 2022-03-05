@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Swal from 'sweetalert2';
+import validator from 'validator';
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -17,6 +18,8 @@ export default function SignUp() {
     e.preventDefault();
     if(name !== "" && email !== "" && userType !== "" && number !== "" && password !== "" && confirmPassword !== "" && city !== "" && zipCode !== "" &&  address !== "" && gender !== "")
     {
+      if(password === confirmPassword){
+      if(validator.isEmail(email)){
       let json2 = JSON.stringify({name, email, userType, number, password, city, zipCode, address, gender});
 
       const response = await fetch("http://localhost:3000/register", {
@@ -47,7 +50,26 @@ export default function SignUp() {
           timer: 1500
         })
       }
-
+    }
+    else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Email does not exist!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+      }
+      else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Passwords dont match!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     }
   };
 
@@ -83,8 +105,9 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Phone Number</span>
-              <input type="text" minLength={11} maxLength={11} onChange={(e) => {setNumber(e.target.value);console.log(e.target.value.length);
-              e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '');}} placeholder="03XXXXXXXXX" required />
+              <input type="tel" minLength={11} maxLength={11} pattern="^\d{11}$" onChange={(e) => {setNumber(e.target.value);
+              //e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '');
+              }} placeholder="03XXXXXXXXX" required />
             </div>
             <div className="input-box">
               <span className="details">Password</span>
@@ -343,7 +366,7 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Zip Code</span>
-              <input type="text" minLength={5} maxLength={5} onChange={(e) => {setZipCode(e.target.value);e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');}} placeholder="54000" required />
+              <input type="tel" minLength={5} maxLength={5} pattern="^\d{5}$" onChange={(e) => {setZipCode(e.target.value);e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');}} placeholder="54000" required />
             </div>
             <div className="input-box">
               <span className="details">Address</span>
