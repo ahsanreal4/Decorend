@@ -35,19 +35,8 @@ export default function SignUp() {
           showConfirmButton: false,
           timer: 1500
         });
-        const user2 = data.data;
-        const userType = user2.userType;
-        let location = "";
-        if(userType === "seller"){
-          location = "Seller";
-        }
-        else if(userType === "User"){
-          location = "Client";
-        }
-        else{
-          location = "EventManager";
-        }
-        setTimeout(() => {window.location.href = "/" + location;},1500);
+        
+        setTimeout(() => {window.location.href = "/login";},1500);
       }
       else{
         Swal.fire({
@@ -94,7 +83,8 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Phone Number</span>
-              <input type="text" onChange={(e) => setNumber(e.target.value)} placeholder="Enter your number" required />
+              <input type="text" minLength={11} maxLength={11} onChange={(e) => {setNumber(e.target.value);console.log(e.target.value.length);
+              e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '');}} placeholder="03XXXXXXXXX" required />
             </div>
             <div className="input-box">
               <span className="details">Password</span>
@@ -353,7 +343,7 @@ export default function SignUp() {
             </div>
             <div className="input-box">
               <span className="details">Zip Code</span>
-              <input type="text" onChange={(e) => setZipCode(e.target.value)} placeholder="Enter Zip Code" required />
+              <input type="text" minLength={5} maxLength={5} onChange={(e) => {setZipCode(e.target.value);e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');}} placeholder="54000" required />
             </div>
             <div className="input-box">
               <span className="details">Address</span>
