@@ -65,7 +65,6 @@ export default function Login() {
 
   return (
     <div>
-        <link rel="stylesheet" href="../CSS/Login.css" />
         <div className="wrapper">
           <div className="title">Login Form</div>
           <form onSubmit={onSubmit}>
