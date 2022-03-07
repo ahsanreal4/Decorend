@@ -126,6 +126,7 @@ form .input-box span.details{
   /* transform: scale(0.99); */
   background: linear-gradient(-135deg, #71b7e6, #9b59b6);
   }
+
  @media(max-width: 584px){
  .container{
   max-width: 100%;
@@ -149,4 +150,19 @@ form .user-details .input-box{
   .container .content .category{
     flex-direction: column;
   }
+}
+
+form .signup-link{
+  color: #262626;
+  margin-top: 20px;
+  text-align: center;
+}
+form .pass-link a,
+form .signup-link a{
+  color: #4158d0;
+  text-decoration: none;
+}
+form .pass-link a:hover,
+form .signup-link a:hover{
+  text-decoration: underline;
 }

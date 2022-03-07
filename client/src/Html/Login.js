@@ -5,6 +5,7 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(true);
   
   async function onSubmit(e){
     e.preventDefault();
@@ -55,7 +56,12 @@ export default function Login() {
 
   useEffect(() => {
     import ("../CSS/Login.css");
+    setTimeout(() => setLoading(false), 100);
   }, []);
+
+  if(loading){
+    return null;
+  }
 
   return (
     <div>

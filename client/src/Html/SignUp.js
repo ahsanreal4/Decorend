@@ -13,6 +13,7 @@ export default function SignUp() {
   const [zipCode, setZipCode] = useState("");
   const [address, setAddress] = useState("");
   const [gender, setGender] = useState("");
+  const [loading, setLoading] = useState(true);
 
   async function signUp(e) {
     e.preventDefault();
@@ -75,7 +76,12 @@ export default function SignUp() {
 
   useEffect(() => {
     import ("../CSS/SignUp.css");
+    setTimeout(() => setLoading(false), 100);
   }, []);
+
+  if(loading){
+    return null;
+  }
 
   return (
     <div>
@@ -396,9 +402,11 @@ export default function SignUp() {
           <div className="button">
             <input type="submit" />
           </div>
+          <div className="signup-link">Already a member? <a href="/login">Login now</a></div>
         </form>
       </div>
     </div>
   </div>
   )
+            
 }
