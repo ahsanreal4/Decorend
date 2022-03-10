@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+import MySwal from "../AlertModel/MySwal";
 import validator from "validator";
 
 export default function SignUp() {
@@ -52,43 +52,18 @@ export default function SignUp() {
           });
           const data = await response.json();
           if (data.status === "ok") {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Registration Successful!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-
+            MySwal("success", "Registration Successful!", 1500);
             setTimeout(() => {
               window.location.href = "/login";
             }, 1500);
           } else {
-            Swal.fire({
-              position: "center",
-              icon: "error",
-              title: "Email already registered!",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            MySwal("error", "Email already registered!", 1500);
           }
         } else {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Email does not exist!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          MySwal("error", "Email does not exist", 1500);
         }
       } else {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Passwords dont match!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        MySwal("error", "Passwords dont match!", 1500);
       }
     }
   }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+import MySwal from "../AlertModel/MySwal";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -20,13 +20,7 @@ export default function Login() {
       });
       const data = await response.json();
       if (data.status === "ok") {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Logged In!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        MySwal("success", "Logged In!", 1500);
         const user2 = data.data;
         const userType = user2.userType;
         let location = "";
@@ -41,13 +35,7 @@ export default function Login() {
           window.location.href = "/" + location;
         }, 1500);
       } else {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Invalid Credentials!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        MySwal("error", "Invalid Credentials!", 1500);
       }
     }
   }
