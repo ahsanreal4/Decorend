@@ -1,6 +1,9 @@
 const express = require("express");
+//require("dotenv").config();
 const connectDB = require("./database/database.js");
 const User = require("./models/user/user.model.js");
+const sendMail = require("../sub/mailer/nodeMailer");
+const crypto = require("crypto");
 
 const PORT = process.env.PORT || 3001;
 
@@ -12,7 +15,7 @@ connectDB();
 
 // API
 
-app.post("/register", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   try {
     const json2 = {
       name: req.body.name,
@@ -39,7 +42,26 @@ app.post("/api/login", async (req, res) => {
   });
 
   if (user) {
+    // const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
     return res.json({ status: "ok", data: user, user: true });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
+app.post("/api/emailExist", async (req, res) => {
+  const user = await User.findOne({
+    email: req.body.email,
+  });
+  if (user) {
+    const reset_code = crypto.randomBytes(6).toString("hex");
+    sendMail(
+      user.email,
+      "Reset Password",
+      "This is an email to inform you that your reset password is " + reset_code
+    );
+
+    return res.json({ status: "ok", data: user, user: true, code: reset_code });
   } else {
     return res.json({ status: "error", user: false });
   }

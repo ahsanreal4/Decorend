@@ -8,6 +8,7 @@ import LandingPage from "./Html/LandingPage";
 import EventManager from "./Html/EventManager";
 import Seller from "./Html/Seller";
 import Client from "./Html/Client";
+import ResetPassword from "./Html/ResetPassword";
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route exact path="/ForgetPassword">
             <ForgetPassword />
+          </Route>
+          <Route exact path="/resetPassword">
+            <ResetPassword />
           </Route>
         </Switch>
       </div>
