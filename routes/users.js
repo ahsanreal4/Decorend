@@ -4,6 +4,7 @@ const User = require("../models/user/user.model");
 const sendMail = require("../mailer/nodeMailer");
 const crypto = require("crypto");
 
+//Sign up user
 router.post("/signup", async (req, res) => {
   try {
     const json2 = {
@@ -24,6 +25,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+//Login user
 router.post("/login", async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
@@ -38,6 +40,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Check if email exist and reset password
 router.post("/emailExist", async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
@@ -56,6 +59,7 @@ router.post("/emailExist", async (req, res) => {
   }
 });
 
+//Update user
 router.put("/updateUser", async (req, res) => {
   try {
     const user = await User.findOne({
