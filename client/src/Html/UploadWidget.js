@@ -13,7 +13,6 @@ export default function UploadWidget() {
           const url = result.info.url;
           MySwal("success", "Uploaded Successfully!", 1500);
         } else if (error) {
-          0;
           MySwal("error", "Some error occured!", 1500);
         }
       }
