@@ -11,28 +11,26 @@ export default function ForgetPassword() {
   async function forgetPassword(e) {
     e.preventDefault();
     let json2 = JSON.stringify({ email });
-
-    if (validator.isEmail(email)) {
-      const response = await fetch("http://localhost:3000/api/emailExist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: json2,
-      });
-      const data = await response.json();
-      if (data.status === "ok") {
-        MySwal("success", "Reset Mail sent successfully!", 1500);
-        // setTimeout(() => {
-        //   window.location.href = "/resetPassword";
-        // }, 1500);
-        setEmailSent(true);
-        setResetPassword(data.code);
+    if (email !== "") {
+      if (validator.isEmail(email)) {
+        const response = await fetch("http://localhost:3000/api/emailExist", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: json2,
+        });
+        const data = await response.json();
+        if (data.status === "ok") {
+          MySwal("success", "Reset Mail sent successfully!", 1500);
+          setEmailSent(true);
+          setResetPassword(data.code);
+        } else {
+          MySwal("error", "Email is not registered!", 1500);
+        }
       } else {
-        MySwal("error", "Email is not registerd!", 1500);
+        MySwal("error", "Email does not exist!", 1500);
       }
-    } else {
-      MySwal("error", "Email does not exist", 1500);
     }
   }
 
@@ -40,7 +38,10 @@ export default function ForgetPassword() {
     e.preventDefault();
     if (resetPassword === currentPassword) {
       MySwal("success", "Code Verified!", 1500);
-      setTimeout(() => (window.location.href = "/resetPassword"), 1500);
+      setTimeout(
+        () => (window.location.href = "/resetPassword?email=" + email),
+        1500
+      );
     } else {
       MySwal("error", "Code Incorrect!", 1500);
     }
@@ -67,7 +68,11 @@ export default function ForgetPassword() {
           {" "}
           <h1>Forget Password</h1>
           <form onSubmit={forgetPassword}>
-            <input type="email" onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             <div></div>
             <input type="submit" />
           </form>
