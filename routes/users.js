@@ -17,6 +17,7 @@ router.post("/signup", async (req, res) => {
       zipCode: req.body.zipCode,
       address: req.body.address,
       gender: req.body.gender,
+      Canvas: req.body.canvas,
     };
     await User.create(json2);
     res.json({ status: "ok", data: json2 });

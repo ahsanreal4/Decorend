@@ -31,6 +31,7 @@ export default function SignUp() {
     ) {
       if (password === confirmPassword) {
         if (validator.isEmail(email)) {
+          let canvas = "0";
           let json2 = JSON.stringify({
             name,
             email,
@@ -41,6 +42,7 @@ export default function SignUp() {
             zipCode,
             address,
             gender,
+            canvas,
           });
 
           const response = await fetch("http://localhost:3000/api/signup", {
