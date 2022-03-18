@@ -1,5 +1,4 @@
 import React from "react";
-import MySwal from "../AlertModel/MySwal";
 
 export default function UploadWidget() {
   const showWidget = () => {
@@ -11,9 +10,6 @@ export default function UploadWidget() {
       (error, result) => {
         if (!error && result && result.event === "success") {
           const url = result.info.url;
-          MySwal("success", "Uploaded Successfully!", 1500);
-        } else if (error) {
-          MySwal("error", "Some error occured!", 1500);
         }
       }
     );
