@@ -26,7 +26,7 @@ export default function Login() {
         let location = "";
         if (userType === "seller") {
           location = "Seller";
-        } else if (userType === "User") {
+        } else if (userType === "user") {
           location = "Client";
         } else {
           location = "EventManager";
