@@ -10,6 +10,7 @@ export default function UploadWidget() {
       (error, result) => {
         if (!error && result && result.event === "success") {
           const url = result.info.url;
+          console.log(url);
         }
       }
     );

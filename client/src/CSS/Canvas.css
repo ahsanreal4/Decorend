@@ -1,0 +1,18 @@
+div {
+    margin: 0 auto;
+}
+
+#buttons {
+    margin-top: 50px;
+    margin-left: 34.5vw; 
+}
+
+#images {
+    position: absolute;
+    left:200px;
+    top:100px;
+}
+
+[draggable] {
+    cursor: move;
+}

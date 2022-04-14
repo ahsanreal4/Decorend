@@ -9,6 +9,7 @@ import EventManager from "./Html/EventManager";
 import Seller from "./Html/Seller";
 import Client from "./Html/Client";
 import ResetPassword from "./Html/ResetPassword";
+import CanvasPage from "./Html/CanvasPage";
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route exact path="/resetPassword">
             <ResetPassword />
+          </Route>
+          <Route exact path="/canvasPage">
+            <CanvasPage />
           </Route>
         </Switch>
       </div>

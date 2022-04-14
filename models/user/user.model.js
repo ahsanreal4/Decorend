@@ -11,7 +11,6 @@ const UserSchema = new mongoose.Schema(
     zipCode: { type: String, required: true },
     address: { type: String, required: true },
     gender: { type: String, required: true },
-    Canvas: { type: String, required: true },
   },
   { collection: "User" }
 );
