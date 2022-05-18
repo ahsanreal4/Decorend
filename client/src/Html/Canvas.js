@@ -4,7 +4,6 @@ import MySwal from "../AlertModel/MySwal";
 
 export default function Canvas() {
   const [canvas, setCanvas] = useState(null);
-  let dragStart = false;
 
   useEffect(() => {
     let c = initCanvas();
@@ -113,7 +112,6 @@ export default function Canvas() {
   };
 
   const onDragEndImage = (e, canvi) => {
-    dragStart = false;
     let imgElement = document.getElementById(e.target.id);
     let imgInstance = new fabric.Image(imgElement, {
       left: e.clientX/2.5,
