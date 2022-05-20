@@ -21,8 +21,6 @@ export default function Navbar() {
     }, []);
 
     const login = () => {
-        console.log("1");
-        console.log(loaded);
         if (loaded == true) {
             window.location.href = "http://localhost:3000/login";
         }
@@ -42,9 +40,10 @@ export default function Navbar() {
     }
 
     return (
-    <nav className="navbar navbar-expand-lg navbar-mainbg">
+        loaded == true && (
+            <nav className="navbar navbar-expand-lg navbar-mainbg">
             {/* Logo */}
-            <a className="navbar-brand navbar-logo" href="#">Decorend</a>
+            <a className="navbar-brand navbar-logo" href="/">Decorend</a>
             {/* Collapse Button */}
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i className="fas fa-bars text-white" />
@@ -93,6 +92,7 @@ export default function Navbar() {
                 </div>
                 </div>
             </div>
-            </nav>
+            </nav>)
+
   )
 }
