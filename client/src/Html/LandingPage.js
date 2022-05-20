@@ -3,6 +3,7 @@ import Navbar from "./Navbar/Navbar";
 import UploadWidget from "./UploadWidget";
 
 export default function LandingPage() {
+  
   return (
     <div>
       <Navbar />

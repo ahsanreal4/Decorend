@@ -1,26 +1,34 @@
 import React from 'react';
-import { useLayoutEffect, useEffect } from 'react';
+import { useLayoutEffect, useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
+import getScreenAccessible from "../ScreenHelper";
 
 export default function Products() {
+    let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
+        if (!getScreenAccessible("Products")) {
+            window.location.href = "/login";
+        }
         import("../../CSS/About.css");
     }, []);
 
     useEffect(() => {
-        setTimeout(() => import("./Script files/index.js"), 500);
+        setTimeout(() => {
+            import("./Script files/index.js");
+            setScreenLoading(true);
+        }, 500);
     }, []);
     
     return (
-        <div>
+        screenLoading == true && (<div>
             <Navbar />
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <title>Products | Comfy</title>
             {/* font-awesome */}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
-            {/* styles css */}      
+            {/* styles css */}
             <link rel="stylesheet" href="styles.css" />
             {/* navbar */}
             <nav className="navbar page">
@@ -114,6 +122,6 @@ export default function Products() {
             <div className="page-loading">
                 <h2>Loading...</h2>
             </div>
-        </div>
+        </div>)
     );
 }

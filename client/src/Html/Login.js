@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import MySwal from "../AlertModel/MySwal";
+import getScreenAccessible from "./ScreenHelper";
 
 export default function Login() {
+
+  useLayoutEffect(() => {
+    if (!getScreenAccessible("Login")) {
+      window.location.href = "/";
+    }
+  });
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
@@ -31,6 +39,8 @@ export default function Login() {
         } else {
           location = "EventManager";
         }
+        let item = {"email":data.data.email, "name": data.data.name,"userType":data.data.userType,"id":data.data.id};
+        localStorage.setItem("userData", JSON.stringify(item));
         setTimeout(() => {
           window.location.href = "/" + location;
         }, 1500);

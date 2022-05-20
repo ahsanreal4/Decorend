@@ -1,21 +1,28 @@
 import React from "react";
-import { useEffect, useLayoutEffect } from "react"
+import { useEffect, useLayoutEffect, useState } from "react"
 
 export default function Navbar() {
-    let loaded = false;
+    let [loaded,setLoaded] = useState(false);
+    let [userLoggedIn, setUserLoggedIn] = useState(true);
 
     useLayoutEffect(() => {
         import("../../CSS/Navbar.css");
+        var data = JSON.parse(localStorage.getItem("userData"));
+        if (data == null) {
+            setUserLoggedIn(false);
+        }
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             import("../Navbar/navbarscript");
-            loaded = true;
+            setLoaded(true);
         }, 400);
     }, []);
 
     const login = () => {
+        console.log("1");
+        console.log(loaded);
         if (loaded == true) {
             window.location.href = "http://localhost:3000/login";
         }
@@ -25,7 +32,14 @@ export default function Navbar() {
         if (loaded == true) {
             window.location.href = "http://localhost:3000/signup";
         }
+    }
+    
+    const logout = () => {
+        if (loaded == true) {
+            localStorage.removeItem("userData");
+            window.location.href = "/";
         }
+    }
 
     return (
     <nav className="navbar navbar-expand-lg navbar-mainbg">
@@ -72,8 +86,9 @@ export default function Navbar() {
                 </ul>
                 </div>
                 <div className="navchild1">
-                <div className="navbar-nav  navright">
-                    <button onClick={() => login()}><i>Login</i></button>
+                    <div className="navbar-nav  navright">
+                        {userLoggedIn == false ? (<button onClick={() => login()}><i>Login</i></button>) : (<button onClick={() => logout()}><i>Logout</i></button>)}
+                    
                       <button onClick={() => SignUp()} className="simple"><i>Signup</i></button>
                 </div>
                 </div>

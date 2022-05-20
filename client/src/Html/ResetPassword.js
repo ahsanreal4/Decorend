@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MySwal from "../AlertModel/MySwal";
+import getScreenAccessible from "./ScreenHelper";
 
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,12 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const search = useLocation().search;
   const email2 = new URLSearchParams(search).get("email");
+
+  useLayoutEffect(() => {
+        if (!getScreenAccessible("ResetPassword")) {
+            window.location.href = "/";
+        }
+    }, []);
 
   useEffect(() => {
     setEmail(email2);

@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import MySwal from "../AlertModel/MySwal";
 import validator from "validator";
+import getScreenAccessible from "./ScreenHelper";
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState("");
   const [resetPassword, setResetPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+
+  useLayoutEffect(() => {
+        if (!getScreenAccessible("ForgetPassword")) {
+            window.location.href = "/";
+        }
+    }, []);
 
   async function forgetPassword(e) {
     e.preventDefault();
