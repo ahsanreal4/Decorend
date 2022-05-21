@@ -21,27 +21,31 @@ export default function Products() {
     }, []);
     
     return (
-        screenLoading == true && (<div>
-            <Navbar />
+        screenLoading == true && (        <div>
+            
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Products | Comfy</title>
+            <title>Products</title>
             {/* font-awesome */}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
-            {/* styles css */}
+            {/* styles css */}      
             <link rel="stylesheet" href="styles.css" />
             {/* navbar */}
-            <nav className="navbar page">
-                <div className="nav-center">
-                    {/* cart icon */}
-                    <div className="toggle-container">
-                        <button className="toggle-cart">
-                            <i className="fas fa-shopping-cart" />
-                        </button>
-                        <span className="cart-item-count">1</span>
-                    </div>
+            <Navbar />
+            
+            {/* cart sign */}
+            <div className="page">
+                <div></div>
+                <h2>
+                    <strong>Products</strong>
+                </h2>
+                <div className="toggle-container">
+                    <button className="toggle-cart">
+                        <i className="fas fa-shopping-cart" />
+                    </button>
+                    <span className="cart-item-count">1</span>
                 </div>
-            </nav>
+            </div>
             {/* sidebar */}
             <div className="sidebar-overlay">
                 <aside className="sidebar">
