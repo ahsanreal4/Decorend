@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user/user.model");
 const Canvas = require("../models/canvas.model");
+const Product = require("../models/Product");
 const sendMail = require("../mailer/nodeMailer");
 const crypto = require("crypto");
 
@@ -122,6 +123,48 @@ router.get("/loadCanvas", async (req, res) => {
     return res.json({ status: "error" });
   } catch (err) {
     return res.json({ status: "error" });
+  }
+});
+
+//Get Products
+router.get("/getProducts", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    return res.json({ status: "ok", data: products });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+//Get Product
+router.post("/getProduct", async (req, res) => {
+  try {
+    let id = req.body.id;
+    const product = await Product.findOne({ _id: id });
+    return res.json({ status: "ok", data: product });
+  } catch (err) {
+    return res.json({ status: "error", error: err });
+  }
+});
+
+/*
+==================================================================
+==================================================================
+SELLER 
+==================================================================
+==================================================================
+*/
+
+//Add Product
+router.post("/addProduct", async (req, res) => {
+  try {
+    const json2 = {
+      fields: req.body.fields,
+    };
+    await Product.create(json2);
+    res.json({ status: "ok", data: json2 });
+  } catch (err) {
+    res.json({ status: "error", data:err });
   }
 });
 

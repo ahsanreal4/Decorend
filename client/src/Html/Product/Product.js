@@ -1,22 +1,22 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Navbar from '../Navbar/Navbar';
 import getScreenAccessible from "../ScreenHelper";
 
 export default function Product() {
+    let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
         if (!getScreenAccessible("Product")) {
             window.location.href = "/login";
         }
-        import("../../CSS/About.css");
-        import("./Script files/product.js");
+      import("../../CSS/About.css");
+      setScreenLoading(true);
+      import("./Script files/product.js");
     }, []);
 
-    useEffect(() => {
-    },[]);
-
   return (
-      <div>
+    screenLoading == true &&
+    (<div>
       <Navbar />
         <div className="toggle-container">
             <button className="toggle-cart">
@@ -71,6 +71,7 @@ export default function Product() {
         <div className="page-loading">
           <h2>loading...</h2>
         </div>
-      </div>
+    </div>
+    )
   )
 }

@@ -4,16 +4,16 @@ const display = (products, element, filters) => {
   // display products
   element.innerHTML = products
     .map((product) => {
-      const { id, name, image, price } = product;
+      const { _id, name, imageUrl, price } = product;
       return ` <article class="product">
           <div class="product-container">
-            <img src="${image}" class="product-img img" alt="${name}" />
+            <img src="${imageUrl}" class="product-img img" alt="${name}" />
            
             <div class="product-icons">
-              <a href="/product?id=${id}" class="product-icon">
+              <a href="/product?id=${_id}" class="product-icon">
                 <i class="fas fa-search"></i>
               </a>
-              <button class="product-cart-btn product-icon" data-id="${id}">
+              <button class="product-cart-btn product-icon" data-id="${_id}">
                 <i class="fas fa-shopping-cart"></i>
               </button>
             </div>

@@ -13,6 +13,7 @@ import CanvasPage from "./Html/CanvasPage";
 import About from "./Html/About";
 import Products from "./Html/Product/Products";
 import Product from "./Html/Product/Product";
+import AddProduct from "./Html/AddProduct";
 
 function App() {
   return (
@@ -54,6 +55,9 @@ function App() {
           </Route>
           <Route exact path="/product">
             <Product />
+          </Route>
+          <Route exact path="/AddProduct">
+            <AddProduct />
           </Route>
         </Switch>
       </div>

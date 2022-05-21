@@ -23,19 +23,32 @@ let productID;
  async function getProduct() {
   const urlID = window.location.search;
 
-  try {
-    const response = await fetch(`${singleProductUrl}${urlID}`);
-    if (response.status >= 200 && response.status <= 299) {
-      const product = await response.json();
+   try {
+     let id = "";
+     for (let i = 4; i < urlID.length; i++){
+         id += urlID[i];
+     }
+    const response = await fetch(`http://localhost:3000/api/getProduct`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+      })
+    });
+    let data = await response.json();
+    if (data.status == "ok") {
+      const product = data.data;
       // grab data
-      const { id, fields } = product;
-      productID = id;
+      const { _id, fields } = product;
+      productID = _id;
 
-      const { name, company, price, colors, description } = fields;
-      const image = fields.image[0].thumbnails.large.url;
-      // set values
-
-      document.title = `${name.toUpperCase()} | Comfy`;
+      let { name, company, price, colors, description } = fields;
+      if (description == "") {
+        description = "No description.";
+      }
+      const image = fields.imageUrl;
       imgDOM.src = image;
       titleDOM.textContent = name;
       companyDOM.textContent = `by ${company}`;
@@ -52,7 +65,7 @@ let productID;
       centerDOM.innerHTML = `
     <div>
     <h3 class="error">sorry, something went wrong</h3>
-    <a href="index.html" class="btn">back home</a>
+    <a href="/" class="btn">back home</a>
     </div> 
      `;
     }

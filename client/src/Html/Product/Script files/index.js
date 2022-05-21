@@ -11,17 +11,8 @@ import init2 from "./products";
 
 const init = async () => {
   let products = await fetchProducts();
-  if (products) {
-      let productList = [];
-      for (let i = 0; i < 5; i++){
-          productList.push(products[i]);
-
-      }
-      products = productList;
-    // add products to the store
-    setupStore(products);
-      init2();
-  }
+  setupStore(products);
+  init2();
 };
 
 init();

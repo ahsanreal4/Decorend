@@ -17,7 +17,7 @@ const cartTotalDOM = getElement('.cart-total');
 let cart = getStorageItem('cart');
 
 export const addToCart = (id) => {
-  let item = cart.find((cartItem) => cartItem.id === id);
+  let item = cart.find((cartItem) => cartItem._id === id);
 
   if (!item) {
     let product = findProduct(id);
@@ -61,12 +61,12 @@ function displayCartItemsDOM() {
   });
 }
 function removeItem(id) {
-  cart = cart.filter((cartItem) => cartItem.id !== id);
+  cart = cart.filter((cartItem) => cartItem._id !== id);
 }
 function increaseAmount(id) {
   let newAmount;
   cart = cart.map((cartItem) => {
-    if (cartItem.id === id) {
+    if (cartItem._id === id) {
       newAmount = cartItem.amount + 1;
       cartItem = { ...cartItem, amount: newAmount };
     }
@@ -77,7 +77,7 @@ function increaseAmount(id) {
 function decreaseAmount(id) {
   let newAmount;
   cart = cart.map((cartItem) => {
-    if (cartItem.id === id) {
+    if (cartItem._id === id) {
       newAmount = cartItem.amount - 1;
       cartItem = { ...cartItem, amount: newAmount };
     }

@@ -3,17 +3,16 @@ let store = getStorageItem('store');
 const setupStore = (products) => {
   store = products.map((product) => {
     const {
-      id,
-      fields: { featured, name, price, company, colors, image: img },
+      _id,
+      fields: { name, price, company, colors, imageUrl },
     } = product;
-    const image = img[0].thumbnails.large.url;
-    return { id, featured, name, price, company, colors, image };
+    return { _id, name, price, company, colors, imageUrl };
   });
   setStorageItem('store', store);
 };
 
 const findProduct = (id) => {
-  let product = store.find((product) => product.id === id);
+  let product = store.find((product) => product._id === id);
   return product;
 };
 
