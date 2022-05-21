@@ -10,7 +10,7 @@ const display = (products, element, filters) => {
             <img src="${image}" class="product-img img" alt="${name}" />
            
             <div class="product-icons">
-              <a href="product.html?id=${id}" class="product-icon">
+              <a href="/product?id=${id}" class="product-icon">
                 <i class="fas fa-search"></i>
               </a>
               <button class="product-cart-btn product-icon" data-id="${id}">

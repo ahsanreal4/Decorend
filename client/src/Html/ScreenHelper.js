@@ -39,6 +39,12 @@ function getScreenAccessible(screenName) {
             }
             window.location.href = "/";
         }
+        else if (screenName == "Product") {
+            if (data.userType == "user") {
+                return true;
+            }
+            window.location.href = "/";
+        }
         
         return false;
     }

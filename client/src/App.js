@@ -12,7 +12,7 @@ import ResetPassword from "./Html/ResetPassword";
 import CanvasPage from "./Html/CanvasPage";
 import About from "./Html/About";
 import Products from "./Html/Product/Products";
-import Navbar from '../src/Html/Navbar/Navbar.js';
+import Product from "./Html/Product/Product";
 
 function App() {
   return (
@@ -51,6 +51,9 @@ function App() {
           </Route>
           <Route exact path="/products">
             <Products />
+          </Route>
+          <Route exact path="/product">
+            <Product />
           </Route>
         </Switch>
       </div>
