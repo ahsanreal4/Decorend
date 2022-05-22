@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
-import {Elements} from '@stripe/react-stripe-js';
+
 
 // import MetaData from "../layout/MetaData";
 // import CheckoutSteps from "./CheckoutSteps";
 
-import { MySwal } from "../AlertModel/MySwal";
+import  MySwal  from "../AlertModel/MySwal";
 // import { useDispatch, useSelector } from "react-redux";
 // import { clearErrors } from "../../actions/orderActions";
 
@@ -14,164 +14,163 @@ import {
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
+  PaymentElement,
 } from "@stripe/react-stripe-js";
 
 // import axios from "axios";
+ 
 
-const options = {
-  style: {
-    base: {
-      fontSize: "16px",
-    },
-    invalid: {
-      color: "#9e2146",
-    },
-  },
-};
-
-const PaymentGateway = ({ history }) => {
-  const [donateAmount, setDonateAmount] = useState("");
+const PaymentGateway = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+    
+  const options = {
+    style: {
+      base: {
+        fontSize: "16px",
+      },
+      invalid: {
+        color: "#9e2146",
+      },
+    },
+  };
 
   const user = localStorage.getItem("userData");
 
-  useEffect(() => {
-    // if (error) {
-    //   // MySwal("error", error, 1500);
-    //   // dispatch(clearErrors());
-    // }
-  }, []);
-
-  const paymentData = {
-    amount: Math.round(donateAmount * 100),
-  };
-  const backendamount = {
-    amount: Math.round(donateAmount * 1),
-  };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-
-    document.querySelector("#pay_btn").disabled = true;
-    //trt
-    let money;
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      // money = await axios.post("/api/v1/payment/money", backendamount, config);
-    } catch (error) {
-      document.querySelector("#pay_btn").disabled = false;
-      // alert.error(error.response.data.message);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // We don't want to let default form submission happen here,
+    // which would refresh the page.
+    if (!stripe || !elements) {
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
     }
-    //try
 
-    let res;
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    setIsLoading(true);
 
-      // res = await axios.post("/api/v1/payment/process", paymentData, config);
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: "http://localhost:3000/paymentSuccessful",
+      },
+    });
+    
+    // This point will only be reached if there is an immediate error when
+    // confirming the payment. Otherwise, your customer will be redirected to
+    // your `return_url`. For some payment methods like iDEAL, your customer will
+    // be redirected to an intermediate site first to authorize the payment, then
+    // redirected to the `return_url`.
 
-      const clientSecret = res.data.client_secret;
-
-      console.log(clientSecret);
-
-      if (!stripe || !elements) {
-        return;
-      }
-
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            name: user.name,
-            email: user.email,
-          },
-        },
-      });
-
-      if (result.error) {
-        // alert.error(result.error.message);
-        document.querySelector("#pay_btn").disabled = false;
-      } else {
-        if (result.paymentIntent.status === "succeeded") {
-          // alert.success("You have successfully Donate Money");
-
-          history.push("/");
-        } else {
-          // alert.error("There is some issue while payment processing");
-        }
-      }
-    } catch (error) {
-      document.querySelector("#pay_btn").disabled = false;
-      // alert.error(error.response.data.message);
-    }
+    setIsLoading(false);
   };
+
+//   useEffect(() => {
+//     // if (error) {
+//     //   // MySwal("error", error, 1500);
+//     //   // dispatch(clearErrors());
+//     // }
+//   }, []);
+
+//   const paymentData = {
+//     amount: Math.round(donateAmount * 100),
+//   };
+//   const backendamount = {
+//     amount: Math.round(donateAmount * 1),
+//   };
+//   const submitHandler = async (e) => {
+//     e.preventDefault();
+
+//     document.querySelector("#pay_btn").disabled = true;
+//     //trt
+//     let money;
+//     try {
+//       const config = {
+
+        
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       };
+//       // money = await axios.post("/api/v1/payment/money", backendamount, config);
+//     } catch (error) {
+//       document.querySelector("#pay_btn").disabled = false;
+//       MySwal("error", error.response.data.message, 1500);
+//       // alert.error(error.response.data.message);
+//     }
+//     //try
+
+//     let res;
+//     try {
+//       // const config = {
+//       //   headers: {
+//       //     "Content-Type": "application/json",
+//       //   },
+//       // };
+//       let json2 = JSON.stringify({ "amount": Math.round(donateAmount * 100) });
+//       // res = await axios.post("/api/v1/payment/process", paymentData, config);
+//       res = await fetch("http://localhost:3000/api/getStripePaymentSecretKey", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(paymentData),
+//       });
+
+//       const clientSecret = res.data.client_secret;
+
+//       console.log(clientSecret);
+
+//       if (!stripe || !elements) {
+//         return;
+//       }
+
+//       const result = await stripe.confirmCardPayment(clientSecret, {
+//         payment_method: {
+//           card: elements.getElement(CardNumberElement),
+//           billing_details: {
+//             name: user.name,
+//             email: user.email,
+//           },
+//         },
+//       });
+
+//       if (result.error) {
+//         // alert.error(result.error.message);
+//         MySwal("error", result.error.message, 1500);
+//         document.querySelector("#pay_btn").disabled = false;
+//       } else {
+//         if (result.paymentIntent.status === "succeeded") {
+//           MySwal("error", "Payment Successful!", 1500);
+//           // alert.success("You have successfully Donate Money");
+
+//           setTimeout(() => window.location.href = "/", 1500);
+//         } else {
+//           MySwal("error", "Some error occurred while processing payment!", 1500);
+//           // alert.error("There is some issue while payment processing");
+//         }
+//       }
+//     } catch (error) {
+//       document.querySelector("#pay_btn").disabled = false;
+//       MySwal("error", error, 1500);
+//       // alert.error(error.response.data.message);
+//     }
+//   };
 
   return (
-    <Fragment>
 
-      {/* <CheckoutSteps shipping confirmOrder payment /> */}
-
-      <div className="row wrapper">
-        <div className="col-10 col-lg-5">
-          <form className="shadow-lg" onSubmit={submitHandler}>
-            <h1 className="mb-4">Card Info</h1>
-            <div className="form-group">
-              <label htmlFor="card_num_field">Card Number</label>
-              <CardNumberElement
-                type="text"
-                id="card_num_field"
-                className="form-control"
-                options={options}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="card_exp_field">Card Expiry</label>
-              <CardExpiryElement
-                type="text"
-                id="card_exp_field"
-                className="form-control"
-                options={options}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="card_cvc_field">Card CVC</label>
-              <CardCvcElement
-                type="text"
-                id="card_cvc_field"
-                className="form-control"
-                options={options}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="card_exp_field">Amount</label>
-              <input
-                type="number"
-                id="card_exp_field"
-                className="form-control"
-                placeholder="Donation Amount"
-                onChange={(e) => {
-                  setDonateAmount(e.target.value);
-                }}
-              />
-            </div>
-
-            <button id="pay_btn" type="submit" className="btn btn-block py-3">
-              Donate ${`${!donateAmount ? "0" : donateAmount}`}
-            </button>
-          </form>
-        </div>
-      </div>
-    </Fragment>
+    <form id="payment-form" onSubmit={handleSubmit}>
+      <PaymentElement id="payment-element" />
+      <button disabled={isLoading || !stripe || !elements} id="submit">
+        <span id="button-text">
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+        </span>
+      </button>
+      {/* Show any error or success messages */}
+      {message && <div id="payment-message">{message}</div>}
+    </form>
   );
 };
 

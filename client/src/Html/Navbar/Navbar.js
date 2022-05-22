@@ -63,25 +63,25 @@ export default function Navbar() {
                     </div>
                     {/* Nav Links */}
                     <li className="nav-item active">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="/#">
                         <i className="fas fa-tachometer-alt">
                         </i>Dashboard
                     </a>
                     </li>
                     <li className="nav-item ">
-                    <a className="nav-link" href="#service">
+                    <a className="nav-link" href="/#service">
                         <i className="far fa-star-half">
                         </i>Services
                     </a>
                     </li>
                     <li className="nav-item ">
-                    <a className="nav-link" href="#pics"> 
+                    <a className="nav-link" href="/#pics"> 
                         <i className="fas fa-calendar-check" />
                         Event
                     </a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="#contact">
+                    <a className="nav-link" href="/#contact">
                         <i className="far fa-address-book">
                         </i>Contact Us
                     </a>

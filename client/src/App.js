@@ -15,6 +15,7 @@ import Products from "./Html/Product/Products";
 import Product from "./Html/Product/Product";
 import AddProduct from "./Html/AddProduct";
 import Payment from "./Html/Payment";
+import PaymentSuccessful from "./Html/PaymentSuccessful";
 
 function App() {
   return (
@@ -62,6 +63,9 @@ function App() {
           </Route>
           <Route exact path="/payment">
             <Payment />
+          </Route>
+          <Route exact path="/paymentSuccessful">
+            <PaymentSuccessful />
           </Route>
         </Switch>
       </div>

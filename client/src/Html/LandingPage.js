@@ -221,7 +221,7 @@ export default function LandingPage() {
             <div className="content">
               <div className="left box">
                 <div className="upper">
-                  <div className="topic">About us</div>
+                  <div onClick={(() => window.location.href = "/about")} className="topic"><a style={{"textDecoration":"none"}}>About us</a></div>
                   <p>Decorend is a dedicated event Management platform where you can consume/provide event Management services.</p>
                 </div>
                 <div className="lower">

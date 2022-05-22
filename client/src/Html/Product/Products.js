@@ -92,7 +92,7 @@ export default function Products() {
                         <h3 className="cart-total text-slanted">
                             total : $12.99
                         </h3>
-                        <button className="cart-checkout btn">checkout</button>
+                        <button className="cart-checkout btn" onClick={(() => window.location.href = "/payment")}>checkout</button>
                     </footer>
                 </aside>
             </div>

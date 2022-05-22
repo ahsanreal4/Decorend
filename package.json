@@ -20,7 +20,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.4",
     "nodemailer": "^6.7.2",
-    "react-reveal": "^1.2.2"
+    "react-reveal": "^1.2.2",
+    "stripe": "^9.2.0"
   },
   "devDependencies": {
     "concurrently": "^7.0.0"
