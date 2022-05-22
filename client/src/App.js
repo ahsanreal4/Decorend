@@ -14,6 +14,7 @@ import About from "./Html/About";
 import Products from "./Html/Product/Products";
 import Product from "./Html/Product/Product";
 import AddProduct from "./Html/AddProduct";
+import Payment from "./Html/Payment";
 
 function App() {
   return (
@@ -58,6 +59,9 @@ function App() {
           </Route>
           <Route exact path="/AddProduct">
             <AddProduct />
+          </Route>
+          <Route exact path="/payment">
+            <Payment />
           </Route>
         </Switch>
       </div>

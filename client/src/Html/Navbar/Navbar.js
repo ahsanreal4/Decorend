@@ -4,12 +4,16 @@ import { useEffect, useLayoutEffect, useState } from "react"
 export default function Navbar() {
     let [loaded,setLoaded] = useState(false);
     let [userLoggedIn, setUserLoggedIn] = useState(true);
+    let [name,setName] = useState("");
 
     useLayoutEffect(() => {
         import("../../CSS/Navbar.css");
         var data = JSON.parse(localStorage.getItem("userData"));
         if (data == null) {
             setUserLoggedIn(false);
+        }
+        else {
+            setName(data.name.split(" ")[0]);
         }
     }, []);
 
@@ -86,9 +90,8 @@ export default function Navbar() {
                 </div>
                 <div className="navchild1">
                     <div className="navbar-nav  navright">
-                        {userLoggedIn == false ? (<button onClick={() => login()}><i>Login</i></button>) : (<button onClick={() => logout()}><i>Logout</i></button>)}
-                    
-                      <button onClick={() => SignUp()} className="simple"><i>Signup</i></button>
+                    {userLoggedIn == false ? (<button onClick={() => login()}><i>Login</i></button>) : (<button><i>{ name }</i></button>)}                  
+                    {userLoggedIn == false ?   (<button onClick={() => SignUp()} className="simple"><i>Signup</i></button>) : (<button onClick={(() => logout())} className="simple"><i className="fas fa-sign-out-alt"></i></button>)}
                 </div>
                 </div>
             </div>
