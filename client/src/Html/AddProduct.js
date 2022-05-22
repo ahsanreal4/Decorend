@@ -10,8 +10,9 @@ export default function AddProduct() {
     const addProduct = async () => {
         let imageUrl = localStorage.getItem("url");
         if (imageUrl != null) {
-            localStorage.removeItem("url");
-          let jsonObject = JSON.stringify({ "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" }  });
+          localStorage.removeItem("url");
+          let id = Date.now().toString();
+          let jsonObject = JSON.stringify({"id": id ,"fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" }  });
             const response = await fetch("http://localhost:3000/api/addProduct", {
             method: "POST",
             headers: {

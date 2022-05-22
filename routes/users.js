@@ -159,8 +159,10 @@ SELLER
 router.post("/addProduct", async (req, res) => {
   try {
     const json2 = {
+      id: req.body.id,
       fields: req.body.fields,
     };
+    console.log(json2);
     await Product.create(json2);
     res.json({ status: "ok", data: json2 });
   } catch (err) {

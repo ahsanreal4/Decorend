@@ -66,6 +66,7 @@ export default function Login() {
         <form onSubmit={onSubmit}>
           <div className="field">
             <input
+              autoComplete="off"
               type="email"
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -76,6 +77,7 @@ export default function Login() {
           </div>
           <div className="field">
             <input
+              autoComplete="off"
               type="password"
               onChange={(e) => {
                 setPassword(e.target.value);
