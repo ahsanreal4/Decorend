@@ -58,9 +58,6 @@ function App() {
           <Route exact path="/product">
             <Product />
           </Route>
-          <Route exact path="/AddProduct">
-            <AddProduct />
-          </Route>
           <Route exact path="/payment">
             <Payment />
           </Route>

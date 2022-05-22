@@ -200,6 +200,7 @@ router.post("/addProduct", async (req, res) => {
   try {
     const json2 = {
       id: req.body.id,
+      productType: req.body.productType,
       fields: req.body.fields,
     };
     console.log(json2);
