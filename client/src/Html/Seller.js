@@ -12,7 +12,7 @@ export default function Seller() {
     let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
-        if (!getScreenAccessible("Products")) {
+        if (!getScreenAccessible("Seller")) {
             window.location.href = "/login";
         }
         import("../CSS/About.css");
@@ -25,13 +25,41 @@ export default function Seller() {
         }, 500);
     }, []);
 
+    const updateProduct = async () => {
+        let imageUrl = localStorage.getItem("url");
+        if (imageUrl != null) {
+        localStorage.removeItem("url");
+        let productID = localStorage.getItem("productID");
+        localStorage.removeItem("productID");    
+        let id = productID;
+        let data2 = JSON.parse(localStorage.getItem("userData"));
+        let userId = data2.id;
+        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": "" } });
+            const response = await fetch("http://localhost:3000/api/updateProduct", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: jsonObject,
+          });
+          const data = await response.json();
+          if (data.status === "ok") {
+            MySwal("success", "Product updated!", 1500);
+            setTimeout(() => {
+              window.location.href = "/Seller";
+            }, 1500);
+          }
+        }
+    }
 
     const addProduct = async () => {
         let imageUrl = localStorage.getItem("url");
         if (imageUrl != null) {
-          localStorage.removeItem("url");
-          let id = Date.now().toString();
-          let jsonObject = JSON.stringify({"id": id ,"productType": "product","fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" }  });
+        localStorage.removeItem("url");
+        let id = Date.now().toString();
+        let data2 = JSON.parse(localStorage.getItem("userData"));
+        let userId = data2.id;
+        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" } });
             const response = await fetch("http://localhost:3000/api/addProduct", {
             method: "POST",
             headers: {
@@ -92,13 +120,13 @@ export default function Seller() {
                         </div> 
                         <br />
                         <div className="input">
-                            <span className="label" htmlFor="ProductName"><b>Price</b></span>
-                            <input autoComplete='off' onChange={((e) => setPrice(e.target.value))} required id="ProductName" type="number" placeholder='Enter Price'></input> 
+                            <span className="label" htmlFor="ProductPrice"><b>Price</b></span>
+                            <input autoComplete='off' onChange={((e) => setPrice(e.target.value))} required id="ProductPrice" type="number" placeholder='Enter Price'></input> 
                         </div>
                         <br />
                         <br />
                         <div className="input">
-                            <span className="label" htmlFor="ProductName"><b>Company Name</b></span>
+                            <span className="label" htmlFor="ProductCompany"><b>Company Name</b></span>
                             <select defaultValue="" onChange={((e) => setCompany(e.target.value))} required >
                                 <option value="" disabled hidden>Select Company</option>
                                 <option value={"ikea"}>IKEA</option>
@@ -110,7 +138,8 @@ export default function Seller() {
                     <br />
                     <br />
                     <div className='bt'>
-                    <button className='button' onClick={(() => addProduct())}><b>Add Product</b></button>
+                            <button className='button' id="addProductBtn" onClick={(() => addProduct())}><b>Add Product</b></button>
+                            <button style={{"display":"none"}} className='button' id="updateProductBtn" onClick={(() => updateProduct())}><b>Update Product</b></button>
                     </div>
                 </form>
                 <span className="modal-close"><i className="fas fa-times"/></span>

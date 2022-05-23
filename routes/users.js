@@ -200,6 +200,7 @@ router.post("/addProduct", async (req, res) => {
   try {
     const json2 = {
       id: req.body.id,
+      userID: req.body.userID,
       productType: req.body.productType,
       fields: req.body.fields,
     };
@@ -210,5 +211,52 @@ router.post("/addProduct", async (req, res) => {
     res.json({ status: "error", data:err });
   }
 });
+
+//Get Products
+router.post("/getSelfProducts", async (req, res) => {
+  try {
+    const products = await Product.find({
+      userID: req.body.id,
+    });
+    console.log(products);
+    return res.json({ status: "ok", data: products });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+
+//Update Product
+router.put("/updateProduct", async (req, res) => {
+  try {
+    const product = await Product.findOne({
+      _id: req.body.id
+    });
+    if (!product) return res.status(404).json({ msg: "Product not found" });
+    console.log(product);
+    product.fields.name = req.body.fields.name;
+    product.fields.price = req.body.fields.price;
+    product.fields.imageUrl = req.body.fields.imageUrl; 
+    product.fields.company = req.body.fields.company;
+    const new_product = await Product.findByIdAndUpdate(
+      product._id,
+      { $set: product },
+      { new: true }
+    );
+    return res.json({ status: "ok" });
+  } catch (err) {
+    return res.json({ status: "error", data:err });
+  }
+});
+
+
+/*
+==================================================================
+==================================================================
+EVENT MANAGER
+==================================================================
+==================================================================
+*/
+
 
 module.exports = router;
