@@ -3,7 +3,8 @@ import Navbar from './Navbar/Navbar';
 
 export default function PaymentSuccessful() {
 
-    useLayoutEffect(() => {
+  useLayoutEffect(() => {
+        localStorage.removeItem("cart");
         import("../CSS/PaymentSuccessful.css");
     }, []);
 

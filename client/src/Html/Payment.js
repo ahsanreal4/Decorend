@@ -10,19 +10,25 @@ export default function Payment() {
     const [clientSecret, setClientSecret] = useState("");
     useEffect(() => {
       try {
-
-      fetch("http://localhost:3000/api/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-      })
-        .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret))
-        .catch(() => document.querySelector("#pay_btn").disabled = false);
-      }
+        if (localStorage.getItem("paymentProcessing") != null) {
+          localStorage.removeItem("paymentProcessing");
+          fetch("http://localhost:3000/api/create-payment-intent", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+          })
+            .then((res) => res.json())
+            .then((data) => setClientSecret(data.clientSecret))
+            .catch(() => document.querySelector("#pay_btn").disabled = false);
+        }
+        else {
+          window.location.href = "/";
+        }
+        }
       catch (error) {
-        MySwal("error", "Error while processing payment", 1500);
-      }
+          MySwal("error", "Error while processing payment", 1500);
+        }
+    
       
     }, []);
     const appearance = {

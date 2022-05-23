@@ -49,7 +49,6 @@ const PaymentGateway = () => {
     }
 
     setIsLoading(true);
-
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
@@ -57,6 +56,7 @@ const PaymentGateway = () => {
         return_url: "http://localhost:3000/paymentSuccessful",
       },
     });
+
     
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to

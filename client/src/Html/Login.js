@@ -39,7 +39,7 @@ export default function Login() {
         } else {
           location = "EventManager";
         }
-        let item = {"email":data.data.email, "name": data.data.name,"userType":data.data.userType,"id":data.data.id};
+        let item = {"email":data.data.email, "name": data.data.name,"userType":data.data.userType,"id":data.data._id};
         localStorage.setItem("userData", JSON.stringify(item));
         setTimeout(() => {
           window.location.href = "/" + location;

@@ -6,6 +6,11 @@ import getScreenAccessible from "../ScreenHelper";
 export default function Products() {
     let [screenLoading, setScreenLoading] = useState(false);
 
+    const processPayment = () => {
+        localStorage.setItem("paymentProcessing", "true");
+        window.location.href = "/payment";
+    }
+
     useLayoutEffect(() => {
         if (!getScreenAccessible("Products")) {
             window.location.href = "/login";
@@ -62,7 +67,7 @@ export default function Products() {
                         <h3 className="cart-total text-slanted">
                             total : $12.99
                         </h3>
-                        <button className="cart-checkout btn" onClick={(() => window.location.href = "/payment")}>checkout</button>
+                        <button className="cart-checkout btn" onClick={(() => processPayment())}>checkout</button>
                     </footer>
                 </aside>
             </div>
