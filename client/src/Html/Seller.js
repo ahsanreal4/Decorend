@@ -136,7 +136,6 @@ export default function Seller() {
                     <br />
                     <UploadWidget />
                     <br />
-                    <br />
                     <div className='bt'>
                             <button className='button' id="addProductBtn" onClick={(() => addProduct())}><b>Add Product</b></button>
                             <button style={{"display":"none"}} className='button' id="updateProductBtn" onClick={(() => updateProduct())}><b>Update Product</b></button>

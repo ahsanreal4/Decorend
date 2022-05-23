@@ -41,6 +41,7 @@ const display = (products, element) => {
         }
       }
       if (product != null) {
+        console.log(product);
         let inputName = document.getElementById("ProductName"); 
         let inputPrice = document.getElementById("ProductPrice");
         let addButton = document.getElementById("addProductBtn");

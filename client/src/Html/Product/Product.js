@@ -6,9 +6,9 @@ export default function Product() {
     let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
-        if (!getScreenAccessible("Product")) {
-            window.location.href = "/login";
-        }
+        // if (!getScreenAccessible("Product")) {
+        //     window.location.href = "/login";
+        // }
       import("../../CSS/About.css");
       setScreenLoading(true);
       import("./Script files/product.js");

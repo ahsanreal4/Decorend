@@ -128,33 +128,58 @@ router.post("/saveCanvas", async (req, res) => {
     const user = await User.findOne({
       email: "ahsan.btph123@gmail.com",
     });
-    const tempCanvas = await Canvas.findOne({
-      userID: user._id,
-    });
-    if (tempCanvas) {
-      await Canvas.deleteOne({
-        userID: user._id,
-      });
-    }
+    // const tempCanvas = await Canvas.findOne({
+    //   userID: user._id,
+    // });
+    // if (tempCanvas) {
+    //   await Canvas.deleteOne({
+    //     userID: user._id,
+    //   });
+    // }
     const json2 = {
       userID: user._id,
       canvas: req.body.canvas,
+      imageUrl: req.body.imageUrl
     };
     await Canvas.create(json2);
     return res.json({ status: "ok" });
   } catch (err) {
-    return res.json({ status: "error" });
+    return res.json({ status: "error", data:err });
+  }
+});
+
+//Update Canvas
+router.post("/updateCanvas", async (req, res) => {
+  try {
+    const tempCanvas = await Canvas.findOne({
+      _id: req.body.id,
+    });
+    if (tempCanvas) {
+      await Canvas.deleteOne({
+        _id: req.body.id,
+      });
+      const json2 = {
+      userID: tempCanvas.userID,
+      canvas: req.body.canvas,
+      imageUrl: req.body.imageUrl
+    };
+    await Canvas.create(json2);
+    return res.json({ status: "ok" });
+    }
+    else {
+      return res.status(404).json({ msg: "Canvas not found" });
+    }
+
+  } catch (err) {
+    return res.json({ status: "error", data:err });
   }
 });
 
 //Get Canvas
-router.get("/loadCanvas", async (req, res) => {
+router.post("/loadCanvas", async (req, res) => {
   try {
-    const user = await User.findOne({
-      email: "ahsan.btph123@gmail.com",
-    });
     const canvas = await Canvas.findOne({
-      userID : user._id,
+      _id : req.body.id,
     });
 
     if (canvas) {
@@ -167,7 +192,7 @@ router.get("/loadCanvas", async (req, res) => {
 });
 
 //Get Products
-router.get("/getProducts", async (req, res) => {
+router.post("/getProducts", async (req, res) => {
   try {
     const products = await Product.find({});
     return res.json({ status: "ok", data: products });
@@ -184,6 +209,18 @@ router.post("/getProduct", async (req, res) => {
     return res.json({ status: "ok", data: product });
   } catch (err) {
     return res.json({ status: "error", error: err });
+  }
+});
+
+
+router.post("/getSelfCanvases", async (req, res) => {
+  try {
+    const canvases = await Canvas.find({
+      userID: req.body.id,
+    });
+    return res.json({ status: "ok", data: canvases });
+  } catch (err) {
+    return res.json({ status: "error" });
   }
 });
 
@@ -204,7 +241,6 @@ router.post("/addProduct", async (req, res) => {
       productType: req.body.productType,
       fields: req.body.fields,
     };
-    console.log(json2);
     await Product.create(json2);
     res.json({ status: "ok", data: json2 });
   } catch (err) {
@@ -218,7 +254,6 @@ router.post("/getSelfProducts", async (req, res) => {
     const products = await Product.find({
       userID: req.body.id,
     });
-    console.log(products);
     return res.json({ status: "ok", data: products });
   } catch (err) {
     return res.json({ status: "error" });

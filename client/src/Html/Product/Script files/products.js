@@ -17,10 +17,9 @@ import fetchProducts from '../Script files/fetchProduct.js';
 
 const init2 = async () => {
   const loading = getElement('.page-loading');
-  if (store.length < 1) {
     const products = await fetchProducts();
     setupStore(products);
-  }
+
   display(store, getElement('.products-container'));
 
   setupSearch(store);
