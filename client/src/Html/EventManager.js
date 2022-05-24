@@ -9,6 +9,7 @@ export default function EventManager() {
     let [name, setName] = useState("");
     let [price, setPrice] = useState(0);
     let [company, setCompany] = useState("");
+    let [description, setDescription] = useState("");
     let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
@@ -34,7 +35,7 @@ export default function EventManager() {
         let id = productID;
         let data2 = JSON.parse(localStorage.getItem("userData"));
         let userId = data2.id;
-        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": "" } });
+        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": document.getElementById("description") } });
             const response = await fetch("http://localhost:3000/api/updateProduct", {
             method: "PUT",
             headers: {
@@ -59,7 +60,7 @@ export default function EventManager() {
             let id = Date.now().toString();
             let data2 = JSON.parse(localStorage.getItem("userData"));
             let userId = data2.id;
-          let jsonObject = JSON.stringify({"id": id ,"userID": userId,"productType": "event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" }  });
+          let jsonObject = JSON.stringify({"id": id ,"userID": userId,"productType": "event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": description }  });
             const response = await fetch("http://localhost:3000/api/addProduct", {
             method: "POST",
             headers: {
@@ -129,6 +130,10 @@ export default function EventManager() {
                                 <option value="" disabled hidden>Select Company</option>
                                 <option value={"ikea"}>IKEA</option>
                             </select>
+                                </div>
+                                 <div className="input">
+                            <span className="label" htmlFor="description"><b>Description</b></span>
+                            <input autoComplete='off' onChange={((e) => setDescription(e.target.value))} required id="description" placeholder='Enter Description'></input>
                         </div>
                         <br />
                         {/* <div className="input">
