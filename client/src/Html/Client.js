@@ -1,18 +1,19 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import Navbar from "./Navbar/Navbar";
 import getScreenAccessible from "./ScreenHelper";
 
 export default function Client() {
-
+  let [screenLoading, setScreenLoading] = useState(false);
   useLayoutEffect(() => {
   if (!getScreenAccessible("Client")) {
       window.location.href = "/login";
     }
     import("../CSS/ClientHomePage.css");
+    setTimeout(() => setScreenLoading(true), 700);
   });
 
   return (
- <div>
+    screenLoading == true && ( <div>
         <Navbar />
         {/* Background */}
         <div className="Cover" />
@@ -61,7 +62,7 @@ export default function Client() {
                 <img src="images/event.jpg" className="img-fluid" alt="" />
               </div>
               <div className="buttons">
-                <a href="/products" className="button">View Event Designs</a>
+                <a href="/events" className="button">View Event Designs</a>
               </div>
             </div>
           </div>
@@ -159,6 +160,7 @@ export default function Client() {
         {/* Bootstrap core JavaScript */}
         {/* MDB core JavaScript */}
         {/* coustom js */}
-      </div>
+      </div>)
+   
   );
 }

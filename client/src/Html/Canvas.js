@@ -1,9 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { fabric } from "fabric";
 import MySwal from "../AlertModel/MySwal";
+import logo from "../img/ballon/blue ballon.svg"
+import logo2 from "../img/ballon/Green ballon.svg"
+import logo3 from "../img/ballon/Purple ballon.svg"
+import logo4 from "../img/ballon/Purple light ballon.svg"
+import logo5 from "../img/ballon/Red ballon.svg"
+import fballon  from "../img/golden-balloons-transparent-background/515 [Converted].svg"
+import fballon2 from "../img/realistic-party-balloons-set/32627 [Converted].svg"
+import fballon3 from "../img/flat-style-happy-birthday-balloons-confetti-background/SVG/merge ballons.svg"
+import logo9 from "../CSS/images/canvas.jpg"
 
 export default function Canvas() {
-  const [canvas, setCanvas] = useState(null);
+  const [canvas, setCanvas] = useState();
+  const [inactive, setInactive] = useState(false);
+  const [show, setshow] = useState(false);
+  const [show01, setshow01] = useState(false);
+  const [show02, setshow02] = useState(false);
+  const [show1, setshow1] = useState(false);
+  const [show11, setshow11] = useState(false);
+  const [show12, setshow12] = useState(false);
 
   useEffect(() => {
     let editId = "0";
@@ -31,12 +47,17 @@ export default function Canvas() {
       width: 700,
       backgroundColor: "white",
     });
-    obj.on('mouse:up', function(options) {
-      console.log(options.e.clientX, options.e.clientY);
+    obj.on({
+      'selection:updated': HandleElement,
+      'selection:created': HandleElement
     });
     obj.preserveObjectStacking = true;
     return obj;
   };
+
+  function HandleElement(obj){
+    console.log(obj);
+  }
 
   const addRect = (canvi) => {
     const rect = new fabric.Rect({
@@ -166,11 +187,11 @@ export default function Canvas() {
       }
   };
 
-  const clearCanvas = (canvi) => {
-    canvi.clear();
-    let c = initCanvas();
-    setCanvas(c);
-  };
+  // const clearCanvas = (canvi) => {
+  //   canvi.clear();
+  //   let c = initCanvas();
+  //   setCanvas(c);
+  // };
 
   const deleteCanvas = (canvi) => {
     canvi.remove(canvi.getActiveObject());
@@ -178,39 +199,226 @@ export default function Canvas() {
 
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
-    let imgInstance = new fabric.Image(imgElement, {
-      left: e.clientX/2.5,
-      top: e.clientY,
-      angle: 0,
-      opacity: 1,
-      width: imgElement.width,
-      height: imgElement.height,
-    });
-    canvi.add(imgInstance);
+    let srcSplit = imgElement.src.split(".");
+    if (srcSplit[srcSplit.length - 1] != "svg") {
+      let imgInstance = new fabric.Image(imgElement, {
+        left: e.clientX / 2.5,
+        top: e.clientY,
+        angle: 0,
+        opacity: 1,
+        width: imgElement.width,
+        height: imgElement.height,
+      });
+      canvi.add(imgInstance);
+    }
+    else {
+      let src = imgElement.src;
+      fabric.loadSVGFromURL(src,function(objects, options){
+        var svgData = fabric.util.groupSVGElements(objects, options);
+        svgData.top = 30;
+        svgData.left = 50;
+        canvas.add(svgData);
+      });
+    }
     canvi.renderAll();
   };
 
   return (
     <div>
-      <img
-        src="https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico"
-        id="my-image"
-        style={{ display: "none" }}
-      />
-      <div id="buttons">
-        <button onClick={() => addRect(canvas)}>Add Rect</button>
-        <button onClick={() => addCircle(canvas)}>Add Circle</button>
-        <button onClick={() => addLine(canvas)}>Add Line</button>
-        <button id="saveButton" onClick={() => SaveCanvas(canvas)}>Save</button>
-        <button style={{"display":"none"}} id="updateButton" onClick={() => SaveCanvas(canvas)}>Update</button>
-        <button onClick={() => LoadCanvas(canvas)}>Load</button>
-        <button onClick={() => deleteCanvas(canvas)}>Delete</button>
-        <button onClick={() => clearCanvas(canvas)}>Clear</button>
+      <div className={`side-menu ${inactive ? "inactive" : ""}`}>
+      <div className="top-section">
+        <div className="logo">
+          <h2>Items</h2>
+        </div>
+        <div onClick={() => setInactive(!inactive)} className="toggle-menu-btn">
+          {inactive ? (
+            <i className="bi bi-arrow-right-square-fill"></i>
+          ) : (
+            <i className="bi bi-arrow-left-square-fill"></i>
+          )}
+        </div>
       </div>
-      <div id="images">
-          <img id="img1" crossOrigin="anonymous" src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+
+      <div className="search-controller">
+        <button className="search-btn" onClick={() => setInactive(!inactive)}>
+          <i className="bi bi-search"></i>
+        </button>
+
+        <input type="text" placeholder="search" />
       </div>
-      <canvas id="canvas" style={{ border: "1px solid black"}} />
+
+      <div className="divider"></div>
+
+      <div className="main-menu">
+        <ul>     
+          <li className= {`menu-item ${show ? "showmenu" : ""}`}>
+            <div className="iocn-link">
+              <a href="#">
+                <i className="fa fa-golf-ball" ></i>
+                <span className="link_name">Ballons</span>
+              </a>
+              <i className='fa fa-chevron-down arrow' onClick={() => setshow(!show)} ></i>
+            </div>
+            <ul className="sub-menu">
+              <li className= {`menu ${show01 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    Simple Ballons
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow01(!show01)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src={logo} alt="" id="img1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo2} alt="" id="img2" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo3} alt="" id="img3" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo4} alt="" id="img4" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo5} alt="" id="img5" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li className= {`menu ${show02 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    Fansy Ballons
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow02(!show02)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src={fballon} alt="" id="img6" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={fballon2} alt="" id="img7" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={fballon3} alt="" id="img8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={fballon3} alt="" id="img8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+
+                    </div>
+                    <div className="div">
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+
+          <li className= {`menu-item ${show1 ? "showmenu" : ""}`}>
+            <div className="iocn-link">
+              <a href="#">
+                <i className="fa fa-couch" ></i>
+                <span className="link_name">Furniture</span>
+              </a>
+              <i className='fa fa-chevron-down arrow' onClick={() => setshow1(!show1)} ></i>
+            </div>
+            <ul className="sub-menu">
+              <li className= {`menu ${show11 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    Tables
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow11(!show11)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src="https://res.cloudinary.com/dnuuh99qn/image/upload/v1653366220/blue_ballon_cltoat.svg" alt="" id="img9" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo2} alt="" id="img10" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo3} alt="" id="img11" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo4} alt="" id="img12" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={logo5} alt="" id="img13" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li className= {`menu ${show12 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    chairs
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow12(!show12)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src={logo9} alt="" id="img100" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+                    </div>
+                    <div className="div">
+
+                    </div>
+                    <div className="div">
+
+                    </div>
+                    <div className="div">
+
+                    </div>
+                    <div className="div">
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+
+        </ul>
+      </div>
+
+      {/* <div className="side-menu-footer">
+        <div className="avatar">
+        <i className="fa fa-user"></i>
+        </div>
+        <div className="user-info">
+          <h5>xyz</h5>
+          <p>xyz@gmail.com</p>
+        </div>
+      </div> */}
+    </div>
+            <div className="container">
+              <div id="buttons">
+                <button onClick={() => addRect(canvas)}>Add Rect</button>
+                <button onClick={() => addCircle(canvas)}>Add Circle</button>
+                <button onClick={() => addLine(canvas)}>Add Line</button>
+                <button id="saveButton" onClick={() => SaveCanvas(canvas)}>Save</button>
+                <button style={{"display":"none"}} id="updateButton" onClick={() => SaveCanvas(canvas)}>Update</button>
+                <button onClick={() => deleteCanvas(canvas)}>Delete</button>
+                {/* <button onClick={() => clearCanvas(canvas)}>Clear</button> */}
+              </div>
+              {/* <div id="images">
+                  <img src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+              </div> */}
+              <canvas id="canvas" style={{ border: "1px solid black"}} />
+      </div>
     </div>
   );
 }

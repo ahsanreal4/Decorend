@@ -48,6 +48,9 @@ let productID;
       if (description == "") {
         description = "No description.";
       }
+      if (product.productType == "event") {
+        cartBtn.innerHTML = "Book Event";
+      }
       const image = fields.imageUrl;
       imgDOM.src = image;
       titleDOM.textContent = name;

@@ -34,18 +34,6 @@ router.post("/create-payment-intent", async (req, res) => {
 });
 
 
-// exports.processPayment = async (req, res, next) => {
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     amount: req.body.amount,
-//     currency: "usd",
-//     metadata: { integration_check: "accept_a_payment" },
-//   });
-//   res.status(200).json({
-//     success: true,
-//     client_secret: paymentIntent.client_secret,
-//   });
-// }
-
 //Sign up user
 router.post("/signup", async (req, res) => {
   try {
@@ -102,7 +90,7 @@ router.post("/emailExist", async (req, res) => {
   }
 });
 
-//Update user
+//Update user Password
 router.put("/updateUser", async (req, res) => {
   try {
     const user = await User.findOne({
@@ -114,6 +102,28 @@ router.put("/updateUser", async (req, res) => {
     const new_user = await User.findByIdAndUpdate(
       user._id,
       { $set: user },
+      { new: true }
+    );
+    return res.json({ status: "ok" });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+//Update user Info
+router.put("/updateUserInfo", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.body._id,
+    });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    await User.deleteOne({
+        _id: req.body.id,
+    });
+    const user2 = req.body;
+    const new_user = await User.findByIdAndUpdate(
+      user2._id,
+      { $set: user2 },
       { new: true }
     );
     return res.json({ status: "ok" });
@@ -194,7 +204,17 @@ router.post("/loadCanvas", async (req, res) => {
 //Get Products
 router.post("/getProducts", async (req, res) => {
   try {
-    const products = await Product.find({});
+    const products = await Product.find({productType: "product"});
+    return res.json({ status: "ok", data: products });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+//Get Events
+router.post("/getEvents", async (req, res) => {
+  try {
+    const products = await Product.find({productType: "event"});
     return res.json({ status: "ok", data: products });
   } catch (err) {
     return res.json({ status: "error" });
@@ -223,6 +243,18 @@ router.post("/getSelfCanvases", async (req, res) => {
     return res.json({ status: "error" });
   }
 });
+
+router.post("/getUserInfo", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.body.id,
+    });
+    return res.json({ status: "ok", data: user });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
 
 /*
 ==================================================================

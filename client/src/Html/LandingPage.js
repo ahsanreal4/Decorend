@@ -7,6 +7,18 @@ export default function LandingPage() {
   let [screenLoading, setScreenLoading] = useState(false);
 
   useLayoutEffect(() => {
+    let data = JSON.parse(localStorage.getItem("userData"));
+    if (data != null) {
+      if (data.userType == "user") {
+        window.location.href = "/Client";
+      }
+      else if (data.userType == "seller") {
+        window.location.href = "/Seller";
+      }
+      else if (data.userType == "manager") {
+        window.location.href = "/EventManager";
+      }
+    }
     import("../CSS/LandingPage.css");
     setScreenLoading(true);
   });

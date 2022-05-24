@@ -4,7 +4,8 @@ import { useEffect, useLayoutEffect, useState } from "react"
 export default function Navbar() {
     let [loaded,setLoaded] = useState(false);
     let [userLoggedIn, setUserLoggedIn] = useState(true);
-    let [name,setName] = useState("");
+    let [name, setName] = useState("");
+    let [userType, setUserType] = useState("");
 
     useLayoutEffect(() => {
         import("../../CSS/Navbar.css");
@@ -14,6 +15,7 @@ export default function Navbar() {
         }
         else {
             setName(data.name.split(" ")[0]);
+            setUserType(data.userType);
         }
     }, []);
 
@@ -69,16 +71,31 @@ export default function Navbar() {
                     </a>
                     </li>
                     <li className="nav-item ">
-                    <a className="nav-link" href="/#service">
+                                
+                    {userLoggedIn == true && userType == "user" ?
+                    <a className="nav-link" href="/products">
+                        <i className="far fa-star-half">
+                        </i>Products
+                        </a> :
+                        <a className="nav-link" href="/#service">
                         <i className="far fa-star-half">
                         </i>Services
-                    </a>
+                    </a>}
+
                     </li>
                     <li className="nav-item ">
-                    <a className="nav-link" href="/#pics"> 
-                        <i className="fas fa-calendar-check" />
-                        Event
-                    </a>
+                                {userLoggedIn == true && userType == "user" ?
+                                    <a className="nav-link" href="/events"> 
+                                        <i className="fas fa-calendar-check" />
+                                        Events
+                                    </a>
+                                : 
+                                    <a className="nav-link" href="/#pics"> 
+                                        <i className="fas fa-calendar-check" />
+                                        Event
+                                    </a>
+                                } 
+
                     </li>
                     <li className="nav-item">
                     <a className="nav-link" href="/#contact">
@@ -90,7 +107,7 @@ export default function Navbar() {
                 </div>
                 <div className="navchild1">
                     <div className="navbar-nav  navright">
-                    {userLoggedIn == false ? (<button onClick={() => login()}><i>Login</i></button>) : (<button><i>{ name }</i></button>)}                  
+                    {userLoggedIn == false ? (<button onClick={() => login()}><i>Login</i></button>) : (<button onClick={() => window.location.href = "/profile"}><i>{ name }</i></button>)}                  
                     {userLoggedIn == false ?   (<button onClick={() => SignUp()} className="simple"><i>Signup</i></button>) : (<button onClick={(() => logout())} className="simple"><i className="fas fa-sign-out-alt"></i></button>)}
                 </div>
                 </div>

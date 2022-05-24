@@ -17,6 +17,8 @@ import AddProduct from "./Html/AddProduct";
 import Payment from "./Html/Payment";
 import PaymentSuccessful from "./Html/PaymentSuccessful";
 import Canvases from "./Html/Canvases";
+import Events from "./Html/Product/Events";
+import Profile from "./Html/Profile";
 
 function App() {
   return (
@@ -67,6 +69,12 @@ function App() {
           </Route>
           <Route exact path="/canvases">
             <Canvases />
+          </Route>
+          <Route exact path="/events">
+            <Events />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
           </Route>
         </Switch>
       </div>
