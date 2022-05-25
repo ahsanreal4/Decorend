@@ -202,6 +202,11 @@ export default function Canvas() {
     canvi.renderAll();
   };
 
+  const changeBackGroundColor = (e, canvi) => {
+    canvas.backgroundColor=e.target.value;
+    canvas.renderAll();
+  };
+
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
     let srcSplit = imgElement.src.split(".");
@@ -419,6 +424,7 @@ export default function Canvas() {
           <button onClick={() => deleteCanvas(canvas)}>Delete</button>
           <button onClick={() => bringToFront(canvas)}>Bring To Front</button>
           <button onClick={() => bringToBack(canvas)}>Send To Back</button>
+          <input onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
                 {/* <button onClick={() => clearCanvas(canvas)}>Clear</button> */}
               </div>
               {/* <div id="images">
