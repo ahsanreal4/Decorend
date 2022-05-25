@@ -203,8 +203,8 @@ export default function Canvas() {
   };
 
   const changeBackGroundColor = (e, canvi) => {
-    canvas.backgroundColor=e.target.value;
-    canvas.renderAll();
+    canvi.backgroundColor=e.target.value;
+    canvi.renderAll();
   };
 
   const onDragEndImage = (e, canvi) => {
