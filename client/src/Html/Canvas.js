@@ -47,17 +47,9 @@ export default function Canvas() {
       width: 700,
       backgroundColor: "white",
     });
-    obj.on({
-      'selection:updated': HandleElement,
-      'selection:created': HandleElement
-    });
     obj.preserveObjectStacking = true;
     return obj;
   };
-
-  function HandleElement(obj){
-    console.log(obj);
-  }
 
   const addRect = (canvi) => {
     const rect = new fabric.Rect({
@@ -197,6 +189,19 @@ export default function Canvas() {
     canvi.remove(canvi.getActiveObject());
   };
 
+  const bringToFront = (canvi) => {
+    var activeObj = canvas.getActiveObject();
+    canvi.bringToFront(activeObj);
+    canvi.renderAll();
+  };
+
+  
+  const bringToBack = (canvi) => {
+    var activeObj = canvas.getActiveObject();
+    canvi.sendToBack(activeObj);
+    canvi.renderAll();
+  };
+
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
     let srcSplit = imgElement.src.split(".");
@@ -220,7 +225,7 @@ export default function Canvas() {
         canvas.add(svgData);
       });
     }
-    canvi.renderAll();
+    // canvi.renderAll();
   };
 
   return (
@@ -411,7 +416,9 @@ export default function Canvas() {
                 <button onClick={() => addLine(canvas)}>Add Line</button>
                 <button id="saveButton" onClick={() => SaveCanvas(canvas)}>Save</button>
                 <button style={{"display":"none"}} id="updateButton" onClick={() => SaveCanvas(canvas)}>Update</button>
-                <button onClick={() => deleteCanvas(canvas)}>Delete</button>
+          <button onClick={() => deleteCanvas(canvas)}>Delete</button>
+          <button onClick={() => bringToFront(canvas)}>Bring To Front</button>
+          <button onClick={() => bringToBack(canvas)}>Send To Back</button>
                 {/* <button onClick={() => clearCanvas(canvas)}>Clear</button> */}
               </div>
               {/* <div id="images">
