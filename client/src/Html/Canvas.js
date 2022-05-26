@@ -210,7 +210,13 @@ export default function Canvas() {
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
     let srcSplit = imgElement.src.split(".");
-    if (srcSplit[srcSplit.length - 1] != "svg") {
+    if (srcSplit[srcSplit.length - 1] == "png" || srcSplit[srcSplit.length - 1] == "jpg") {
+      let src = imgElement.src;
+      fabric.Image.fromURL(src, function (myImg) {
+         canvas.add(myImg); 
+      });
+    }
+    else if (srcSplit[srcSplit.length - 1] != "svg") {
       let imgInstance = new fabric.Image(imgElement, {
         left: e.clientX / 2.5,
         top: e.clientY,
@@ -383,6 +389,7 @@ export default function Canvas() {
                     <img src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
                     </div>
                     <div className="div">
+                    <img crossOrigin="anonymous" src='https://res.cloudinary.com/dabst2axx/image/upload/v1653542494/PngItem_521390__01_mxaf1e.png' id="img102" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
 
                     </div>
                     <div className="div">
