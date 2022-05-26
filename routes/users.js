@@ -316,6 +316,7 @@ router.post("/addProduct", async (req, res) => {
       userID: req.body.userID,
       productType: req.body.productType,
       fields: req.body.fields,
+      imagesUrl: req.body.imagesUrl
     };
     await Product.create(json2);
     res.json({ status: "ok", data: json2 });
@@ -349,6 +350,7 @@ router.put("/updateProduct", async (req, res) => {
     product.fields.price = req.body.fields.price;
     product.fields.imageUrl = req.body.fields.imageUrl; 
     product.fields.company = req.body.fields.company;
+    product.imagesUrl = req.body.imagesUrl;
     const new_product = await Product.findByIdAndUpdate(
       product._id,
       { $set: product },

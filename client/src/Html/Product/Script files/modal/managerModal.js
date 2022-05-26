@@ -12,9 +12,12 @@ openmodal.addEventListener('click', () => {
         document.getElementById("addProductBtn").style.display = "inline";
         document.getElementById("ProductName").value = "";
         document.getElementById("ProductPrice").value = "";
+        document.getElementById("description").value = "";
     }
 });
 closemodal.addEventListener('click', () => {
     modelshow.classList.remove('bg-active');
     localStorage.removeItem("productID");
+    localStorage.removeItem("url");
+    localStorage.removeItem("imagesUrl");
 });

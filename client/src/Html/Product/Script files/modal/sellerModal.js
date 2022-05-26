@@ -17,4 +17,6 @@ openmodal.addEventListener('click', () => {
 closemodal.addEventListener('click', () => {
     modelshow.classList.remove('bg-active');
     localStorage.removeItem("productID");
+    localStorage.removeItem("url");
+    localStorage.removeItem("imagesUrl");
 });

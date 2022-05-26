@@ -13,9 +13,6 @@ const display = (products, element) => {
             <img src="${imageUrl}" class="product-img img" alt="${name}" />
            
             <div class="product-icons">
-              <a href="/product?id=${_id}" class="product-icon">
-                <i class="fas fa-search"></i>
-              </a>
               <a href="#" class="product-icon edit-icon" id=${_id}>
                 <i class="fas fa-edit" id=${_id}></i>
               </a>
@@ -70,6 +67,11 @@ const display = (products, element) => {
         let inputName = document.getElementById("ProductName"); 
         let inputPrice = document.getElementById("ProductPrice");
         let addButton = document.getElementById("addProductBtn");
+        let descriptionInput = document.getElementById("description");
+        let userData = JSON.parse(localStorage.getItem("userData"));
+        if (userData.userType == "manager") {
+          descriptionInput.value = product.description;
+        }
         let updateButton =  document.getElementById("updateProductBtn");
         inputName.setAttribute('value', product.name);
         inputPrice.setAttribute('value', product.price);

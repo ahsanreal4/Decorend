@@ -6,6 +6,7 @@ const ProductSchema = new mongoose.Schema(
     userID: {type:mongoose.Schema.Types.ObjectId, required: true},
     productType: {type: String, required: true},
     fields: { type: JSON, required: true },
+    imagesUrl: {type:[String], required: true}
   },
   { collection: "Product" }
 );

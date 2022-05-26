@@ -9,7 +9,7 @@ import { singleProductUrl, getElement, formatPrice } from './util.js';
 // selections
 const loading = getElement('.page-loading');
 const centerDOM = getElement('.single-product-center');
-const imgDOM = getElement('.single-product-img');
+// const imgDOM = getElement('.single-product-img');
 const titleDOM = getElement('.single-product-title');
 const companyDOM = getElement('.single-product-company');
 const priceDOM = getElement('.single-product-price');
@@ -41,7 +41,7 @@ let productID;
     if (data.status == "ok") {
       const product = data.data;
       // grab data
-      const { _id, fields } = product;
+      const { _id, fields, imagesUrl } = product;
       productID = _id;
 
       let { name, company, price, colors, description } = fields;
@@ -51,8 +51,18 @@ let productID;
       if (product.productType == "event") {
         cartBtn.innerHTML = "Book Event";
       }
-      const image = fields.imageUrl;
-      imgDOM.src = image;
+      // const image = fields.imageUrl;
+      // imgDOM.src = image;
+      console.log(imagesUrl);
+      if (imagesUrl?.length > 0) {
+        document.getElementById("cimg1").setAttribute("src", imagesUrl[0]);
+      }
+      if (imagesUrl?.length > 1) {
+        document.getElementById("cimg2").setAttribute("src", imagesUrl[1]);
+      }
+      if (imagesUrl?.length > 2) {
+        document.getElementById("cimg3").setAttribute("src", imagesUrl[2]);
+      }
       titleDOM.textContent = name;
       companyDOM.textContent = `by ${company}`;
       priceDOM.textContent = formatPrice(price);

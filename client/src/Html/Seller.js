@@ -33,8 +33,10 @@ export default function Seller() {
         localStorage.removeItem("productID");    
         let id = productID;
         let data2 = JSON.parse(localStorage.getItem("userData"));
-        let userId = data2.id;
-        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": "" } });
+            let userId = data2.id;
+                        let imagesUrl = JSON.parse(localStorage.getItem("imagesUrl"));
+            let images = imagesUrl.urls;
+        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": "" }, "imagesUrl" : images });
             const response = await fetch("http://localhost:3000/api/updateProduct", {
             method: "PUT",
             headers: {
@@ -58,8 +60,10 @@ export default function Seller() {
         localStorage.removeItem("url");
         let id = Date.now().toString();
         let data2 = JSON.parse(localStorage.getItem("userData"));
-        let userId = data2.id;
-        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" } });
+            let userId = data2.id;
+                        let imagesUrl = JSON.parse(localStorage.getItem("imagesUrl"));
+            let images = imagesUrl.urls;
+        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"product", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": price, "name": name, "imageUrl": imageUrl, "description": "" }, "imagesUrl" : images });
             const response = await fetch("http://localhost:3000/api/addProduct", {
             method: "POST",
             headers: {
