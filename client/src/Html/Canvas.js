@@ -98,6 +98,7 @@ export default function Canvas() {
   const SaveCanvas = async (canvi) => {
     if (canvi._objects.length !== 0) {
       let editId = localStorage.getItem("editId");
+      let userData = JSON.parse(localStorage.getItem("userData"));
       if (editId == "0") { 
       let jsonString = JSON.stringify(canvi);
       var image = new Image();
@@ -112,7 +113,7 @@ export default function Canvas() {
       })
         .then(resp => resp.json())
         .then(data => {
-          let json2 = JSON.stringify({ canvas: jsonString, imageUrl: data.url });
+          let json2 = JSON.stringify({ canvas: jsonString, imageUrl: data.url, email: userData.email });
           fetch("http://localhost:3000/api/saveCanvas", {
             method: "POST",
             headers: {

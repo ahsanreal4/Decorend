@@ -136,7 +136,7 @@ router.put("/updateUserInfo", async (req, res) => {
 router.post("/saveCanvas", async (req, res) => {
   try {
     const user = await User.findOne({
-      email: "ahsan.btph123@gmail.com",
+      email: req.body.email
     });
     // const tempCanvas = await Canvas.findOne({
     //   userID: user._id,
