@@ -230,7 +230,7 @@ export default function Canvas() {
         canvas.add(svgData);
       });
     }
-    // canvi.renderAll();
+    canvi.renderAll();
   };
 
   return (
