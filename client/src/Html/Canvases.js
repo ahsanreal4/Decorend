@@ -22,6 +22,7 @@ export default function Canvases() {
         }, 500);
     }, []);
 
+
     return (
     screenLoading === true && (   
 

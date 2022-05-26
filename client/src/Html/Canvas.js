@@ -210,6 +210,7 @@ export default function Canvas() {
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
     let srcSplit = imgElement.src.split(".");
+    imgElement.setAttribute('crossorigin', 'anonymous'); // works for me
     if (srcSplit[srcSplit.length - 1] == "png" || srcSplit[srcSplit.length - 1] == "jpg") {
       let src = imgElement.src;
       fabric.Image.fromURL(src, function (myImg) {
@@ -386,10 +387,9 @@ export default function Canvas() {
                     <img src={logo9} alt="" id="img100" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+                    <img crossOrigin="anonymous" src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
                     </div>
                     <div className="div">
-                    <img crossOrigin="anonymous" src='https://res.cloudinary.com/dabst2axx/image/upload/v1653542494/PngItem_521390__01_mxaf1e.png' id="img102" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
 
                     </div>
                     <div className="div">

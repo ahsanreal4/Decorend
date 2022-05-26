@@ -232,13 +232,53 @@ router.post("/getProduct", async (req, res) => {
   }
 });
 
-
+// GET CANVASES
 router.post("/getSelfCanvases", async (req, res) => {
   try {
     const canvases = await Canvas.find({
       userID: req.body.id,
     });
     return res.json({ status: "ok", data: canvases });
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+//DELETE CANVAS 
+router.post("/deleteCanvas", async (req, res) => {
+  try {
+    const tempCanvas = await Canvas.findOne({
+      _id: req.body.id,
+    });
+    if (tempCanvas) {
+      await Canvas.deleteOne({
+        _id: req.body.id,
+      });
+      return res.json({ status: "ok" });
+    }
+    else {
+      return res.status(404).json({ msg: "Canvas not found" });
+    }
+  } catch (err) {
+    return res.json({ status: "error" });
+  }
+});
+
+//DELETE PRODUCT 
+router.post("/deleteProduct", async (req, res) => {
+  try {
+    const tempCanvas = await Product.findOne({
+      _id: req.body.id,
+    });
+    if (tempCanvas) {
+      await Product.deleteOne({
+        _id: req.body.id,
+      });
+      return res.json({ status: "ok" });
+    }
+    else {
+      return res.status(404).json({ msg: "Canvas not found" });
+    }
   } catch (err) {
     return res.json({ status: "error" });
   }
