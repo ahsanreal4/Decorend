@@ -149,7 +149,9 @@ router.post("/saveCanvas", async (req, res) => {
     const json2 = {
       userID: user._id,
       canvas: req.body.canvas,
-      imageUrl: req.body.imageUrl
+      imageUrl: req.body.imageUrl,
+      width: req.body.width,
+      height: req.body.height
     };
     await Canvas.create(json2);
     return res.json({ status: "ok" });
@@ -171,7 +173,9 @@ router.post("/updateCanvas", async (req, res) => {
       const json2 = {
       userID: tempCanvas.userID,
       canvas: req.body.canvas,
-      imageUrl: req.body.imageUrl
+      imageUrl: req.body.imageUrl,
+        width: req.body.width,
+      height: req.body.height
     };
     await Canvas.create(json2);
     return res.json({ status: "ok" });
