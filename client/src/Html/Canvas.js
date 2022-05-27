@@ -37,6 +37,8 @@ export default function Canvas() {
     }
     else {
       localStorage.setItem("editId", editId);
+      document.getElementById("width").value = 700;
+      document.getElementById("height").value = 500;
     }
     
   }, []);
