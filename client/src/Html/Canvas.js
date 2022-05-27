@@ -185,11 +185,9 @@ export default function Canvas() {
       }
   };
 
-  // const clearCanvas = (canvi) => {
-  //   canvi.clear();
-  //   let c = initCanvas();
-  //   setCanvas(c);
-  // };
+  const clearCanvas = (canvi) => {
+    canvi.remove(...canvi.getObjects());
+  };
 
   const deleteCanvas = (canvi) => {
     canvi.remove(canvi.getActiveObject());
@@ -505,7 +503,7 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => deleteCanvas(canvas)}>Delete</button>
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
-                {/* <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button> */}
+                <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
           <input id="width" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
           <input id="height" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="height" />
