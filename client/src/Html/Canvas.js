@@ -9,7 +9,28 @@ import logo5 from "../img/ballon/Red ballon.svg"
 import fballon  from "../img/golden-balloons-transparent-background/515 [Converted].svg"
 import fballon2 from "../img/realistic-party-balloons-set/32627 [Converted].svg"
 import fballon3 from "../img/flat-style-happy-birthday-balloons-confetti-background/SVG/merge ballons.svg"
-import logo9 from "../CSS/images/canvas.jpg"
+import cycle from "../img/new pik/bicycle-basket.png"
+import arch from "../img/new pik/flower arch.png"
+import path from "../img/new pik/garden-path.png"
+import arch2 from "../img/new pik/leaf-flower-tree.png"
+import arch3 from "../img/new pik/NicePng_arch-png_2161936.png"
+import arch4 from "../img/new pik/PngItem_5976934.png"
+import arch5 from "../img/new pik/pngwing.com.png"
+import arch6 from "../img/new pik/Studio_Project.png"
+import arch7 from "../img/new pik/Яндекс_Фотки переехали.png"
+import bdlogo from "../img/new pik/—Pngtree—happy birthday golden typography text_7271162.png"
+import grass from "../img/new pik/New folder/grass 2.png"
+import grass2 from "../img/new pik/New folder/lawn-grass.png"
+import lamp from "../img/new pik/lamp/imgbin_street-light-png.png"
+import lamp2 from "../img/new pik/lamp/street lamp.png"
+import lamp3 from "../img/new pik/lamp/treet lamp.png"
+import gift from "../img/new pik/New folder/gift box gold.png"
+import gift2 from "../img/new pik/New folder/gift box pink.png"
+import gift3 from "../img/new pik/New folder/gift box white.png"
+import gift4 from "../img/new pik/New folder/gift box with balloons.png"
+import gift5 from "../img/new pik/New folder/gift box.png"
+
+
 
 export default function Canvas() {
   const [canvas, setCanvas] = useState();
@@ -20,6 +41,10 @@ export default function Canvas() {
   const [show1, setshow1] = useState(false);
   const [show11, setshow11] = useState(false);
   const [show12, setshow12] = useState(false);
+  const [show2, setshow2] = useState(false);
+  const [show21, setshow21] = useState(false);
+  const [show22, setshow22] = useState(false);
+
 
   useEffect(() => {
     let editId = "0";
@@ -218,7 +243,7 @@ export default function Canvas() {
     if (srcSplit[srcSplit.length - 1] == "png" || srcSplit[srcSplit.length - 1] == "jpg") {
       let src = imgElement.src;
       fabric.Image.fromURL(src, function (myImg) {
-         canvas.add(myImg); 
+        canvas.add(myImg); 
       });
     }
     else if (srcSplit[srcSplit.length - 1] != "svg") {
@@ -256,7 +281,7 @@ export default function Canvas() {
 
   return (
     <div>
-      <div className={`side-menu ${inactive ? "inactive" : ""}`}>
+      <div className={`side-menu ${inactive ? "" : "inactive"}`}>
       <div className="top-section">
         <div className="logo">
           <h2>Nav</h2>
@@ -352,65 +377,7 @@ export default function Canvas() {
           </li>
 
 
-          <li className= {`menu-item ${show1 ? "showmenu" : ""}`}>
-            <div className="iocn-link">
-              <a href="#">
-                <i className="fa fa-couch" ></i>
-                <span className="link_name">Other</span>
-              </a>
-              <i className='fa fa-chevron-down arrow' onClick={() => setshow1(!show1)} ></i>
-            </div>
-            <ul className="sub-menu">
-              <li className= {`menu ${show11 ? "show" : ""}`}>
-                <div className="iocn-link1">
-                  <a href="#">
-                    Grass
-                  </a>
-                  <i className='fa fa-chevron-up arrow' onClick={() => setshow11(!show11)} ></i>
-                </div>
-                <div className="subsub-menu">
-                  <div className="subsub-div">
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546052/lawn-grass_yztlmn.png" crossOrigin="anonymous" alt="" id="img1001" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546038/grass_2_dfmhxb.png" crossOrigin="anonymous" alt="" id="img1000" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li className= {`menu ${show12 ? "show" : ""}`}>
-                <div className="iocn-link1">
-                  <a href="#">
-                    Gifts
-                  </a>
-                  <i className='fa fa-chevron-up arrow' onClick={() => setshow12(!show12)} ></i>
-                </div>
-                <div className="subsub-menu">
-                  <div className="subsub-div">
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546050/gift_box_pink_txipqc.png" crossOrigin="anonymous" alt="" id="img1002" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                    <div className="div">
-                    <img crossOrigin="anonymous" src='https://res.cloudinary.com/dabst2axx/image/upload/v1653546035/gift_box_gold_m4jloy.png'  id="img1003" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
-                    </div>
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546034/gift_box_mgo0ev.png" crossOrigin="anonymous" alt="" id="img1004" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546034/gift_packs_cwsqcq.png" crossOrigin="anonymous" alt="" id="img1005" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653546033/gift_box_white_tucwmg.png." crossOrigin="anonymous" alt="" id="img1006" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </li>
-
-
-
+          
           <li className= {`menu-item ${show1 ? "showmenu" : ""}`}>
             <div className="iocn-link">
               <a href="#">
@@ -423,30 +390,28 @@ export default function Canvas() {
               <li className= {`menu ${show11 ? "show" : ""}`}>
                 <div className="iocn-link1">
                   <a href="#">
-                    Lamps
+                    Design
                   </a>
                   <i className='fa fa-chevron-up arrow' onClick={() => setshow11(!show11)} ></i>
                 </div>
                 <div className="subsub-menu">
                   <div className="subsub-div">
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545998/hang_lamp_irhukd.png" crossOrigin="anonymous" alt="" id="img9" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={cycle} crossOrigin="anonymous" alt="" id="img9" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545992/blue_3_lamp_at70sz.png" crossOrigin="anonymous" alt="" id="img10" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={bdlogo} crossOrigin="anonymous" alt="" id="img10" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545991/blue_lamp_dbpvjb.png" crossOrigin="anonymous" alt="" id="img11" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={path} crossOrigin="anonymous" alt="" id="img11" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545987/blue_2_lamp_dg1n9l.png" crossOrigin="anonymous" alt="" id="img12" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={grass} crossOrigin="anonymous" alt="" id="img12" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545986/treet_lamp_o1aelm.png" crossOrigin="anonymous" alt="" id="img13" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={grass2} crossOrigin="anonymous" alt="" id="img13" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
-                    <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545985/street_lamp_pnchcu.png" crossOrigin="anonymous" alt="" id="img14" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
+                    
                   </div>
                 </div>
               </li>
@@ -460,19 +425,87 @@ export default function Canvas() {
                 <div className="subsub-menu">
                   <div className="subsub-div">
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653542483/PngItem_224560_cfyrwj.png" crossOrigin="anonymous" alt="" id="img100" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch} crossOrigin="anonymous" alt="" id="img100" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img crossOrigin="anonymous" src='https://res.cloudinary.com/dabst2axx/image/upload/v1653545228/PngItem_5976934_wdio48.png'  id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+                    <img crossOrigin="anonymous" src={arch2}  id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653542485/PngItem_5007142_iwjvzi.png" alt="" id="img104" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch3} alt="" id="img104" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545230/pngwing.com_c6mbco.png" alt="" id="img102" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch4} alt="" id="img102" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src="https://res.cloudinary.com/dabst2axx/image/upload/v1653545230/leaf-flower-tree_tafwnm.png" alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch5} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={arch6} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={arch7} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <li className= {`menu-item ${show2 ? "showmenu" : ""}`}>
+            <div className="iocn-link">
+              <a href="#">
+                <i className="fa fa-couch" ></i>
+                <span className="link_name">Other</span>
+              </a>
+              <i className='fa fa-chevron-down arrow' onClick={() => setshow2(!show2)} ></i>
+            </div>
+            <ul className="sub-menu">
+              <li className= {`menu ${show21 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    lamps
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow21(!show21)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src={lamp} crossOrigin="anonymous" alt="" id="img1001" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={lamp2} crossOrigin="anonymous" alt="" id="img1000" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={lamp3} crossOrigin="anonymous" alt="" id="img1000" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li className= {`menu ${show22 ? "show" : ""}`}>
+                <div className="iocn-link1">
+                  <a href="#">
+                    Gifts
+                  </a>
+                  <i className='fa fa-chevron-up arrow' onClick={() => setshow22(!show22)} ></i>
+                </div>
+                <div className="subsub-menu">
+                  <div className="subsub-div">
+                    <div className="div">
+                    <img src={gift} crossOrigin="anonymous" alt="" id="img1002" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img crossOrigin="anonymous" src={gift2}  id="img1003" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
+                    </div>
+                    <div className="div">
+                    <img src={gift3} crossOrigin="anonymous" alt="" id="img1004" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={gift4} crossOrigin="anonymous" alt="" id="img1005" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={gift5} crossOrigin="anonymous" alt="" id="img1006" d0raggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                   </div>
                 </div>
@@ -499,21 +532,21 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => addRect(canvas)}>Rect</button>
                 <button className="button-13" onClick={() => addCircle(canvas)}>Circle</button>
                 <button className="button-13" onClick={() => addLine(canvas)}>Line</button>
-                <button className="button-13" style={{"display":"none"}} id="updateButton" onClick={() => SaveCanvas(canvas)}>Update</button>
                 <button className="button-13" onClick={() => deleteCanvas(canvas)}>Delete</button>
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
                 <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
-          <input id="width" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
-          <input id="height" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="height" />
+                <input id="width" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
+                <input id="height" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="height" />
               </div>
               {/* <div id="images">
                   <img src='https://res.cloudinary.com/dnuuh99qn/image/upload/v1647610124/favicon_tjk1nx.ico' id="img1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
               </div> */}
-              <canvas id="canvas" style={{ border: "1px solid black"}} />
+              <canvas id="canvas"  style={{ border: "1px solid black"}} />
               <br />
-              <button id="saveButton" onClick={() => SaveCanvas(canvas)}>Save</button>
+              <button id="saveButton"  className="saveButton" onClick={() => SaveCanvas(canvas)}>Save</button>
+              <button className="saveButton" style={{"display":"none"}} id="updateButton" onClick={() => SaveCanvas(canvas)}>Update</button>
       </div>
     </div>
   );

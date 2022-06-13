@@ -37,7 +37,9 @@ export default function EventManager() {
         let userId = data2.id;
             let imagesUrl = JSON.parse(localStorage.getItem("imagesUrl"));
             let images = imagesUrl.urls;
+            console.log(images);
         let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": document.getElementById("description").value }, "imagesUrl" : images });
+            console.log(jsonObject);
             const response = await fetch("http://localhost:3000/api/updateProduct", {
             method: "PUT",
             headers: {
