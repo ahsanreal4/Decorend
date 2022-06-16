@@ -272,7 +272,7 @@ export default function Profile() {
                       <div className="pl-lg-4">
                         <div className="form-group focused">
                           <label>About Me</label>
-                          <textarea rows={4} className="form-control form-control-alternative" placeholder="A few words about you ..." defaultValue={"A beautiful Dashboard for Bootstrap 4. It is Free and Open Source."} />
+                          <textarea rows={4} className="form-control form-control-alternative" placeholder="A few words about you ..." />
                         </div>
                       </div>
                     </form>
