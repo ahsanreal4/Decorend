@@ -44,6 +44,7 @@ export default function Canvas() {
   const [show2, setshow2] = useState(false);
   const [show21, setshow21] = useState(false);
   const [show22, setshow22] = useState(false);
+  const [currentColor, setCurrentColor] = useState("black");
 
 
   useEffect(() => {
@@ -210,6 +211,11 @@ export default function Canvas() {
       }
   };
 
+  const setBackGroundColor = (canvi) => {
+    canvi.backgroundColor=currentColor;
+    canvi.renderAll();
+  }
+
   const clearCanvas = (canvi) => {
     canvi.remove(...canvi.getObjects());
   };
@@ -232,8 +238,19 @@ export default function Canvas() {
   };
 
   const changeBackGroundColor = (e, canvi) => {
-    canvi.backgroundColor=e.target.value;
-    canvi.renderAll();
+    let type = canvi.getActiveObject()?.get('type');
+    setCurrentColor(e.target.value);
+    if (type != null && type != undefined) {
+      if (type == "rect" || type == "circle") {
+        canvi.getActiveObject()?.set("fill", e.target.value);
+      }
+      else if (type == "line") {
+        canvi.getActiveObject()?.set("stroke", e.target.value);
+      }
+      canvi.renderAll();
+    }
+    // canvi.backgroundColor=e.target.value;
+    // canvi.renderAll();
   };
 
   const onDragEndImage = (e, canvi) => {
@@ -272,7 +289,7 @@ export default function Canvas() {
   const handleSizeChange = (canvi) => {
     let width = document.getElementById("width").value;
     let height = document.getElementById("height").value;
-    if (width >= 100 && height >= 100 && width <= 1000 && height <= 1000) {
+    if (width >= 100 && height >= 100 && width <= 1000 && height <= 1500) {
       canvi.setWidth(width);
       canvi.setHeight(height);
       canvi.calcOffset();
@@ -536,6 +553,7 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
                 <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
+                <button className="button-13" onClick={() => setBackGroundColor(canvas)}>Set Bakground Color</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
                 <input id="width" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
                 <input id="height" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="height" />
