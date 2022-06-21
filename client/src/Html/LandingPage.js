@@ -8,6 +8,9 @@ export default function LandingPage() {
 
   useLayoutEffect(() => {
     let data = JSON.parse(localStorage.getItem("userData"));
+    localStorage.removeItem("paymentProcessing");
+    localStorage.removeItem("imagesUrl");
+    localStorage.removeItem("cart");
     if (data != null) {
       if (data.userType == "user") {
         window.location.href = "/Client";

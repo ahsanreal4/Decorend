@@ -8,7 +8,7 @@ export default function Events() {
 
     const processPayment = () => {
         localStorage.setItem("paymentProcessing", "true");
-        window.location.href = "/payment";
+        window.location.href = "/shippingAddress";
     }
 
     useLayoutEffect(() => {

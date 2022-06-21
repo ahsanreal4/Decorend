@@ -14,6 +14,11 @@ export default function Product() {
       import("./Script files/product.js");
     }, []);
 
+    const processPayment = () => {
+        localStorage.setItem("paymentProcessing", "true");
+        window.location.href = "/shippingAddress";
+    }  
+  
   return (
     screenLoading == true &&
     (<div>
@@ -40,7 +45,7 @@ export default function Product() {
               <h3 className="cart-total text-slanted">
                 total : $12.99
               </h3>
-              <button className="cart-checkout btn" onClick={(() => window.location.href = "/payment")}>checkout</button>
+              <button className="cart-checkout btn" onClick={(() => processPayment())}>checkout</button>
             </footer>
           </aside>
         </div>
@@ -54,7 +59,7 @@ export default function Product() {
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
   <div className="carousel-inner">
-    <div className="carousel-item active">
+    {/* <div className="carousel-item active">
       <img id="cimg1" className="d-block w-100" src="" alt="First slide" />
     </div>
     <div className="carousel-item">
@@ -62,7 +67,7 @@ export default function Product() {
     </div>
     <div className="carousel-item">
       <img id="cimg3" className="d-block w-100" src="" alt="Third slide" />
-    </div>
+    </div> */}
   </div>
   <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span className="carousel-control-prev-icon" aria-hidden="true"></span>

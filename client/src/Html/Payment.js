@@ -12,6 +12,8 @@ export default function Payment() {
       try {
         if (localStorage.getItem("paymentProcessing") != null) {
           localStorage.removeItem("paymentProcessing");
+          localStorage.removeItem("imagesUrl");
+          localStorage.removeItem("cart");
           fetch("http://localhost:3000/api/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

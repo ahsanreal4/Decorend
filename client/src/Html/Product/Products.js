@@ -8,7 +8,7 @@ export default function Products() {
 
     const processPayment = () => {
         localStorage.setItem("paymentProcessing", "true");
-        window.location.href = "/payment";
+        window.location.href = "/shippingAddress";
     }
 
     useLayoutEffect(() => {
@@ -26,7 +26,7 @@ export default function Products() {
     }, []);
     
     return (
-        screenLoading == true && (        <div>
+        screenLoading == true && (<div>
             
             <meta charSet="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />

@@ -53,16 +53,16 @@ let productID;
       }
       // const image = fields.imageUrl;
       // imgDOM.src = image;
-      console.log(imagesUrl);
-      if (imagesUrl?.length > 0) {
-        document.getElementById("cimg1").setAttribute("src", imagesUrl[0]);
-      }
-      if (imagesUrl?.length > 1) {
-        document.getElementById("cimg2").setAttribute("src", imagesUrl[1]);
-      }
-      if (imagesUrl?.length > 2) {
-        document.getElementById("cimg3").setAttribute("src", imagesUrl[2]);
-      }
+      for (let i = 0; i < imagesUrl?.length; i++){
+        let url2 = imagesUrl[i];
+        let id = "cimg" + (i + 1);
+        if (i == 0) {
+          document.getElementsByClassName("carousel-inner")[0].innerHTML += `<div style='max-height : 550px; max-width:600px' class='carousel-item active'><img id='${id}' class='d-block w-100' src='${url2}' alt='First Slide' /></div>`;
+        }
+        else {
+            document.getElementsByClassName("carousel-inner")[0].innerHTML += `<div style='max-height : 550px; max-width:600px' class='carousel-item'><img id='${id}' class='d-block w-100' src='${url2}' alt='Second Slide' /></div>`;
+        }
+        }
       titleDOM.textContent = name;
       companyDOM.textContent = `by ${company}`;
       priceDOM.textContent = formatPrice(price);

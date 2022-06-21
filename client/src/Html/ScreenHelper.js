@@ -57,6 +57,12 @@ function getScreenAccessible(screenName) {
             }
             window.location.href = "/";
         }
+        else if (screenName == "ShippingAddress") {
+            if (data.userType == "user") {
+                return true;
+            }
+            window.location.href = "/";
+        }
         
         return false;
     }

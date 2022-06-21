@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user/user.model");
 const Canvas = require("../models/canvas.model");
 const Product = require("../models/Product");
+const ShippingAddress = require("../models/ShippingAddress");
 const sendMail = require("../mailer/nodeMailer");
 const crypto = require("crypto");
 const stripe = require("stripe")("sk_test_51L28mhLptjUB1MRMnsxM0UzVPEsx8kAmuYkZdOZegzt71oWiHHY1edJLLtMpNMjOkDcu2Zf0Q9UufjliZClvoNf700QcJeMGfQ");
@@ -371,5 +372,29 @@ EVENT MANAGER
 ==================================================================
 */
 
+router.post("/addShippingAddress", async (req, res) => {
+  try {
+    const tempCanvas = await ShippingAddress.findOne({
+      userID: req.body.userID,
+    });
+    const json2 = {
+        userID: req.body.userID,
+        name: req.body.name,
+        city: req.body.city,
+        zipCode: req.body.zipCode,
+        address: req.body.address,
+        country: req.body.country,
+    };
+    if (tempCanvas) {
+      await ShippingAddress.deleteOne({
+        userID: req.body.userID,
+      });
+    }
+    await ShippingAddress.create(json2);
+    return res.json({ status: "ok" });
+  } catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
 
 module.exports = router;

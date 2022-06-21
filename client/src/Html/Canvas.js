@@ -553,7 +553,7 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
                 <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
-                <button className="button-13" onClick={() => setBackGroundColor(canvas)}>Set Bakground Color</button>
+                <button className="button-14" onClick={() => setBackGroundColor(canvas)}>Set Bakground Color</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
                 <input id="width" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
                 <input id="height" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="height" />
