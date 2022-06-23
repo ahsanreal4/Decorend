@@ -7,6 +7,12 @@ const ShippingAddress = require("../models/ShippingAddress");
 const sendMail = require("../mailer/nodeMailer");
 const crypto = require("crypto");
 const stripe = require("stripe")("sk_test_51L28mhLptjUB1MRMnsxM0UzVPEsx8kAmuYkZdOZegzt71oWiHHY1edJLLtMpNMjOkDcu2Zf0Q9UufjliZClvoNf700QcJeMGfQ");
+const StreamChat = require("stream-chat").StreamChat;
+const { connect } = require("getstream");
+
+const api_key = process.env.STREAM_API_KEY;
+const api_secret = process.env.STREAM_API_SECRET;
+const api_id = process.env.STREAM_API_ID;
 
 
 const calculateOrderAmount = (items) => {
@@ -50,8 +56,17 @@ router.post("/signup", async (req, res) => {
       gender: req.body.gender,
       Canvas: req.body.canvas,
     };
+    const serverClient = connect(api_key, api_secret, api_id);
     await User.create(json2);
-    res.json({ status: "ok", data: json2 });
+    const user = await User.findOne({
+        email: req.body.email,
+    });
+    let token;
+    if (user) {
+      const userID = user.id;
+      token = serverClient.createUserToken(userID);
+    }
+    res.json({ status: "ok", data: json2, token: token });
   } catch (err) {
     res.json({ status: "error", error: "Email already registered" });
   }
@@ -65,8 +80,14 @@ router.post("/login", async (req, res) => {
   });
 
   if (user) {
-    // const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-    return res.json({ status: "ok", data: user, user: true });
+    const serverClient = connect(api_key, api_secret, api_id);
+    const client = StreamChat.getInstance(api_key, api_secret);
+    const { users } = await client.queryUsers({id: user.id});
+    let token;
+    if (users?.length > 0) {
+      token = serverClient.createUserToken(users[0]?.id);
+    }
+    return res.json({ status: "ok", data: user, user: true, token: token });
   } else {
     return res.json({ status: "error", user: false });
   }

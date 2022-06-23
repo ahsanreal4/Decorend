@@ -97,6 +97,15 @@ export default function Navbar() {
                                 } 
 
                     </li>
+                    <li className="nav-item ">
+                                {userLoggedIn == true && (
+                                    <a className="nav-link" href="/messaging"> 
+                                       <i className="fa-regular fa-message"></i>
+                                        Messaging
+                                    </a>
+                                )}
+
+                    </li>
                     <li className="nav-item">
                     <a className="nav-link" href="/#contact">
                         <i className="far fa-address-book">

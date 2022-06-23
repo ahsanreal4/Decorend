@@ -20,6 +20,7 @@ import Canvases from "./Html/Canvases";
 import Events from "./Html/Product/Events";
 import Profile from "./Html/Profile";
 import ShippingAddress from "./Html/ShippingAddress";
+import MainPage from "./Html/Chat/MainPage";
 
 function App() {
   return (
@@ -79,6 +80,9 @@ function App() {
           </Route>
           <Route exact path="/shippingAddress">
             <ShippingAddress />
+          </Route>
+          <Route exact path="/messaging">
+            <MainPage />
           </Route>
         </Switch>
       </div>
