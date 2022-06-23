@@ -29,8 +29,33 @@ import gift2 from "../img/new pik/New folder/gift box pink.png"
 import gift3 from "../img/new pik/New folder/gift box white.png"
 import gift4 from "../img/new pik/New folder/gift box with balloons.png"
 import gift5 from "../img/new pik/New folder/gift box.png"
-
-
+import lamp4 from "../img/furniture/lamp.png"
+import lamp5 from "../img/furniture/lamp1.png"
+import lamp6 from "../img/furniture/lamp2.png"
+import lamp7 from "../img/furniture/lamp3.png"
+import table1 from "../img/furniture/clothtable.png"
+import table2 from "../img/furniture/clothtable2.png"
+import table3 from "../img/furniture/clothtable3.png"
+import table5 from "../img/furniture/glasstable.png"
+import table6 from "../img/furniture/whitetable.png"
+import table7 from "../img/furniture/woodentable.png"
+import table8 from "../img/furniture/woodentable2.png"
+import tablechair1 from "../img/furniture/tablechair.png"
+import tablechair2 from "../img/furniture/Table-chair.svg"
+import tablechair3 from "../img/furniture/tablechair2.png"
+import tablechair4 from "../img/furniture/tablechair3.png"
+import tablechair5 from "../img/furniture/tablechair4.png"
+import justMarriedArch from "../img/furniture/jsutmarried.png"
+import fbaloon4 from "../img/ballon/fancyballons.png"
+import fbaloon5 from "../img/ballon/fancyballons2.png"
+import fbaloon6 from "../img/ballon/fancyballons3.png"
+import fbaloon7 from "../img/ballon/fancyballons4.png"
+import fbaloon8 from "../img/ballon/fancyballons5.png"
+import fbaloon9 from "../img/ballon/fancyballons6.png"
+import fbaloon10 from "../img/ballon/fancyballons7.png"
+import fbaloon11 from "../img/ballon/fancyballons9.png"
+import fbaloon12 from "../img/ballon/fancyballons10.png"
+import fbaloon13 from "../img/ballon/fancyballons11.png"
 
 export default function Canvas() {
   const [canvas, setCanvas] = useState();
@@ -256,7 +281,7 @@ export default function Canvas() {
   const onDragEndImage = (e, canvi) => {
     let imgElement = document.getElementById(e.target.id);
     let srcSplit = imgElement.src.split(".");
-    imgElement.setAttribute('crossorigin', 'anonymous'); // works for me
+    imgElement.setAttribute('crossorigin', 'anonymous'); 
     if (srcSplit[srcSplit.length - 1] == "png" || srcSplit[srcSplit.length - 1] == "jpg") {
       let src = imgElement.src;
       fabric.Image.fromURL(src, function (myImg) {
@@ -289,11 +314,23 @@ export default function Canvas() {
   const handleSizeChange = (canvi) => {
     let width = document.getElementById("width").value;
     let height = document.getElementById("height").value;
-    if (width >= 100 && height >= 100 && width <= 1000 && height <= 1500) {
+    if (width >= 100 && height >= 100 && width <= 1500 && height <= 1500) {
       canvi.setWidth(width);
       canvi.setHeight(height);
       canvi.calcOffset();
     }
+  }
+
+  const layerUp = (canvi) => {
+    var activeObj = canvas.getActiveObject();
+    canvi.bringForward(activeObj);
+    canvi.renderAll();
+  }
+
+  const layerDown = (canvi) => {
+    var activeObj = canvas.getActiveObject();
+    canvi.sendBackwards(activeObj);
+    canvi.renderAll();
   }
 
   return (
@@ -379,13 +416,34 @@ export default function Canvas() {
                     <img src={fballon3} alt="" id="img8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src={fballon3} alt="" id="img8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={fbaloon4} alt="" id="imgfb1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-
+                    <img src={fbaloon5} alt="" id="imgfb2" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-
+                    <img src={fbaloon6} alt="" id="imgfb3" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={fbaloon7} alt="" id="imgfb4" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={fbaloon8} alt="" id="imgfb5" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={fbaloon9} alt="" id="imgfb6" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                             <div className="div">
+                    <img src={fbaloon10} alt="" id="imgfb7" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                             <div className="div">
+                    <img src={fbaloon11} alt="" id="imgfb8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                                                           <div className="div">
+                    <img src={fbaloon12} alt="" id="imgfb9" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                             <div className="div">
+                    <img src={fbaloon13} alt="" id="imgfb10" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                   </div>
                 </div>
@@ -427,7 +485,43 @@ export default function Canvas() {
                     </div>
                     <div className="div">
                     <img src={grass2} crossOrigin="anonymous" alt="" id="img13" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
+                      </div>
+                    <div className="div">
+                    <img src={table1} crossOrigin="anonymous" alt="" id="imgt1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table2} crossOrigin="anonymous" alt="" id="imgt2" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table3} crossOrigin="anonymous" alt="" id="imgt3" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table5} crossOrigin="anonymous" alt="" id="imgt5" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table6} crossOrigin="anonymous" alt="" id="imgt6" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table7} crossOrigin="anonymous" alt="" id="imgt7" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                          <div className="div">
+                    <img src={table8} crossOrigin="anonymous" alt="" id="imgt8" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                                <div className="div">
+                    <img src={tablechair1} crossOrigin="anonymous" alt="" id="imgtc1" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                                <div className="div">
+                    <img src={tablechair2} crossOrigin="anonymous" alt="" id="imgtc2" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                                <div className="div">
+                    <img src={tablechair3} crossOrigin="anonymous" alt="" id="imgtc3" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                                <div className="div">
+                    <img src={tablechair4} crossOrigin="anonymous" alt="" id="imgtc4" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                                                                <div className="div">
+                    <img src={tablechair5} crossOrigin="anonymous" alt="" id="imgtc5" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
                     
                   </div>
                 </div>
@@ -461,6 +555,9 @@ export default function Canvas() {
                     </div>
                     <div className="div">
                     <img src={arch7} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                    <div className="div">
+                    <img src={justMarriedArch} alt="" id="imgjM1" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                   </div>
                 </div>
@@ -496,6 +593,18 @@ export default function Canvas() {
                     </div>
                     <div className="div">
                     <img src={lamp3} crossOrigin="anonymous" alt="" id="img1000" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                    <div className="div">
+                    <img src={lamp4} crossOrigin="anonymous" alt="" id="img10055" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={lamp5} crossOrigin="anonymous" alt="" id="img10056" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                      </div>
+                    <div className="div">
+                    <img src={lamp6} crossOrigin="anonymous" alt="" id="img10057" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={lamp7} crossOrigin="anonymous" alt="" id="img10058" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                   </div>
                 </div>
@@ -553,6 +662,8 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
                 <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
+                 <button className="button-13" onClick={() => layerUp(canvas)}>Layer Up</button>
+                <button className="button-13" onClick={() => layerDown(canvas)}>Layer Down</button>
                 <button className="button-14" onClick={() => setBackGroundColor(canvas)}>Set Bakground Color</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
                 <input id="width" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />

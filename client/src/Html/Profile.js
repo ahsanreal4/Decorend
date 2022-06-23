@@ -83,6 +83,10 @@ export default function Profile() {
         });;
       const data = await response.json();
       if (data.status == "ok") {
+        let userData = JSON.parse(localStorage.getItem("userData"));
+        let userJSON = JSON.parse(user);
+        userData.name = userJSON.name;
+        localStorage.setItem("userData", JSON.stringify(userData));
         MySwal("success", "Updated successfully!", 1500);
         setTimeout(() => window.location.reload(),1500);
       }
