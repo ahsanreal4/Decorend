@@ -7,9 +7,10 @@ const display = (products, element) => {
   element.innerHTML = products
     .map((product) => {
       const { _id, imageUrl } = product;
+      const imageId = _id + "img";
       return ` <article style="border:1px solid gray" class="product">
           <div class="product-container">
-            <img src="${imageUrl}" class="product-img img" />
+            <img src="${imageUrl}" class="product-img img" id =${imageId} />
            
             <div class="product-icons">
               <a href="/canvasPage?id=${_id}" class="product-icon edit-icon" id=${_id}>
@@ -17,6 +18,9 @@ const display = (products, element) => {
               </a>
               <a href="#" class="product-icon delete-icon" id=${_id}>
                 <i class="fas fa-trash-alt" id=${_id}></i>
+              </a>
+              <a href="#" class="product-icon download-icon" id=${_id}>
+                <i class="fa fa-download" aria-hidden="true" id=${_id}></i>
               </a>
             </div>
           </div>
@@ -62,7 +66,16 @@ const display = (products, element) => {
             }
         })
 
-    }
+      }
+      else if (parent.classList.contains('download-icon') || e.target.classList.contains('download-icon')) {
+      let url = document.getElementById(id + "img").src;
+      const a = document.createElement('a')
+      a.href = url;
+      a.download = url.split('/').pop()
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      }
   });
 };
 
