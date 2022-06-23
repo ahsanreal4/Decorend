@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
 import Cookies from "universal-cookie";
+import getScreenAccessible from '../ScreenHelper';
 
 import { ChannelContainer, ChannelListContainer, ChannelSearch } from './Components';
 
@@ -26,9 +27,12 @@ export default function MainPage() {
     let [screenLoading, setScreenLoading] = useState(true);
 
     useEffect(() => {
-        import("stream-chat-react/dist/css/index.css");
-        import("../../CSS/MainPage.css");
-        setScreenLoading(false);
+        if (!getScreenAccessible("Messaging")) window.location.href = "/";
+        else{
+            import("stream-chat-react/dist/css/index.css");
+            import("../../CSS/MainPage.css");
+            setScreenLoading(false);
+        }
     }, []);
 
     return (

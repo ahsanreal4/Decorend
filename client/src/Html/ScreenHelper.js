@@ -63,6 +63,9 @@ function getScreenAccessible(screenName) {
             }
             window.location.href = "/";
         }
+        else if (screenName == "Messaging") {
+            return true;
+        }
         
         return false;
     }
