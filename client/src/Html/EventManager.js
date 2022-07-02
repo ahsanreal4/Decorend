@@ -132,10 +132,7 @@ export default function EventManager() {
                                 </div>
                                                   <div className="input">
                             <span className="label" htmlFor="ProductCompany"><b>Company Name</b></span>
-                            <select defaultValue="" onChange={((e) => setCompany(e.target.value))} required >
-                                <option value="" disabled hidden>Select Company</option>
-                                <option value={"ikea"}>IKEA</option>
-                            </select>
+                            <input id="ProductCompany" placeholder='Enter Company' onChange={((e) => setCompany(e.target.value))} />
                                 </div>
                                  <div style={{"marginLeft":"35px"}} className="input">
                             <span className="label" htmlFor="description"><b>Description</b></span>

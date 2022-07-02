@@ -67,12 +67,14 @@ const display = (products, element) => {
         let inputName = document.getElementById("ProductName"); 
         let inputPrice = document.getElementById("ProductPrice");
         let addButton = document.getElementById("addProductBtn");
+        let companyInput = document.getElementById("ProductCompany");
         let descriptionInput = document.getElementById("description");
         let userData = JSON.parse(localStorage.getItem("userData"));
         if (userData.userType == "manager") {
           descriptionInput.value = product.description;
         }
-        let updateButton =  document.getElementById("updateProductBtn");
+        let updateButton = document.getElementById("updateProductBtn");
+        companyInput.setAttribute('value', product.company);
         inputName.setAttribute('value', product.name);
         inputPrice.setAttribute('value', product.price);
         addButton.style.display = "none";
