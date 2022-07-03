@@ -11,6 +11,7 @@ export default function LandingPage() {
     localStorage.removeItem("paymentProcessing");
     localStorage.removeItem("imagesUrl");
     localStorage.removeItem("cart");
+    localStorage.removeItem("tempUserId");
     if (data != null) {
       if (data.userType == "user") {
         window.location.href = "/Client";

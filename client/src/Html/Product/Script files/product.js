@@ -13,7 +13,7 @@ const centerDOM = getElement('.single-product-center');
 const titleDOM = getElement('.single-product-title');
 const companyDOM = getElement('.single-product-company');
 const priceDOM = getElement('.single-product-price');
-const colorsDOM = getElement('.single-product-colors');
+// const colorsDOM = getElement('.single-product-colors');
 const descDOM = getElement('.single-product-desc');
 const cartBtn = getElement('.addToCartBtn');
 
@@ -41,15 +41,22 @@ let productID;
     if (data.status == "ok") {
       const product = data.data;
       // grab data
-      const { _id, fields, imagesUrl } = product;
+      const { _id, fields, imagesUrl, userID } = product;
       productID = _id;
 
-      let { name, company, price, colors, description } = fields;
+      let { name, company, price, description } = fields;
       if (description == "") {
         description = "No description.";
       }
       if (product.productType == "event") {
         cartBtn.innerHTML = "Book Event";
+        cartBtn.addEventListener("click", () => window.location.href = "/messaging");
+        localStorage.setItem("tempUserId", userID);
+      }
+      else {
+        cartBtn.addEventListener('click', function () {
+        addToCart(productID);
+      });
       }
       // const image = fields.imageUrl;
       // imgDOM.src = image;
@@ -67,12 +74,6 @@ let productID;
       companyDOM.textContent = `by ${company}`;
       priceDOM.textContent = formatPrice(price);
       descDOM.textContent = description;
-      colors.forEach((color) => {
-        const span = document.createElement('span');
-        span.classList.add('product-color');
-        span.style.backgroundColor = `${color}`;
-        colorsDOM.appendChild(span);
-      });
     } else {
       console.log(response.status, response.statusText);
       centerDOM.innerHTML = `
@@ -88,9 +89,5 @@ let productID;
 
   loading.style.display = 'none';
 }
-  
-cartBtn.addEventListener('click', function () {
-  addToCart(productID);
-});
 
 getProduct();
