@@ -367,12 +367,15 @@ router.put("/updateProduct", async (req, res) => {
       _id: req.body.id
     });
     if (!product) return res.status(404).json({ msg: "Product not found" });
-    console.log(product);
     product.fields.name = req.body.fields.name;
     product.fields.price = req.body.fields.price;
-    product.fields.imageUrl = req.body.fields.imageUrl; 
+    if (req.body.fields.imageUrl != "") {
+      product.fields.imageUrl = req.body.fields.imageUrl;
+    }  
     product.fields.company = req.body.fields.company;
-    product.imagesUrl = req.body.imagesUrl;
+    if (req.body.imagesUrl != "") {
+      product.imagesUrl = req.body.imagesUrl;
+    }
     const new_product = await Product.findByIdAndUpdate(
       product._id,
       { $set: product },

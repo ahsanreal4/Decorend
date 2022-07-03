@@ -72,15 +72,16 @@ export default function Navbar() {
                     </li>
                     <li className="nav-item ">
                                 
-                    {userLoggedIn == true && userType == "user" ?
-                    <a className="nav-link" href="/products">
-                        <i className="far fa-star-half">
-                        </i>Products
-                        </a> :
-                        <a className="nav-link" href="/#service">
+                                {userLoggedIn == true && userType == "user" &&
+                                    <a className="nav-link" href="/products">
+                                        <i className="far fa-star-half">
+                                        </i>Products
+                                    </a>
+                                }
+                                {userLoggedIn == false && (<a className="nav-link" href="/#service">
                         <i className="far fa-star-half">
                         </i>Services
-                    </a>}
+                          </a>)}
 
                     </li>
                     <li className="nav-item ">
@@ -107,10 +108,17 @@ export default function Navbar() {
 
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="/#contact">
+                                {userLoggedIn == true && userType == "user" && <a className="nav-link" href="/canvases">
+                                    <i className="far fa-address-book">
+                                    </i>Customized Designs
+                                </a>
+                                }
+                    { userLoggedIn == false && <a className="nav-link" href="/#contact">
                         <i className="far fa-address-book">
                         </i>Contact Us
-                    </a>
+                    </a>}
+
+                     
                     </li>
                 </ul>
                 </div>

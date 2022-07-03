@@ -1,7 +1,8 @@
 import React from "react";
 
 export default function UploadWidget() {
-  const showWidget = () => {
+  const showWidget = (e) => {
+    e.preventDefault();
     let widget = window.cloudinary.createUploadWidget(
       {
         cloudName: `dnuuh99qn`,

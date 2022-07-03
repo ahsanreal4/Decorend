@@ -27,33 +27,38 @@ export default function EventManager() {
     }, []);
 
     const updateProduct = async () => {
-        let imageUrl = localStorage.getItem("url");
-        if (imageUrl != null) {
-        localStorage.removeItem("url");
-        let productID = localStorage.getItem("productID");
-        localStorage.removeItem("productID");    
-        let id = productID;
-        let data2 = JSON.parse(localStorage.getItem("userData"));
-        let userId = data2.id;
-            let imagesUrl = JSON.parse(localStorage.getItem("imagesUrl"));
-            let images = imagesUrl.urls;
-            console.log(images);
-        let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType":"event", "fields": { "company": company, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": document.getElementById("description").value }, "imagesUrl" : images });
-            console.log(jsonObject);
+        if (document.getElementById("ProductCompany").value != "" && document.getElementById("ProductPrice").value != "" && document.getElementById("ProductName").value != "" && document.getElementById("description").value != "") {
+            let imageUrl = "";
+            if (localStorage.getItem("url") != null) {
+                imageUrl = localStorage.getItem("url");
+            }
+            localStorage.removeItem("url");
+            let productID = localStorage.getItem("productID");
+            localStorage.removeItem("productID");
+            let id = productID;
+            let data2 = JSON.parse(localStorage.getItem("userData"));
+            let userId = data2.id;
+            let imagesUrl = "";
+            let images = "";
+            if (localStorage.getItem("imagesUrl") != null) {
+                imagesUrl = JSON.parse(localStorage.getItem("imagesUrl"));
+                images = imagesUrl.urls;
+            }
+            let jsonObject = JSON.stringify({ "id": id, "userID": userId, "productType": "event", "fields": { "company": document.getElementById("ProductCompany").value, "colors": ["#f15025", "#222"], "price": document.getElementById("ProductPrice").value, "name": document.getElementById("ProductName").value, "imageUrl": imageUrl, "description": document.getElementById("description").value }, "imagesUrl": images });
             const response = await fetch("http://localhost:3000/api/updateProduct", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: jsonObject,
-          });
-          const data = await response.json();
-          if (data.status === "ok") {
-            MySwal("success", "Event updated!", 1500);
-            setTimeout(() => {
-              window.location.href = "/eventManager";
-            }, 1500);
-          }
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: jsonObject,
+            });
+            const data = await response.json();
+            if (data.status === "ok") {
+                MySwal("success", "Event updated!", 1500);
+                setTimeout(() => {
+                    window.location.href = "/eventManager";
+                }, 1500);
+            }
         }
     }
 
