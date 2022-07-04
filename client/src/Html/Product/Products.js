@@ -78,14 +78,12 @@ export default function Products() {
                     <div className="filters-container">
                         {/* search */}
                         <form className="input-form">
-                            <input type="text" className="search-input" placeholder="search..." />
+                            <input type="text" id="search_name" className="search-input" placeholder="search product" />
                         </form>
                         {/* categories */}
-                        <h4>Company</h4>
-                        <article className="companies">
-                            <button className="company-btn">all</button>
-                            <button className="company-btn">ikea</button>
-                        </article>
+                        <form className="input-form2">
+                            <input style={{"marginTop":"15px"}} className="search-input" type="text" id="search_company" placeholder="search company" />
+                        </form>
                         {/* price */}
                         <h4>Price</h4>
                         <form className="price-form">
