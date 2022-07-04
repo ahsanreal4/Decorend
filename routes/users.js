@@ -93,6 +93,29 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Create chat token
+router.post("/createChatToken", async (req, res) => {
+  const user = await User.findOne({
+    _id: req.body.id,
+  });
+
+  if (user) {
+    const serverClient = connect(api_key, api_secret, api_id);
+    const client = StreamChat.getInstance(api_key, api_secret);
+    const { users } = await client.queryUsers({id: user.id});
+    let token;
+    if (users?.length > 0) {
+      token = serverClient.createUserToken(users[0]?.id);
+    }
+    else {
+      token = serverClient.createUserToken(req.body.id);
+    }
+    return res.json({ status: "ok", user: true, token: token });
+  } else {
+    return res.json({ status: "error", user: false });
+  }
+});
+
 //Check if email exist and reset password
 router.post("/emailExist", async (req, res) => {
   const user = await User.findOne({

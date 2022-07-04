@@ -82,6 +82,7 @@ export default function Product() {
             <article className="single-product-info">
               <div>
                 <h2 className="single-product-title">couch</h2>
+                Posted by <span style={{"fontWeight":"bold"}} id="userName"></span>
                 <p className="single-product-company text-slanted">
                   by marcos
                 </p>
@@ -94,6 +95,9 @@ export default function Product() {
                 </p>
                 <button className="addToCartBtn btn" data-id="id">
                   add to cart
+                </button>
+                <button onClick={() => window.location.href="/messaging"} className="btn" id="chat_id" data-id="id">
+                  Chat
                 </button>
               </div>
             </article>

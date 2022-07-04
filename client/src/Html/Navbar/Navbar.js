@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useLayoutEffect, useState } from "react"
+import Cookies from "universal-cookie";
 
 export default function Navbar() {
     let [loaded,setLoaded] = useState(false);
@@ -41,6 +42,8 @@ export default function Navbar() {
     const logout = () => {
         if (loaded == true) {
             localStorage.removeItem("userData");
+            const cookies = new Cookies();
+            cookies.remove("token");
             window.location.href = "/";
         }
     }
@@ -109,8 +112,8 @@ export default function Navbar() {
                     </li>
                     <li className="nav-item">
                                 {userLoggedIn == true && userType == "user" && <a className="nav-link" href="/canvases">
-                                    <i className="far fa-address-book">
-                                    </i>Customized Designs
+                                    <i className="fas fa-palette"></i>
+                                    Customized Designs
                                 </a>
                                 }
                     { userLoggedIn == false && <a className="nav-link" href="/#contact">

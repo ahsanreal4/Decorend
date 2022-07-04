@@ -13,6 +13,9 @@ const display = (products, element) => {
             <img src="${imageUrl}" class="product-img img" alt="${name}" />
            
             <div class="product-icons">
+              <a href="/product?id=${_id}" class="product-icon">
+                <i class="fas fa-search"></i>
+              </a>
               <a href="#" class="product-icon edit-icon" id=${_id}>
                 <i class="fas fa-edit" id=${_id}></i>
               </a>

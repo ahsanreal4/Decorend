@@ -29,7 +29,7 @@ export default function Profile() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ "id": data.id })
-        });;
+        });
         const res = await response.json();
         if (res.status == "ok") {
             setScreenLoading(true);

@@ -13,7 +13,6 @@ export default function TeamChannelPreview({ setActiveChannel, setIsCreating,set
 
     const DirectPreview = () => {
         const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID);
-        const userData = JSON.parse(localStorage.getItem("userData"));
 
         return (
             <div className='channel-preview__item single'>

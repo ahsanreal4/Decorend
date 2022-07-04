@@ -21,7 +21,7 @@ const cartBtn = getElement('.addToCartBtn');
 let productID;
 
  async function getProduct() {
-  const urlID = window.location.search;
+   const urlID = window.location.search;
 
    try {
      let id = "";
@@ -43,20 +43,24 @@ let productID;
       // grab data
       const { _id, fields, imagesUrl, userID } = product;
       productID = _id;
-
+      let response = await fetch("http://localhost:3000/api/getUserInfo", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "id": userID })
+      });
+      const res = await response.json();
+      if (res.status === "ok") {
+        const data = res.data;
+        document.getElementById("userName").textContent = data.name;
+      }
       let { name, company, price, description } = fields;
       if (description == "") {
         description = "No description.";
       }
       if (product.productType == "event") {
         cartBtn.innerHTML = "Book Event";
-        cartBtn.addEventListener("click", () => window.location.href = "/messaging");
-        localStorage.setItem("tempUserId", userID);
-      }
-      else {
-        cartBtn.addEventListener('click', function () {
-        addToCart(productID);
-      });
       }
       // const image = fields.imageUrl;
       // imgDOM.src = image;
@@ -69,7 +73,14 @@ let productID;
         else {
             document.getElementsByClassName("carousel-inner")[0].innerHTML += `<div style='max-height : 550px; max-width:600px' class='carousel-item'><img id='${id}' class='d-block w-100' src='${url2}' alt='Second Slide' /></div>`;
         }
-        }
+      }
+    if (localStorage.getItem("userData") != undefined && localStorage.getItem("userData") != null) {
+     const userData = JSON.parse(localStorage.getItem("userData"));
+     if (userData.userType != "user") {
+       cartBtn.style.display = "none";
+       document.getElementById("chat_id").style.display = "none";
+     }
+   }
       titleDOM.textContent = name;
       companyDOM.textContent = `by ${company}`;
       priceDOM.textContent = formatPrice(price);
@@ -89,5 +100,9 @@ let productID;
 
   loading.style.display = 'none';
 }
+
+cartBtn.addEventListener('click', function () {
+  addToCart(productID);
+});
 
 getProduct();
