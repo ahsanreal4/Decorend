@@ -38,6 +38,14 @@ export default function LandingPage() {
                     channels[0].addMembers([response.users[0].id]);
                 }
           }
+          else {
+              if (userData.userType == "user") {
+             window.location.href = "/Client";
+            }
+            else if (userData.userType == "manager") {
+              window.location.href = "/EventManager";
+            }
+          }
           setTimeout(() => {
             if (userData.userType == "user") {
              window.location.href = "/Client";
