@@ -396,6 +396,7 @@ router.put("/updateProduct", async (req, res) => {
     if (req.body.fields.imageUrl != "") {
       product.fields.imageUrl = req.body.fields.imageUrl;
     }  
+    product.fields.quantity = req.body.fields.quantity;
     product.fields.company = req.body.fields.company;
     if (req.body.imagesUrl != "") {
       product.imagesUrl = req.body.imagesUrl;
@@ -441,6 +442,110 @@ router.post("/addShippingAddress", async (req, res) => {
     await ShippingAddress.create(json2);
     return res.json({ status: "ok" });
   } catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getShippingAddress", async (req, res) => {
+  try {
+    const tempCanvas = await ShippingAddress.findOne({
+      userID: req.body.userID,
+    });
+    if (tempCanvas) {
+      await ShippingAddress.deleteOne({
+        userID: req.body.userID,
+      });
+      return res.json({ status: "ok", data: tempCanvas });
+    }
+    return res.json({ status: "error", data:"Shipping Address not found" });
+  } catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/createOrder", async (req, res) => {
+  try {
+    if (req.body.OrderType == "event") {
+      const json2 = {
+        OrderType: req.body.OrderType,
+        OrderStatus: 0,
+        OrderBy: req.body.userID,
+        OrderTo: req.body.sellerID,
+        OrderAmount: req.body.amount,
+        ShippingAddressId: req.body.shippingAddressID,
+        OrderItems: [req.body.eventName],
+        ItemsQuantities: [1],
+        PerItemAmount: [req.body.amount]
+      };
+      await Order.create(json2);
+      return res.json({ status: "ok" });
+    }
+    else if (req.body.OrderType == "product") {
+      const json2 = {
+        OrderType: req.body.OrderType,
+        OrderStatus: 0,
+        OrderBy: req.body.userID,
+        OrderTo: req.body.sellerID,
+        OrderAmount: req.body.amount,
+        ShippingAddressId: req.body.shippingAddressID,
+        OrderItems: req.body.items,
+        ItemsQuantities: req.body.quantities,
+        PerItemAmount: req.body.perItemAmount
+      };
+
+      await Order.create(json2);
+      return res.json({ status: "ok" });
+    }
+  } catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/setOrderStatus", async (req, res) => {
+  try {
+    const order = await Order.findOne({
+      _id: req.body.orderID,
+    });
+    if (order) {
+      order.OrderStatus = req.body.orderStatus;
+      await Order.findByIdAndUpdate(
+      req.body.orderID,
+      { $set: order },
+        { new: true }
+      );
+      return res.json({ status: "ok" });
+    }
+    return res.json({ status: "error", data:err });
+  }
+     catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getPendingOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderBy: req.body.userID,
+      OrderStatus: {$ne: 4}
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+     catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getCompletedOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderBy: req.body.userID,
+      OrderStatus: 4
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+  catch (err) {
     res.json({ status: "error", data:err });
   }
 });

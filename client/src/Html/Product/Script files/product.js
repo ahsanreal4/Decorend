@@ -55,12 +55,27 @@ let productID;
         const data = res.data;
         document.getElementById("userName").textContent = data.name;
       }
-      let { name, company, price, description } = fields;
+      let { name, company, price, description, quantity } = fields;
       if (description == "") {
-        description = "No description.";
+        if (quantity != undefined && quantity != null) {
+          description = "In Stock: " + quantity;
+        }
+        else {
+          quantity = 0;
+          description = "In Stock: " + quantity;
+        }
       }
       if (product.productType == "event") {
         cartBtn.innerHTML = "Book Event";
+        cartBtn.addEventListener('click', function () {
+          localStorage.setItem("paymentProcessing", "true");
+          window.location.href = "/shippingAddress";
+        });
+      }
+      else {
+        cartBtn.addEventListener('click', function () {
+          addToCart(productID);
+        });
       }
       // const image = fields.imageUrl;
       // imgDOM.src = image;
@@ -100,9 +115,5 @@ let productID;
 
   loading.style.display = 'none';
 }
-
-cartBtn.addEventListener('click', function () {
-  addToCart(productID);
-});
 
 getProduct();

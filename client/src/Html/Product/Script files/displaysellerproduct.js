@@ -76,6 +76,9 @@ const display = (products, element) => {
         if (userData.userType == "manager") {
           descriptionInput.value = product.description;
         }
+        else {
+          document.getElementById("ProductQuantity").value = product.quantity;
+        }
         let updateButton = document.getElementById("updateProductBtn");
         companyInput.setAttribute('value', product.company);
         inputName.setAttribute('value', product.name);

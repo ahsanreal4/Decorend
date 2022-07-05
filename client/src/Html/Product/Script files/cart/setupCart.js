@@ -67,9 +67,22 @@ function increaseAmount(id) {
   let newAmount;
   cart = cart.map((cartItem) => {
     if (cartItem._id === id) {
-      newAmount = cartItem.amount + 1;
-      cartItem = { ...cartItem, amount: newAmount };
-    }
+      if (cartItem.quantity != undefined && cartItem.quantity != null) {
+        if (cartItem.amount + 1 <= cartItem.quantity)
+        {
+          newAmount = cartItem.amount + 1;
+          cartItem = { ...cartItem, amount: newAmount };  
+        }
+        else {
+          newAmount = cartItem.amount;
+          cartItem = { ...cartItem, amount: newAmount };
+        }
+      }
+      else {
+        newAmount = cartItem.amount + 1;
+        cartItem = { ...cartItem, amount: newAmount };
+      }
+      }
     return cartItem;
   });
   return newAmount;

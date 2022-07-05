@@ -4,10 +4,10 @@ const setupStore = (products) => {
   store = products.map((product) => {
     const {
       _id,
-      fields: { name, price, company, colors, imageUrl, description },
-      imagesUrl
+      fields: { name, price, company, colors, imageUrl, description, quantity },
+      imagesUrl,
     } = product;
-    return { _id, name, price, company, colors, imageUrl, description, imagesUrl };
+    return { _id, name, price, company, colors, imageUrl, description, imagesUrl, quantity };
   });
   setStorageItem('store', store);
 };
