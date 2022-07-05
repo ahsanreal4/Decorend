@@ -1,10 +1,93 @@
-import React, { useLayoutEffect,useState } from "react";
+import React, { useLayoutEffect,useState, useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
-import {Bounce , LightSpeed , Zoom , Rotate , Roll} from "react-reveal";
+import { Bounce, LightSpeed, Zoom, Rotate, Roll } from "react-reveal";
+import { StreamChat } from "stream-chat";
+import Cookies from "universal-cookie";
 import Wobble from 'react-reveal/Wobble';
 
 export default function LandingPage() {
   let [screenLoading, setScreenLoading] = useState(false);
+
+
+      const addToBiddingChannel = async (userData, client) => {
+        const filter = { type: 'team', name: { $autocomplete: "Bidding Channel" } };
+        const sort = [{ last_message_at: -1 }];
+
+        const channels = await client.queryChannels(filter, sort, {
+            watch: true, // this is the default
+            state: true,
+        });
+        if (channels?.length > 0) {
+            let userFound = false;
+            for (let i = 0; i < channels.length; i++){
+                let channel = channels[i];
+                let members = Object.values(channel.state.members);  
+                for (let a = 0; a < members?.length; a++){
+                    let member = members[a];
+                    if (member.user_id == userData.id) {
+                      userFound = true;
+                        break;
+                    }
+                }
+            }
+            if (!userFound) {
+                const response = await client.queryUsers({ id: { $eq: userData.id } },
+                { id: 1 },
+                  { limit: 8 });
+                if (response.users.length) {
+                    channels[0].addMembers([response.users[0].id]);
+                }
+          }
+          setTimeout(() => {
+            if (userData.userType == "user") {
+             window.location.href = "/Client";
+            }
+            else if (userData.userType == "manager") {
+              window.location.href = "/EventManager";
+            }
+          }, 1000);
+        }
+  };
+  
+    const getClientToken = async (client) => {
+
+            const cookies = new Cookies();
+            let userData = JSON.parse(localStorage.getItem("userData"));
+            let json2 = JSON.stringify({ id: "628ba64f66961b5a2385d95b" });
+
+            const response = await fetch("http://localhost:3000/api/createChatToken", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: json2,
+            });
+            const data = await response.json();
+            if (data?.token != undefined && data.token != null) {
+            cookies.set("token2", data.token);
+            }
+            if (data.status === "ok") {
+                client.connectUser({
+                    id: "628ba64f66961b5a2385d95b",
+                    name: "Ahsan Azeem Ullah Butt",
+                }, cookies.get("token2"));
+              addToBiddingChannel(userData, client);
+            }
+  };
+  
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("userData"));
+    const apiKey = "8gb6yku7bpbd";
+    const client = StreamChat.getInstance(apiKey);
+    if (data != undefined && data != null && (data.userType == "user" || data.userType == "manager")) {   
+      getClientToken(client);
+    import("../CSS/LandingPage.css");
+    setScreenLoading(true);
+    }
+    else {
+        window.location.href = "/Seller";
+    }
+  }, []);
 
   useLayoutEffect(() => {
     let data = JSON.parse(localStorage.getItem("userData"));
@@ -12,19 +95,6 @@ export default function LandingPage() {
     localStorage.removeItem("imagesUrl");
     localStorage.removeItem("cart");
     localStorage.removeItem("tempUserId");
-    if (data != null) {
-      if (data.userType == "user") {
-        window.location.href = "/Client";
-      }
-      else if (data.userType == "seller") {
-        window.location.href = "/Seller";
-      }
-      else if (data.userType == "manager") {
-        window.location.href = "/EventManager";
-      }
-    }
-    import("../CSS/LandingPage.css");
-    setScreenLoading(true);
   });
 
   return (

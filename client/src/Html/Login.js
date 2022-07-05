@@ -33,22 +33,13 @@ export default function Login() {
       if (data.status === "ok") {
         MySwal("success", "Logged In!", 1500);
         const user2 = data.data;
-        const userType = user2.userType;
-        let location = "";
-        if (userType === "seller") {
-          location = "Seller";
-        } else if (userType === "user") {
-          location = "Client";
-        } else {
-          location = "EventManager";
-        }
         let item = {"email":data.data.email, "name": data.data.name,"userType":data.data.userType,"id":data.data._id};
         localStorage.setItem("userData", JSON.stringify(item));
         if (data?.token != undefined && data.token != null) {
           cookies.set("token", data.token);
         }
         setTimeout(() => {
-          window.location.href = "/" + location;
+          window.location.href = "/";
         }, 1500);
       } else {
         MySwal("error", "Invalid Credentials!", 1500);
