@@ -84,7 +84,7 @@ export default function Login() {
             <label>Password</label>
           </div>
           <div className="content">
-            <div className="checkbox">
+            <div className="checkbox" style={{"visibility":"hidden"}}>
               <input type="checkbox" id="remember-me" />
               <label htmlFor="remember-me">Remember me</label>
             </div>
