@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user/user.model");
 const Canvas = require("../models/canvas.model");
 const Product = require("../models/Product");
+const Order = require("../models/Order.model");
 const ShippingAddress = require("../models/ShippingAddress");
 const sendMail = require("../mailer/nodeMailer");
 const crypto = require("crypto");
