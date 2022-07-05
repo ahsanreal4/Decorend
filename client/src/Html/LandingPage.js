@@ -4,6 +4,7 @@ import { Bounce, LightSpeed, Zoom, Rotate, Roll } from "react-reveal";
 import { StreamChat } from "stream-chat";
 import Cookies from "universal-cookie";
 import Wobble from 'react-reveal/Wobble';
+import MySwal from "../AlertModel/MySwal";
 
 export default function LandingPage() {
   let [screenLoading, setScreenLoading] = useState(false);
@@ -79,8 +80,13 @@ export default function LandingPage() {
                     id: "628ba64f66961b5a2385d95b",
                     name: "Ahsan Azeem Ullah Butt",
                 }, cookies.get("token2"));
-              addToBiddingChannel(userData, client);
-            }
+              await addToBiddingChannel(userData, client);
+              setScreenLoading(true);
+      }
+            else {
+              MySwal("error", "Error! Please Reload Page", 1000);
+      }
+            
   };
   
   useEffect(() => {
@@ -90,10 +96,14 @@ export default function LandingPage() {
     if (data != undefined && data != null && (data.userType == "user" || data.userType == "manager")) {   
       getClientToken(client);
     import("../CSS/LandingPage.css");
-    setScreenLoading(true);
     }
     else {
+      if (data != undefined && data != null) {
         window.location.href = "/Seller";
+      }
+      else {
+        setScreenLoading(true);
+      }
     }
   }, []);
 
