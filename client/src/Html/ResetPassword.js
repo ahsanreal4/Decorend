@@ -9,11 +9,17 @@ export default function ResetPassword() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const search = useLocation().search;
   const email2 = new URLSearchParams(search).get("email");
+  const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
         if (!getScreenAccessible("ResetPassword")) {
             window.location.href = "/";
         }
+    }, []);
+
+    useEffect(() => {
+      import("../CSS/Login.css");
+      setTimeout(() => setLoading(false), 100);
     }, []);
 
   useEffect(() => {
@@ -44,27 +50,34 @@ export default function ResetPassword() {
   }
 
   return (
-    <div style={{ marginLeft: "450px", marginTop: "100px" }}>
-      <form onSubmit={handleResetPassword}>
-        {" "}
-        <h1>Reset Password</h1>
-        Password<div></div>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <div></div>
-        Confirm Password
-        <div></div>
-        <input
-          type="password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <div></div>
-        <input type="submit" />
+    <div>
+      {" "}
+      <div className="wrapper">
+        <div className="title">Reset Password</div>
+        <form onSubmit={handleResetPassword}>
+          <div className="field">
+          <input
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <label>Password</label>
+        </div>
+        <div className="field">
+          <input
+            type="password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <label>Confirm Password</label>
+        </div>
+        <div className="field">
+          <input type="submit" />
+        </div>
       </form>
     </div>
+  </div>
+
+
   );
 }
