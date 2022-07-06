@@ -66,6 +66,11 @@ function getScreenAccessible(screenName) {
         else if (screenName == "Messaging") {
             return true;
         }
+        else if (screenName == "Order") {
+            if (data.userType == "user") {
+                return true;
+            }
+        }
         
         return false;
     }

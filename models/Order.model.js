@@ -10,7 +10,8 @@ const OrderSchema = new mongoose.Schema(
     OrderStatus: { type: Number, required: true },
     OrderAmount: { type: String, required: true },
     ShippingAddressId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    OrderType: {type: String, required: true}
+    OrderType: { type: String, required: true },
+    SellerName: {type: String, required: true}
   },
   { collection: "Order" }
 );

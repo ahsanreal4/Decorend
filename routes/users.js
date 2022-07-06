@@ -428,7 +428,6 @@ router.post("/addShippingAddress", async (req, res) => {
     });
     const json2 = {
         userID: req.body.userID,
-        name: req.body.name,
         city: req.body.city,
         zipCode: req.body.zipCode,
         address: req.body.address,
@@ -452,9 +451,6 @@ router.post("/getShippingAddress", async (req, res) => {
       userID: req.body.userID,
     });
     if (tempCanvas) {
-      await ShippingAddress.deleteOne({
-        userID: req.body.userID,
-      });
       return res.json({ status: "ok", data: tempCanvas });
     }
     return res.json({ status: "error", data:"Shipping Address not found" });
@@ -465,7 +461,7 @@ router.post("/getShippingAddress", async (req, res) => {
 
 router.post("/createOrder", async (req, res) => {
   try {
-    if (req.body.OrderType == "event") {
+    if (req.body.OrderType == "Event") {
       const json2 = {
         OrderType: req.body.OrderType,
         OrderStatus: 0,
@@ -475,12 +471,13 @@ router.post("/createOrder", async (req, res) => {
         ShippingAddressId: req.body.shippingAddressID,
         OrderItems: [req.body.eventName],
         ItemsQuantities: [1],
-        PerItemAmount: [req.body.amount]
+        PerItemAmount: [req.body.amount],
+        SellerName: req.body.sellerName
       };
       await Order.create(json2);
       return res.json({ status: "ok" });
     }
-    else if (req.body.OrderType == "product") {
+    else if (req.body.OrderType == "Product") {
       const json2 = {
         OrderType: req.body.OrderType,
         OrderStatus: 0,
@@ -490,7 +487,8 @@ router.post("/createOrder", async (req, res) => {
         ShippingAddressId: req.body.shippingAddressID,
         OrderItems: req.body.items,
         ItemsQuantities: req.body.quantities,
-        PerItemAmount: req.body.perItemAmount
+        PerItemAmount: req.body.perItemAmount,
+        SellerName: req.body.sellerName
       };
 
       await Order.create(json2);
@@ -522,6 +520,7 @@ router.post("/setOrderStatus", async (req, res) => {
   }
 });
 
+
 router.post("/getPendingOrders", async (req, res) => {
   try {
     const orders = await Order.find({
@@ -536,11 +535,39 @@ router.post("/getPendingOrders", async (req, res) => {
   }
 });
 
-router.post("/getCompletedOrders", async (req, res) => {
+router.post("/getSellerPendingOrders", async (req, res) => {
   try {
     const orders = await Order.find({
-      OrderBy: req.body.userID,
+      OrderTo: req.body.sellerID,
+      OrderStatus: {$ne: 4}
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+     catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getSellerCompletedOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderTo: req.body.sellerID,
       OrderStatus: 4
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+  catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getSellerCancelledOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderTo: req.body.sellerID,
+      OrderStatus: 5
     });
     return res.json({ status: "ok", data: orders });
     

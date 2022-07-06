@@ -41,7 +41,7 @@ let productID;
     if (data.status == "ok") {
       const product = data.data;
       // grab data
-      const { _id, fields, imagesUrl, userID } = product;
+      const { _id, fields, imagesUrl, userID, productType } = product;
       productID = _id;
       let response = await fetch("http://localhost:3000/api/getUserInfo", {
         method: "POST",
@@ -58,18 +58,26 @@ let productID;
       }
       let { name, company, price, description, quantity } = fields;
       if (description == "") {
-        if (quantity != undefined && quantity != null) {
-          description = "In Stock: " + quantity;
+        if (productType == "product") {
+          if (quantity != undefined && quantity != null) {
+            description = "In Stock: " + quantity;
+          }
+          else {
+            quantity = 0;
+            description = "In Stock: " + quantity;
+          }
         }
         else {
-          quantity = 0;
-          description = "In Stock: " + quantity;
+          description = "No Description.";
         }
       }
       if (product.productType == "event") {
         cartBtn.innerHTML = "Book Event";
         cartBtn.addEventListener('click', function () {
           localStorage.setItem("paymentProcessing", "true");
+          localStorage.setItem("productTempId", _id);
+          localStorage.setItem("orderToId", userID);
+          localStorage.setItem("orderType", "event");
           window.location.href = "/shippingAddress";
         });
       }

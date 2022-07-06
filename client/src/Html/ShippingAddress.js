@@ -3,9 +3,7 @@ import MySwal from '../AlertModel/MySwal';
 import getScreenAccessible from './ScreenHelper';
 
 export default function ShippingAddress() {
-    let [firstName, setFirstName] = useState("");
     let [zipCode, setZipCode] = useState("");
-    let [lastName, setLastName] = useState("");
     let [address, setAddress] = useState("");
     let [city, setCity] = useState("");
     let [screenLoading, setScreenLoading] = useState(true);
@@ -21,14 +19,12 @@ export default function ShippingAddress() {
 
     const continueToPayment = async (e) => {
         e.preventDefault();
-        if (firstName != "" && lastName != "" && zipCode != "" && address != "" && city != "") {
+        if (zipCode != "" && address != "" && city != "") {
         let userData = JSON.parse(localStorage.getItem("userData"));
-        let name = firstName + " " + lastName;
         let userID = userData.id;
         let country = "Pakistan";
         let json2 = JSON.stringify({
         userID,
-        name,
         city,
         zipCode,
         address,
@@ -62,16 +58,6 @@ export default function ShippingAddress() {
              <hr />
         <form onSubmit={continueToPayment}>
         <div className="form">
-          <div className="fields fields--2">
-            <label className="field">
-              <span className="field__label" htmlFor="firstname">First name</span>
-              <input className="field__input" onChange={((e) => setFirstName(e.target.value))} required type="text" id="firstname" placeholder="John" />
-            </label>
-            <label className="field">
-              <span className="field__label" htmlFor="lastname">Last name</span>
-              <input className="field__input" onChange={((e) => setLastName(e.target.value))} required type="text" id="lastname" placeholder="Doe" />
-            </label>
-          </div>
           <label className="field">
             <span className="field__label" htmlFor="address">Address</span>
             <input className="field__input" onChange={((e) => setAddress(e.target.value))} required type="text" id="address" />

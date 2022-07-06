@@ -37,7 +37,72 @@ const PaymentGateway = () => {
     },
   };
 
-  const user = localStorage.getItem("userData");
+
+  const confirmPayment2 = async (stripe) => {
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const userID = user.id;
+    const sellerID = localStorage.getItem("orderToId");
+    const store = JSON.parse(localStorage.getItem("store"));
+    if (localStorage.getItem("orderType") == "event") {
+      let product;
+      for (let i = 0; i < store.length; i++) {
+        let item = store[i];
+        if (item._id == localStorage.getItem("productTempId")) {
+          product = item;
+          break;
+        }
+      }
+      const json5 = JSON.stringify({ "id": sellerID });
+      const response5 = await fetch("http://localhost:3000/api/getUserInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: json5,
+      });
+      const data5 = await response5.json();
+      if (data5.status === "ok") {
+      const sellerName = data5.data.name;
+      const eventName = product.name;
+      const OrderType = "Event";
+      const amount = parseFloat(product.price);
+      const json2 = JSON.stringify({ "userID": userID });
+      const response = await fetch("http://localhost:3000/api/getShippingAddress", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: json2,
+      });
+      const data = await response.json();
+      if (data.status === "ok") {
+        const shippingAddressID = data.data._id;
+        const json3 = JSON.stringify({
+          OrderType, userID, sellerID, amount, shippingAddressID, eventName, sellerName
+        });
+        const response2 = await fetch("http://localhost:3000/api/createOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: json3,
+        });
+        const data2 = await response2.json();
+        if (data2.status != "ok") {
+          MySwal("error", "Error Occurred! Try Again!", 1000);
+          return;
+        }
+      }
+    }
+    }
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        // Make sure to change this to your payment completion page
+        return_url: "http://localhost:3000/",
+      },
+    });
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,14 +114,10 @@ const PaymentGateway = () => {
     }
 
     setIsLoading(true);
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/paymentSuccessful",
-      },
-    });
-
+    MySwal("success", "Payment Successful", 1500);
+    setTimeout(() => {
+      confirmPayment2(stripe);
+    }, 500);
     
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to

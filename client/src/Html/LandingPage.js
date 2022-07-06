@@ -111,6 +111,9 @@ export default function LandingPage() {
     localStorage.removeItem("cart");
     localStorage.removeItem("tempUserId");
     localStorage.removeItem("tempName");
+    localStorage.removeItem('productTempId');
+    localStorage.removeItem("orderToId");
+    localStorage.removeItem("orderType");
   });
 
   return (

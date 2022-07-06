@@ -6,8 +6,9 @@ const setupStore = (products) => {
       _id,
       fields: { name, price, company, colors, imageUrl, description, quantity },
       imagesUrl,
+      productType
     } = product;
-    return { _id, name, price, company, colors, imageUrl, description, imagesUrl, quantity };
+    return { _id, name, price, company, colors, imageUrl, description, imagesUrl, quantity, productType };
   });
   setStorageItem('store', store);
 };
