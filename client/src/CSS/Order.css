@@ -1,3 +1,9 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+
 .button-13 {
   background-color: #fff;
   border: 1px solid #d5d9d9;
