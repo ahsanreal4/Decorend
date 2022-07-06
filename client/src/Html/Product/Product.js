@@ -15,6 +15,7 @@ export default function Product() {
     }, []);
 
     const processPayment = () => {
+        localStorage.setItem("orderType", "product");
         localStorage.setItem("paymentProcessing", "true");
         window.location.href = "/shippingAddress";
     }  

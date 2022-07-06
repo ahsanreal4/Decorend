@@ -7,6 +7,9 @@ export default function Products() {
     let [screenLoading, setScreenLoading] = useState(false);
 
     const processPayment = () => {
+        localStorage.setItem("orderType", "product");
+        const cart = localStorage.getItem("cart");
+        localStorage.setItem("cart2", cart);
         localStorage.setItem("paymentProcessing", "true");
         window.location.href = "/shippingAddress";
     }

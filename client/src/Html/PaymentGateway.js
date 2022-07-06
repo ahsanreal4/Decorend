@@ -37,14 +37,32 @@ const PaymentGateway = () => {
     },
   };
 
+  const getSellerName = async (sellerID) => {
+      const json5 = JSON.stringify({ "id": sellerID });
+      const response5 = await fetch("http://localhost:3000/api/getUserInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: json5,
+      });
+      const data5 = await response5.json();
+    if (data5.status === "ok") {
+      return data5.data.name;
+    }
+      else {
+        return "";
+    }
+      
+  } 
 
   const confirmPayment2 = async (stripe) => {
     const user = JSON.parse(localStorage.getItem("userData"));
     const userID = user.id;
-    const sellerID = localStorage.getItem("orderToId");
     const store = JSON.parse(localStorage.getItem("store"));
     if (localStorage.getItem("orderType") == "event") {
       let product;
+      const sellerID = localStorage.getItem("orderToId");
       for (let i = 0; i < store.length; i++) {
         let item = store[i];
         if (item._id == localStorage.getItem("productTempId")) {
@@ -94,6 +112,89 @@ const PaymentGateway = () => {
         }
       }
     }
+    }
+    else if (localStorage.getItem("orderType") == "product") {
+      const cart = JSON.parse(localStorage.getItem("cart2"));
+      const json2 = JSON.stringify({ "userID": userID });
+      const response = await fetch("http://localhost:3000/api/getShippingAddress", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: json2,
+      });
+      const data = await response.json();
+      if (data.status === "ok") {
+        const shippingAddressID = data.data._id;
+        for (let i = 0; i < cart.length; i++) {
+          let product = cart[i];
+          const sellerID = product.userID;
+          const OrderType = "Product";
+          const amount = parseFloat(product.price);
+          const items = product.name;
+          const quantities = product.amount;
+          const perItemAmount = amount;
+          const sellerName = await getSellerName(sellerID);
+          console.log(sellerName);
+          const json3 = JSON.stringify({
+          OrderType, userID, sellerID, amount, shippingAddressID, sellerName, items,quantities, perItemAmount
+          });
+          const response2 = await fetch("http://localhost:3000/api/createOrder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: json3,
+          });
+          const json4 = JSON.stringify({ "id": product._id, "amount": product.amount });
+          const response3 = await fetch("http://localhost:3000/api/deductProductQuantity", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: json4,
+          });
+          const data2 = await response2.json();
+          const data3 = await response3.json();
+        if (data2.status != "ok") {
+          MySwal("error", "Error Occurred! Try Again!", 1000);
+          return;
+        }
+        }
+      }
+    //   if (data5.status === "ok") {
+    //   const sellerName = data5.data.name;
+    //   const eventName = product.name;
+    //   const OrderType = "Event";
+    //   const amount = parseFloat(product.price);
+    //   const json2 = JSON.stringify({ "userID": userID });
+    //   const response = await fetch("http://localhost:3000/api/getShippingAddress", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: json2,
+    //   });
+    //   const data = await response.json();
+    //   if (data.status === "ok") {
+    //     const shippingAddressID = data.data._id;
+    //     const json3 = JSON.stringify({
+    //       OrderType, userID, sellerID, amount, shippingAddressID, eventName, sellerName
+    //     });
+    //     const response2 = await fetch("http://localhost:3000/api/createOrder", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: json3,
+    //     });
+    //     const data2 = await response2.json();
+    //     if (data2.status != "ok") {
+    //       MySwal("error", "Error Occurred! Try Again!", 1000);
+    //       return;
+    //     }
+    //   }
+    // }
     }
     const { error } = await stripe.confirmPayment({
       elements,
