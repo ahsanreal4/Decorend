@@ -71,6 +71,11 @@ function getScreenAccessible(screenName) {
                 return true;
             }
         }
+        else if (screenName == "SellerOrder") {
+            if (data.userType == "seller" || data.userType == "manager") {
+                return true;
+            }
+        }
         
         return false;
     }

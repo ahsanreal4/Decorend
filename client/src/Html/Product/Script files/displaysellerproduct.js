@@ -89,19 +89,19 @@ const display = (products, element) => {
       }
     }
     else if (parent.classList.contains('delete-icon') || e.target.classList.contains('delete-icon')) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete'
-        }).then((result) => {
-            if (result.value) {
-                deleteProduct(id);
-            }
-        })
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.value) {
+          deleteProduct(id);
+        }
+      });
 
     }
   });

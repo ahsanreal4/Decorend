@@ -33,6 +33,7 @@ export default function Order() {
       let myData = data.data;
       for (let i = 0; i < myData.length; i++){
         let el = myData[i];
+        el.OrderAmount = el.OrderAmount + "$";
         if (el.OrderStatus == 0) {
           el.OrderStatusText = "Waiting approval";
         }
@@ -96,8 +97,17 @@ export default function Order() {
         body: json2,
       });
       const data = await response.json();
-      if (data.status === "ok") {
-        setDataTable2(data.data);
+    if (data.status === "ok") {
+      let myData = data.data;
+      for (let i = 0; i < myData.length; i++){
+        let el = myData[i];
+        el.OrderAmount = el.OrderAmount + "$";
+        if (el.OrderStatus == 4) {
+          el.OrderStatusText = "Completed";
+        }
+
+      }
+      setDataTable2(myData);
       }
   }
 
@@ -112,9 +122,18 @@ export default function Order() {
       });
       const data = await response.json();
       if (data.status === "ok") {
-        setDataTable2(data.data);
-      }
-  }
+        let myData = data.data;
+        for (let i = 0; i < myData.length; i++){
+          let el = myData[i];
+          el.OrderAmount = el.OrderAmount + "$";
+          if (el.OrderStatus == 5) {
+            el.OrderStatusText = "Cancelled";
+          }
+
+        }
+        setDataTable2(myData);
+        }
+    }
     
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));

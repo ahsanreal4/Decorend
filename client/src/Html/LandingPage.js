@@ -44,7 +44,17 @@ export default function LandingPage() {
                     window.location.href = "/EventManager";
                   }
                   }, 300);
-                }
+              }
+                else {
+                  setTimeout(() => {
+                  if (userData.userType == "user") {
+                  window.location.href = "/Client";
+                  }
+                  else if (userData.userType == "manager") {
+                    window.location.href = "/EventManager";
+                  }
+                  }, 300);
+              }
           }
           else {
               if (userData.userType == "user") {

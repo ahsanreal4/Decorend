@@ -525,7 +525,21 @@ router.post("/getPendingOrders", async (req, res) => {
   try {
     const orders = await Order.find({
       OrderBy: req.body.userID,
-      OrderStatus: {$ne: 4}
+      $and: [{OrderStatus: { $ne: 4 }},{OrderStatus: {$ne: 5}}]
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+     catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getCancelledOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderBy: req.body.userID,
+      OrderStatus: 5
     });
     return res.json({ status: "ok", data: orders });
     
@@ -539,12 +553,26 @@ router.post("/getSellerPendingOrders", async (req, res) => {
   try {
     const orders = await Order.find({
       OrderTo: req.body.sellerID,
-      OrderStatus: {$ne: 4}
+      $and: [{OrderStatus: { $ne: 4 }},{OrderStatus: {$ne: 5}}]
     });
     return res.json({ status: "ok", data: orders });
     
   }
      catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
+router.post("/getCompletedOrders", async (req, res) => {
+  try {
+    const orders = await Order.find({
+      OrderBy: req.body.userID,
+      OrderStatus: 4
+    });
+    return res.json({ status: "ok", data: orders });
+    
+  }
+  catch (err) {
     res.json({ status: "error", data:err });
   }
 });

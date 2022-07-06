@@ -8,7 +8,7 @@ const setupPrice = (store) => {
   // setup filter
   let maxPrice = store.map((product) => product.price);
   maxPrice = Math.max(...maxPrice);
-  maxPrice = Math.ceil(maxPrice / 100);
+  maxPrice = Math.ceil(maxPrice);
   priceInput.value = maxPrice;
   priceInput.max = maxPrice;
   priceInput.min = 0;
@@ -17,7 +17,7 @@ const setupPrice = (store) => {
   priceInput.addEventListener('input', function () {
     const value = parseInt(priceInput.value);
     priceValue.textContent = `Value : $${value}`;
-    let newStore = store.filter((product) => product.price / 100 <= value);
+    let newStore = store.filter((product) => product.price <= value);
     display(newStore, getElement('.products-container'), true);
     if (newStore.length < 1) {
       const products = getElement('.products-container');

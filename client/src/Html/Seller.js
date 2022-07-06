@@ -35,7 +35,9 @@ export default function Seller() {
         let price = document.getElementById("ProductPrice").value;
         if (price != undefined && price != null) {
             if (!containsAnyLetter(price)) {
-                return true;
+                if (price != 0) {
+                    return true;
+                }
             } 
             else {
                 MySwal("error", "Invalid Price", "800");
