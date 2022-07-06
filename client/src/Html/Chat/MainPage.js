@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StreamChat } from "stream-chat";
 import { Chat } from "stream-chat-react";
-import Cookies from "universal-cookie";
 import getScreenAccessible from '../ScreenHelper';
 
 import { ChannelContainer, ChannelListContainer, ChannelSearch } from './Components';
@@ -17,11 +16,10 @@ export default function MainPage() {
 
     const getClientToken = async () => {
 
-    const cookies = new Cookies();
     const userData = JSON.parse(localStorage.getItem("userData"));
         
     if (userData != null) {
-    if (cookies.get("token") == undefined || cookies.get("token") == null) {
+    if (localStorage.getItem("token") == undefined || localStorage.getItem("token") == null) {
             const id = userData.id;
             let json2 = JSON.stringify({ id });
 
@@ -34,20 +32,20 @@ export default function MainPage() {
             });
             const data = await response.json();
             if (data?.token != undefined && data.token != null) {
-            cookies.set("token", data.token);
+            localStorage.setItem("token", data.token);
             }
             if (data.status === "ok") {
                 client.connectUser({
                     id: userData.id,
                     name: userData.name,
-                }, cookies.get("token"));
+                }, localStorage.getItem("token"));
             }
             }
             else {
                 client.connectUser({
                     id: userData.id,
                     name: userData.name,
-                }, cookies.get("token"));
+                }, localStorage.getItem("token"));
             }
         setScreenLoading(false);
         }

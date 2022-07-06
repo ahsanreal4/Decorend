@@ -2,7 +2,6 @@ import React, { useLayoutEffect,useState, useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
 import { Bounce, LightSpeed, Zoom, Rotate, Roll } from "react-reveal";
 import { StreamChat } from "stream-chat";
-import Cookies from "universal-cookie";
 import Wobble from 'react-reveal/Wobble';
 import MySwal from "../AlertModel/MySwal";
 
@@ -36,7 +35,15 @@ export default function LandingPage() {
                 { id: 1 },
                   { limit: 8 });
                 if (response.users.length) {
-                    channels[0].addMembers([response.users[0].id]);
+                  channels[0].addMembers([response.users[0].id]);
+                  setTimeout(() => {
+                  if (userData.userType == "user") {
+                  window.location.href = "/Client";
+                  }
+                  else if (userData.userType == "manager") {
+                    window.location.href = "/EventManager";
+                  }
+                  }, 300);
                 }
           }
           else {
@@ -47,20 +54,11 @@ export default function LandingPage() {
               window.location.href = "/EventManager";
             }
           }
-          setTimeout(() => {
-            if (userData.userType == "user") {
-             window.location.href = "/Client";
-            }
-            else if (userData.userType == "manager") {
-              window.location.href = "/EventManager";
-            }
-          }, 1000);
         }
   };
   
-    const getClientToken = async (client) => {
-
-            const cookies = new Cookies();
+  const getClientToken = async (client) => {
+      
             let userData = JSON.parse(localStorage.getItem("userData"));
             let json2 = JSON.stringify({ id: "628ba64f66961b5a2385d95b" });
 
@@ -73,15 +71,14 @@ export default function LandingPage() {
             });
             const data = await response.json();
             if (data?.token != undefined && data.token != null) {
-            cookies.set("token2", data.token);
+            localStorage.setItem("token2", data.token);
             }
             if (data.status === "ok") {
                 client.connectUser({
                     id: "628ba64f66961b5a2385d95b",
                     name: "Ahsan Azeem Ullah Butt",
-                }, cookies.get("token2"));
+                }, localStorage.getItem("token2"));
               await addToBiddingChannel(userData, client);
-              setScreenLoading(true);
       }
             else {
               MySwal("error", "Error! Please Reload Page", 1000);
@@ -95,13 +92,13 @@ export default function LandingPage() {
     const client = StreamChat.getInstance(apiKey);
     if (data != undefined && data != null && (data.userType == "user" || data.userType == "manager")) {   
       getClientToken(client);
-    import("../CSS/LandingPage.css");
     }
     else {
       if (data != undefined && data != null) {
         window.location.href = "/Seller";
       }
       else {
+        import("../CSS/LandingPage.css");
         setScreenLoading(true);
       }
     }
@@ -113,6 +110,7 @@ export default function LandingPage() {
     localStorage.removeItem("imagesUrl");
     localStorage.removeItem("cart");
     localStorage.removeItem("tempUserId");
+    localStorage.removeItem("tempName");
   });
 
   return (

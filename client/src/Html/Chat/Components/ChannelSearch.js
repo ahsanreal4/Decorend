@@ -11,6 +11,15 @@ export default function ChannelSearch({ setToggleContainer }) {
     const [directChannels, setDirectChannels] = useState([]);
 
     useEffect(() => {
+        const name = localStorage.getItem("tempName"); 
+        if (name != undefined) {
+            setLoading(true);
+            setQuery(name);
+            getChannels(name);
+        }
+    }, []);
+
+    useEffect(() => {
         if (!query) {
             setTeamChannels([]);
             setDirectChannels([]);
@@ -56,6 +65,7 @@ export default function ChannelSearch({ setToggleContainer }) {
                   <SearchIcon />
               </div>
               <input className='channel-search__input__text'
+                  id="mySearch"
                   placeholder='Search'
                   type="text"
                   value={query}

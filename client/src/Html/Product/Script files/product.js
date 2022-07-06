@@ -54,6 +54,7 @@ let productID;
       if (res.status === "ok") {
         const data = res.data;
         document.getElementById("userName").textContent = data.name;
+        localStorage.setItem("tempName", data.name); 
       }
       let { name, company, price, description, quantity } = fields;
       if (description == "") {

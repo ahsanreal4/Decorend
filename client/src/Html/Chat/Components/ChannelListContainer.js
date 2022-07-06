@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { ChannelList, useChatContext } from 'stream-chat-react';
-import Cookies from 'universal-cookie';
 
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from "./";
 const LogOutIcon = "https://res.cloudinary.com/dnuuh99qn/image/upload/v1655976817/logout_puso3r.png";

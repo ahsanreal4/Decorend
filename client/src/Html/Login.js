@@ -1,9 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import Cookies from "universal-cookie";
 import MySwal from "../AlertModel/MySwal";
 import getScreenAccessible from "./ScreenHelper";
-
-const cookies = new Cookies();
 
 export default function Login() {
 
@@ -36,7 +33,7 @@ export default function Login() {
         let item = {"email":data.data.email, "name": data.data.name,"userType":data.data.userType,"id":data.data._id};
         localStorage.setItem("userData", JSON.stringify(item));
         if (data?.token != undefined && data.token != null) {
-          cookies.set("token", data.token);
+          localStorage.setItem("token", data.token);
         }
         setTimeout(() => {
           window.location.href = "/";

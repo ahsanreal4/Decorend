@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MySwal from "../AlertModel/MySwal";
 import validator from "validator";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -56,7 +53,7 @@ export default function SignUp() {
           const data = await response.json();
           if (data.status === "ok") {
             MySwal("success", "Registration Successful!", 1500);
-            cookies.set("token", data?.token);
+            localStorage.setItem("token", data?.token);
             setTimeout(() => {
               window.location.href = "/login";
             }, 1500);

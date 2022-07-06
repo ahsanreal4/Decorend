@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useChatContext } from 'stream-chat-react';
+import MySwal from '../../../AlertModel/MySwal';
 
 import { UserList } from "./";
 import { CloseCreateChannel } from './CloseCreateChannel';
@@ -28,19 +29,35 @@ export default function CreateChannel({ createType, setIsCreating }) {
 
     const createChannel = async (e) => {
         e.preventDefault();
-        try {
-            const newChannel = await client.channel( createType, channelName, {
-                name: channelName, members: selectedUsers
-            });
+        if (selectedUsers.length > 0) {
+            let createChannel2 = false;
+            if (createType == "messaging") {
+                if (selectedUsers.length == 1) {
+                    createChannel2 = true;
+                }
+                else {
+                    MySwal("error", "Only 1 user can be added", 1000);
+                }
+            }
+            else if (createType == "team") {
+                createChannel2 = true;
+            }
+            if (createChannel2) { 
+            try {
+                const newChannel = await client.channel(createType, channelName, {
+                    name: channelName, members: selectedUsers
+                });
 
-            await newChannel.watch();
-            setChannelName('');
-            setIsCreating(false);
-            setSelectedUsers([client.userID]);
-            setActiveChannel(newChannel);
+                await newChannel.watch();
+                setChannelName('');
+                setIsCreating(false);
+                setSelectedUsers([client.userID]);
+                setActiveChannel(newChannel);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
-        catch (error) {
-            console.log(error);
         }
     }
 
