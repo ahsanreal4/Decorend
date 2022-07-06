@@ -26,8 +26,27 @@ export default function Seller() {
         }, 500);
     }, []);
 
+        function containsAnyLetter(str) {
+        return /[a-zA-Z]/.test(str);
+        }
+
+
+    const validateInput = () => {
+        let price = document.getElementById("ProductPrice").value;
+        if (price != undefined && price != null) {
+            if (!containsAnyLetter(price)) {
+                return true;
+            } 
+            else {
+                MySwal("error", "Invalid Price", "800");
+                return false;
+            }
+        }
+    }
+        
+
     const updateProduct = async () => {
-        if (document.getElementById("ProductCompany").value != "" && document.getElementById("ProductPrice").value != "" && document.getElementById("ProductName").value != "" && document.getElementById("ProductQuantity").value != "") {
+        if (document.getElementById("ProductCompany").value != "" && validateInput() == true && document.getElementById("ProductPrice").value != "" && document.getElementById("ProductName").value != "" && document.getElementById("ProductQuantity").value != "") {
             let imageUrl = "";
             if (localStorage.getItem("url") != null) {
                 imageUrl = localStorage.getItem("url");
@@ -64,7 +83,7 @@ export default function Seller() {
 
     const addProduct = async () => {
         let imageUrl = localStorage.getItem("url");
-        if (imageUrl != null && document.getElementById("ProductCompany").value != "" && document.getElementById("ProductPrice").value != "" && document.getElementById("ProductName").value != "" && quantity != "") {
+        if (imageUrl != null && validateInput() == true && document.getElementById("ProductCompany").value != "" && document.getElementById("ProductPrice").value != "" && document.getElementById("ProductName").value != "" && quantity != "") {
         localStorage.removeItem("url");
         let id = Date.now().toString();
         let data2 = JSON.parse(localStorage.getItem("userData"));
@@ -133,7 +152,7 @@ export default function Seller() {
                         <br />
                         <div className="input">
                             <span className="label" htmlFor="ProductPrice"><b>Price</b></span>
-                            <input autoComplete='off' onChange={((e) => setPrice(e.target.value))} required id="ProductPrice" type="number" placeholder='Enter Price'></input> 
+                            <input autoComplete='off' onChange={((e) => setPrice(e.target.value))} required id="ProductPrice" type="text" placeholder='Enter Price'></input> 
                         </div>
                         <br />
                         <br />

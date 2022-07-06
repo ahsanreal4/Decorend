@@ -20,6 +20,8 @@ import Events from "./Html/Product/Events";
 import Profile from "./Html/Profile";
 import ShippingAddress from "./Html/ShippingAddress";
 import MainPage from "./Html/Chat/MainPage";
+import Order from "./Html/Order/Order";
+import SellerOrder from "./Html/Order/SellerOrder";
 
 function App() {
   return (
@@ -82,6 +84,12 @@ function App() {
           </Route>
           <Route exact path="/messaging">
             <MainPage />
+          </Route>
+          <Route exact path="/orders">
+            <Order />
+          </Route>
+          <Route exact path="/sellerOrders">
+            <SellerOrder />
           </Route>
         </Switch>
       </div>

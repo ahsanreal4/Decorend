@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useLayoutEffect, useState } from "react"
-import Cookies from "universal-cookie";
 
 export default function Navbar() {
     let [loaded,setLoaded] = useState(false);
@@ -42,8 +41,7 @@ export default function Navbar() {
     const logout = () => {
         if (loaded == true) {
             localStorage.removeItem("userData");
-            const cookies = new Cookies();
-            cookies.remove("token");
+            localStorage.removeItem("token");
             window.location.href = "/";
         }
     }
@@ -122,7 +120,19 @@ export default function Navbar() {
                     </a>}
 
                      
-                    </li>
+                            </li>
+                        {userLoggedIn == true && userType == "user" && (<li className="nav-item">
+                        <a className="nav-link" href="/orders">
+                        <i className="fas fa-cart-arrow-down"></i>
+                        Orders
+                        </a>         
+                            </li>)}
+                            {userLoggedIn == true && userType != "user" && (<li className="nav-item">
+                                <a className="nav-link" href="/sellerOrders">
+                        <i className="fas fa-cart-arrow-down"></i>
+                        Orders
+                        </a>         
+                            </li>)}
                 </ul>
                 </div>
                 <div className="navchild1">
