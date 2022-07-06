@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useEffect,useState, useLayoutEffect } from "react";
 import MySwal from "../AlertModel/MySwal";
 import validator from "validator";
 import getScreenAccessible from "./ScreenHelper";
@@ -8,6 +8,7 @@ export default function ForgetPassword() {
   const [resetPassword, setResetPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [emailSent, setEmailSent] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
         if (!getScreenAccessible("ForgetPassword")) {
@@ -53,38 +54,61 @@ export default function ForgetPassword() {
       MySwal("error", "Code Incorrect!", 1500);
     }
   }
+
+
+
+  useEffect(() => {
+    import("../CSS/Login.css");
+    setTimeout(() => setLoading(false), 100);
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
   return (
-    <div
-      style={{ marginLeft: "450px", marginTop: "100px" }}
-      className="container"
-    >
+   <>
       {emailSent ? (
-        <>
-          <form onSubmit={handleReset}>
-            <h1>Reset Password</h1>
-            <input
-              type="text"
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-            <div></div>
-            <input type="submit" />
-          </form>
-        </>
+        <div>
+          <div className="wrapper">
+            <div className="title">Reset Password</div>
+            <form onSubmit={handleReset}>
+              <div className="field">
+              <input
+                  type="text"
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+                <label>Code</label>
+              </div>
+              <br />
+              <div className="field">
+              <input type="submit" />
+              </div>
+            </form>
+          </div>
+        </div>
       ) : (
-        <>
+        <div>
           {" "}
-          <h1>Forget Password</h1>
-          <form onSubmit={forgetPassword}>
-            <input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <div></div>
-            <input type="submit" />
-          </form>
-        </>
+          <div className="wrapper">
+            <div className="title">Forget Password</div>
+            <form onSubmit={forgetPassword}>
+              <div className="field">
+              <input
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <label>Email Address</label>
+              </div>
+              <br />
+              <div className="field">
+              <input type="submit" />
+              </div>
+            </form>
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 }

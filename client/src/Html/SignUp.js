@@ -116,7 +116,7 @@ export default function SignUp() {
                   <option value="" disabled selected hidden>
                     Select an Option
                   </option>
-                  <option value="user">User</option>
+                  <option value="user">Client</option>
                   <option value="seller">Seller</option>
                   <option value="manager">Event Manager</option>
                 </select>
