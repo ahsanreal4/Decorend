@@ -22,10 +22,12 @@ export const addToCart = (id) => {
   if (!item) {
     let product = findProduct(id);
     // add item to the the
+    if(product != undefined && product.quantity != 0){
     product = { ...product, amount: 1 };
     cart = [...cart, product];
     // add item to the DOM;
-    addToCartDOM(product);
+      addToCartDOM(product);
+    }
   } else {
     // update values
     const amount = increaseAmount(id);

@@ -71,6 +71,16 @@ export default function Order() {
           width: 150,
         },
         {
+          label: 'Order Item',
+            field: 'OrderItems',
+            width: 50,
+          },
+          {
+            label: 'Item Quantity',
+            field: 'ItemsQuantities',
+            width: 50,
+          },
+        {
           label: 'OrderAmount',
           field: 'OrderAmount',
           width: 50,

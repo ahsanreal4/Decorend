@@ -75,16 +75,21 @@ export default function Navbar() {
 
                     </li>
                     <li className="nav-item ">
-                                {userLoggedIn == true && userType == "user" ?
-                                    <a className="nav-link" href="/events"> 
+                                {userLoggedIn == true && userType == "user" && (
+                                    <a className="nav-link" href="/events">
                                         <i className="fas fa-calendar-check" />
                                         Events
-                                    </a>
-                                : 
-                                    <a className="nav-link" href="/#pics"> 
+                                    </a>)
+                                }
+                                {userLoggedIn == true && userType == "manager" &&
+                                    <a className="nav-link" href="/#pics">
                                         <i className="fas fa-calendar-check" />
                                         Event
-                                    </a>
+                                    </a>}
+                                { userLoggedIn == true && userType == "seller" && <a className="nav-link" href="/#pics"> 
+                                        <i className="far fa-star-half" />
+                                        Product
+                                    </a> 
                                 } 
 
                     </li>

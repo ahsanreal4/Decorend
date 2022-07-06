@@ -126,7 +126,7 @@ export default function SellerOrder() {
             width: 150,
           },
           {
-            label: 'Order Items',
+            label: 'Order Item',
             field: 'OrderItems',
             width: 50,
           },
@@ -169,12 +169,12 @@ export default function SellerOrder() {
             width: 150,
           },
           {
-            label: 'Order Items',
+            label: 'Order Item',
             field: 'OrderItems',
             width: 50,
           },
           {
-            label: 'Item Quantities',
+            label: 'Item Quantity',
             field: 'ItemsQuantities',
             width: 50,
           },

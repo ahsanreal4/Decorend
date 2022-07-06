@@ -33,6 +33,9 @@ const fetchProducts = async () => {
   }
   let data = await response.json();
   let products = data.data;
+  if (data2.userType == "user") {
+    products = products.filter((item) => item.fields.quantity != 0);
+  } 
   if (data.status == "ok") {
     return products;
   }

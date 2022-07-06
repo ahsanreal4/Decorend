@@ -412,6 +412,26 @@ router.put("/updateProduct", async (req, res) => {
   }
 });
 
+router.post("/deductProductQuantity", async (req, res) => {
+  try {
+    const product = await Product.findOne({
+      _id: req.body.id,
+    });
+    if (product) {
+      product.fields.quantity = product.fields.quantity - req.body.amount;
+      const new_product = await Product.findByIdAndUpdate(
+      product._id,
+      { $set: product },
+      { new: true }
+      );
+      return res.json({ status: "ok" });
+    }
+    return res.json({ status: "error", data:"Product not found" });
+  } catch (err) {
+    res.json({ status: "error", data:err });
+  }
+});
+
 
 /*
 ==================================================================

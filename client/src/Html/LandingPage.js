@@ -124,6 +124,7 @@ export default function LandingPage() {
     localStorage.removeItem('productTempId');
     localStorage.removeItem("orderToId");
     localStorage.removeItem("orderType");
+    localStorage.removeItem("cart2");
   });
 
   return (
