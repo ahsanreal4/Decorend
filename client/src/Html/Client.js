@@ -119,10 +119,12 @@ export default function Client() {
               <div className="lower">
                 <div className="topic" id="contact" style={{paddingTop: '30px'}}>Contact us</div>
                 <div className="phone">
-                  <a href="#"><i className="fas fa-phone-volume" />+007 9089 6767</a>
+                  <a href="tel:+92310 4804303"><i className="fas fa-phone-volume" />+92310 4804303</a>
+                  <br />
+                  <a href="tel:+92315 4284162"><i className="fas fa-phone-volume" />+92315 4284162</a>
                 </div>
                 <div className="email">
-                  <a href="#"><i className="fas fa-envelope" />abc@gmail.com</a>
+                  <a href="mailto:info.Decorend@gmail.com"><i className="fas fa-envelope" />info.Decorend@gmail.com</a>
                 </div>
               </div>
             </div>
