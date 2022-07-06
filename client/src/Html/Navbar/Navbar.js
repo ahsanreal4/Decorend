@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useLayoutEffect, useState } from "react"
 
 export default function Navbar() {
-    let [loaded,setLoaded] = useState(false);
+    let [loaded,setLoaded] = useState(true);
     let [userLoggedIn, setUserLoggedIn] = useState(true);
     let [name, setName] = useState("");
     let [userType, setUserType] = useState("");
@@ -19,12 +19,6 @@ export default function Navbar() {
         }
     }, []);
 
-    useEffect(() => {
-        setTimeout(() => {
-            import("../Navbar/navbarscript");
-            setLoaded(true);
-        }, 400);
-    }, []);
 
     const login = () => {
         if (loaded == true) {
@@ -59,13 +53,8 @@ export default function Navbar() {
             <div className="collapse navbar-collapse  parent" id="navbarSupportedContent">
                 <div className="navchild">
                 <ul className="navbar-nav">
-                    {/* For Styling */}
-                    <div className="hori-selector">
-                    <div className="left" />
-                    <div className="right" />
-                    </div>
                     {/* Nav Links */}
-                    <li className="nav-item active">
+                    <li className="nav-item">
                     <a className="nav-link" href="/#">
                         <i className="fas fa-tachometer-alt">
                         </i>Dashboard
