@@ -1,23 +1,32 @@
 import React, { useState, useLayoutEffect } from 'react';
 import Navbar from '../Navbar/Navbar';
 import getScreenAccessible from "../ScreenHelper";
+import MySwal from '../../AlertModel/MySwal';
 
 export default function Product() {
     let [screenLoading, setScreenLoading] = useState(false);
 
     useLayoutEffect(() => {
-        // if (!getScreenAccessible("Product")) {
-        //     window.location.href = "/login";
-        // }
+        if (!getScreenAccessible("Product")) {
+            window.location.href = "/login";
+        }
       import("../../CSS/About.css");
       setScreenLoading(true);
       import("./Script files/product.js");
     }, []);
 
     const processPayment = () => {
+        const cart = localStorage.getItem("cart");
+        localStorage.setItem("cart2", cart);
+        const cart2 = JSON.parse(localStorage.getItem("cart2"));
+       if (cart2 != undefined && cart2.length > 0) {
         localStorage.setItem("orderType", "product");
         localStorage.setItem("paymentProcessing", "true");
         window.location.href = "/shippingAddress";
+      }
+        else {
+            MySwal("error", "No Product Added", 1000);
+        }
     }  
   
   return (

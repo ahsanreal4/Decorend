@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLayoutEffect, useEffect, useState } from 'react';
+import MySwal from '../../AlertModel/MySwal';
 import Navbar from '../Navbar/Navbar';
 import getScreenAccessible from "../ScreenHelper";
 
@@ -7,11 +8,17 @@ export default function Products() {
     let [screenLoading, setScreenLoading] = useState(false);
 
     const processPayment = () => {
-        localStorage.setItem("orderType", "product");
         const cart = localStorage.getItem("cart");
         localStorage.setItem("cart2", cart);
-        localStorage.setItem("paymentProcessing", "true");
-        window.location.href = "/shippingAddress";
+        const cart2 = JSON.parse(localStorage.getItem("cart2"));
+        if (cart2 != undefined && cart2.length > 0) {
+            localStorage.setItem("paymentProcessing", "true");
+            window.location.href = "/shippingAddress";
+            localStorage.setItem("orderType", "product");
+        }
+        else {
+            MySwal("error", "No Product Added", 1000);
+        }
     }
 
     useLayoutEffect(() => {

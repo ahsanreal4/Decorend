@@ -32,7 +32,7 @@ export default function CreateChannel({ createType, setIsCreating }) {
         if (selectedUsers.length > 0) {
             let createChannel2 = false;
             if (createType == "messaging") {
-                if (selectedUsers.length == 1) {
+                if (selectedUsers.length == 2) {
                     createChannel2 = true;
                 }
                 else {
