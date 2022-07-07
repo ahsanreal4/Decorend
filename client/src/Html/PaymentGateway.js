@@ -338,7 +338,7 @@ const PaymentGateway = () => {
     <form id="payment-form" onSubmit={handleSubmit}>
       <div className="form">
         <div>
-          <input type="radio" id={1} value="Card" name='foo'   onClick={() => setshow(false)}/>&nbsp;
+          <input type="radio" id={1} value="Card" name='foo'   onClick={() => setshow(false)}   defaultChecked="true"/>&nbsp;
           <label htmlFor="1">Card payment</label> &nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" id={2} value="Cash" name='foo' onClick={() => setshow(true)}/>&nbsp;
           <label htmlFor="2">Cash on delivery</label>
