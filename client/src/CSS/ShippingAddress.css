@@ -117,3 +117,9 @@ hr {
 .button:focus-visible {
   background-color: #333;
 }
+
+
+
+.hide{
+  display: none;
+}

@@ -25,6 +25,15 @@ const PaymentGateway = () => {
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [show, setshow] = useState(false);
+
+
+
+  useEffect(() => {
+    import("../CSS/ShippingAddress.css");
+    setTimeout(() => setLoading(false), 100);
+  }, []);
     
   const options = {
     style: {
@@ -322,10 +331,27 @@ const PaymentGateway = () => {
 //   };
 
   return (
-
+  <div className="container">
+    <h1>Payement Method</h1>
+    <p>Please Select the payement method bellow.</p>
+    <hr />
     <form id="payment-form" onSubmit={handleSubmit}>
-      <PaymentElement id="payment-element" />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <div className="form">
+        <div>
+          <input type="radio" id={1} value="Card" name='foo'   onClick={() => setshow(false)}/>&nbsp;
+          <label htmlFor="1">Card payment</label> &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" id={2} value="Cash" name='foo' onClick={() => setshow(true)}/>&nbsp;
+          <label htmlFor="2">Cash on delivery</label>
+        </div>
+        <div className={`${show ? "" : "hide"}`}>
+          <p>You can pay in cash to our courier when you receive the goods at your doorstep</p>
+        </div>
+        <div className={`${!show ? "" : "hide"}`}>
+          <PaymentElement id="payment-element" />
+        </div>
+      </div>
+      <hr />
+      <button disabled={isLoading || !stripe || !elements} id="submit" className="button">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
@@ -333,6 +359,7 @@ const PaymentGateway = () => {
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
+  </div>
   );
 };
 
