@@ -13,12 +13,11 @@ import cycle from "../img/new pik/bicycle-basket.png"
 import arch from "../img/new pik/flower arch.png"
 import path from "../img/new pik/garden-path.png"
 import arch2 from "../img/new pik/leaf-flower-tree.png"
-import arch3 from "../img/new pik/NicePng_arch-png_2161936.png"
+import arch3 from "../img/new pik/Birthday.png"
 import arch4 from "../img/new pik/PngItem_5976934.png"
 import arch5 from "../img/new pik/pngwing.com.png"
 import arch6 from "../img/new pik/Studio_Project.png"
 import arch7 from "../img/new pik/Яндекс_Фотки переехали.png"
-import bdlogo from "../img/new pik/—Pngtree—happy birthday golden typography text_7271162.png"
 import grass from "../img/new pik/New folder/grass 2.png"
 import grass2 from "../img/new pik/New folder/lawn-grass.png"
 import lamp from "../img/new pik/lamp/imgbin_street-light-png.png"
@@ -56,6 +55,7 @@ import fbaloon10 from "../img/ballon/fancyballons7.png"
 import fbaloon11 from "../img/ballon/fancyballons9.png"
 import fbaloon12 from "../img/ballon/fancyballons10.png"
 import fbaloon13 from "../img/ballon/fancyballons11.png"
+import fbaloon14 from "../img/furniture/background/Studio_Project-2.png"
 
 export default function Canvas() {
   const [canvas, setCanvas] = useState();
@@ -475,10 +475,10 @@ export default function Canvas() {
                     <img src={cycle} crossOrigin="anonymous" alt="" id="img9" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src={bdlogo} crossOrigin="anonymous" alt="" id="img10" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={path} crossOrigin="anonymous" alt="" id="img11" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src={path} crossOrigin="anonymous" alt="" id="img11" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch3} alt="" id="img104" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
                     <img src={grass} crossOrigin="anonymous" alt="" id="img12" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
@@ -541,9 +541,7 @@ export default function Canvas() {
                     <div className="div">
                     <img crossOrigin="anonymous" src={arch2}  id="img101" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)} />
                     </div>
-                    <div className="div">
-                    <img src={arch3} alt="" id="img104" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
-                    </div>
+                    
                     <div className="div">
                     <img src={arch4} alt="" id="img102" draggable="true" crossOrigin="anonymous" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
@@ -551,13 +549,16 @@ export default function Canvas() {
                     <img src={arch5} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src={arch6} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch6} alt="" id="img106" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                     <div className="div">
-                    <img src={arch7} alt="" id="img103" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    <img src={arch7} alt="" id="img105" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                       </div>
                     <div className="div">
                     <img src={justMarriedArch} alt="" id="imgjM1" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
+                    </div>
+                    <div className="div">
+                    <img src={fbaloon14} alt="" id="imgjn100" crossOrigin="anonymous" draggable="true" onDragEnd={(e) => onDragEndImage(e, canvas)}/>
                     </div>
                   </div>
                 </div>
@@ -662,8 +663,8 @@ export default function Canvas() {
                 <button className="button-13" onClick={() => bringToFront(canvas)}>Front</button>
                 <button className="button-13" onClick={() => bringToBack(canvas)}>Back</button>
                 <button className="button-13" onClick={() => clearCanvas(canvas)}>Clear</button>
-                 <button className="button-13" onClick={() => layerUp(canvas)}>Layer Up</button>
-                <button className="button-13" onClick={() => layerDown(canvas)}>Layer Down</button>
+                 <button className="button-13" onClick={() => layerUp(canvas)}>Up</button>
+                <button className="button-13" onClick={() => layerDown(canvas)}>Down</button>
                 <button className="button-14" onClick={() => setBackGroundColor(canvas)}>Set Bakground Color</button>
                 <input className="button-13"  onChange={(e) => changeBackGroundColor(e, canvas)} type="color" />
                 <input id="width" className="button-13" onChange={() => handleSizeChange(canvas)} type="number" style={{"width":"70px"}} placeholder="width" />
